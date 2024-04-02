@@ -1,0 +1,42 @@
+.hero {
+    position: relative;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.hero p {
+    position: absolute;
+    background: var(--black-mo);
+    padding: 0.75%;
+    border-radius: 0.5rem;
+    color: var(--snow-color);
+}
+
+#anime-name {
+    font-size:x-large;
+    width: fit-content;
+    top: 45%;
+    max-width: 75%;
+    max-height: 7.5%;
+    overflow: auto;
+    font-weight: bold;
+}
+
+#anime-desc {
+    position: absolute;
+    width: fit-content;
+    max-width: 55%;
+    max-height: 20%;
+    line-height: 1.25em;
+    top: 60%;
+    overflow: auto;
+}
+
+#anime-img {
+    height: 100vh;
+    min-height: 100%;
+    width: 100%;
+}

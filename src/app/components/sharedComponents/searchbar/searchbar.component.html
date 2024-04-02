@@ -1,0 +1,41 @@
+<section id="search-bar">
+    <!-- Search Tag -->
+    <div id="search">
+        <label for="search-input"> Search </label>
+        <div id="search-box">
+            <input type="search" id="search-input">
+            <button type="submit" class="fa fa-search"></button>
+        </div>
+    </div>
+
+    <!-- For each dropdown menu -->
+   @for(item of this.optionsBuilder.getKeys(); track $index){
+        <div [id]="item" class="filter">
+            <label [for]="item + '-button'"> {{ item }} </label>
+            <div [id]="item + '-box'" class="filter-button">
+                <button [id]="item + '-button'" class="searchbar-button" (click)="handleFilterClick($index)"></button>
+                <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+            </div>
+            <!-- For each option of the dropwdown menu -->
+            <div [ngStyle]="{ 'display': buttonsSelected[$index] ? 'flex' : 'none' }" [id]="item + 'dropdown'" class="filter-dropdown">
+                <!-- For the genres dropdown menu using checkbox -->
+                @if(item == "Genres"){
+                    @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
+                        <div [id]="subitem" class="dropwdown-option">
+                            <label [for]="subitem + '-input'"> {{ subitem }} </label>
+                            <input [id]="subitem + '-input'" type="checkbox" [class]="item + '-option'">
+                        </div>
+                    }
+                }@else(){
+                    <!-- For the genres dropdown menu using radiobuttons -->
+                    @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
+                        <div [id]="subitem" class="dropwdown-option">
+                            <label [for]="subitem + '-input'"> {{ subitem }} </label>
+                            <input [id]="subitem + '-input'" type="radio" [class]="item + '-option'" [name]="item + '-option'">
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+   }
+</section>

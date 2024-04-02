@@ -1,0 +1,8 @@
+<section class="anime-row">
+    <p class="row-name"> {{ descriptor() }} </p>
+    <section class="row-animes">
+        @for(item of [1, 2, 3, 4, 5]; track $index){
+            <app-animecard></app-animecard>
+        }
+    </section>
+</section>

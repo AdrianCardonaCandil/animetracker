@@ -1,0 +1,42 @@
+:root {
+    font-family: 'Roboto Light', -apple-system, 'system-ui';
+    --snow-color: snow;
+    --dull-blue: #6f849b;
+    --dark-blue: hsl(240, 16%, 18%);
+
+    --black: #1d1d1f;
+    --black-lo: #1d1d1f44;
+    --black-no: #1d1d1f77;
+    --black-mo: #1d1d1fbb;
+
+    --black-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    --white-box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+    margin: 0;
+    background-color: var(--dark-blue);
+    box-sizing: border-box;
+}
+
+button {
+    border-radius: 0.5rem;
+    border: none;
+    background: var(--black);
+}
+
+img {
+    object-fit: cover;
+}
+
+.hidden {
+    display: none
+}
+
+.error-msg {
+    color: rgb(200, 50, 50);
+    font-size: 1.2rem;
+    text-align: center;
+}

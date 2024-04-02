@@ -1,0 +1,36 @@
+
+.bottom-footer-content {
+  width: 100%;
+  max-width: 100vw;
+  height: 2cm;
+  background: #6f849b;
+  bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* Child component of the div above. Acts as a flex container
+to the different social media brand logos. Width is determined
+in relation to the div above. Box sizing including padding
+and margins. It sets also a gap between the different logos.
+*/
+.bottom-footer-content span {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-evenly;
+  gap:5mm;
+  padding-left: 10%;
+  box-sizing: border-box;
+
+  width: 20%;
+  color:white;
+}
+
+/* Child component of the div above. A copyright disclaimer. */
+.bottom-footer-content p {
+  padding-right: 10%;
+  color: rgb(255 255 255 / 0.5);
+}
