@@ -3,3 +3,32 @@
     height: 50vh;
     min-height: 25rem;
 }
+
+#side-and-main {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 2rem;
+    margin: 0 5%;
+    min-height: 100rem;
+}
+
+#side-and-main app-sideinfo {
+    width: 17.75rem;
+    min-height: 100%;
+
+}
+
+#side-and-main main {
+    display: flex;
+    flex-flow: column nowrap;
+    width: calc(100% - 17.75rem);
+    height: fit-content;
+}
+
+app-contentnav {
+    height: 5rem;
+}
+
+router-outlet {
+    height: fit-content;
+}

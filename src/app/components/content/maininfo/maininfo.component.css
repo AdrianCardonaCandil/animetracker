@@ -14,6 +14,7 @@
     height: 30rem;
     width: 17.75rem;
     margin-top: -15rem;
+    border-radius: 0.5rem;
 }
 
 
@@ -36,7 +37,7 @@
 }
 
 .control-option .control-button {
-    height: 2.5rem;
+    height: 2.75rem;
     width: 100%;
     background: var(--snow-color);
     font-size: small;
@@ -48,9 +49,10 @@
 
 .control-dropdown {
     margin-top: 1rem;
-    color: var(--snow-color);
-    background: var(--black-mo);
+    color: var(--dark-blue);
+    background: var(--snow-color-mo);
     border-radius: 0.5rem;
+    border: 1px solid var(--black);
 }
 
 .add-to-list-option{
@@ -66,23 +68,26 @@
 }
 
 .add-to-list-option:hover {
-    background: var(--black);
+    background: var(--snow-color);
     font-weight: bold;
 }
 
 .rate-option {
     position: relative;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
+    flex-flow: row nowrap;
+    justify-content: space-around;
     align-items: center;
     height: 4rem;
-    padding: 4%;
     font-size: small;
     border-radius: 0.5rem;
 }
 
+.rate-option input {
+    margin: 0 0 0.5rem 0;
+}
+
 .rate-option:hover {
-    background: var(--black);
+    background: var(--snow-color);
     font-weight: bold;
 }

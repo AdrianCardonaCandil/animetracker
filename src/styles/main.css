@@ -1,6 +1,10 @@
 :root {
     font-family: 'Roboto Light', -apple-system, 'system-ui';
     --snow-color: snow;
+    --snow-color-lo:#fffafa44;
+    --snow-color-no:#fffafa77;
+    --snow-color-mo:#fffafacc;
+
     --dull-blue: #6f849b;
     --dark-blue: hsl(240, 16%, 18%);
 
