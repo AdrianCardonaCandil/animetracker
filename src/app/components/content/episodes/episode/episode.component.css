@@ -1,0 +1,13 @@
+.episode {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 5rem;
+    border-bottom: 0.05rem solid var(--snow-color);
+    color: var(--snow-color)
+}
+
+.episode-title {
+    font-weight: bold;
+    color: var(--dull-blue);
+}

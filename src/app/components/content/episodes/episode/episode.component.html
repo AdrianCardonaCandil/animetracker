@@ -1,0 +1,6 @@
+<article [ngStyle]="{'background': episode().number % 2 === 0 ? 'transparent' : 'var(--black)'}" class="episode">
+    <p class="episode-number"> {{ episode().number }} </p>
+    <p class="episode-title"> {{ episode().title }} </p>
+    <p class="episode-date"> {{ episode().date | date }} </p>
+    <p class="episode-status"> {{ status() }} </p>
+</article>
