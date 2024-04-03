@@ -1,0 +1,8 @@
+<article (click)="changeDisplay()" id="character">
+    @if(displayName){
+        <p id="character-name"> {{ name() }} </p>
+    }@else {
+        <p id="character-description"> {{ description() }} </p>
+    }
+    <img id="character-image" alt="a certain character image of the actual page content" title="content character image" [src]="imageSource()"> 
+</article>
