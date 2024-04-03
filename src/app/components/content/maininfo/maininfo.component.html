@@ -1,0 +1,50 @@
+<div id="maininfo">
+    <div id="score">
+        <i class="fa-regular fa-star"></i>
+        <p> {{ contentdata().score }} </p>
+    </div>
+    <div id="main-info-container">
+        <img id="cover" alt="cover image of the content displayed on the page" title="content cover image" [src]="contentdata().imageSource">
+        <section id="name-and-synopsis">
+            <p id="name"> {{ contentdata().name }} </p>
+            <p id="synopsis"> {{ contentdata().synopsis }} </p>
+        </section>
+    </div>
+    <section id="content-control">
+        <div id="add-to-list" class="control-option">
+            <button class="control-button" (click)="toggleToListDropdown()"> Add To List
+                <i class="fa-solid fa-arrow-down"></i>
+            </button>
+            @if(controlButtons.listClicked){
+                <div class="control-dropdown">
+                    @for(list of contentLists; track $index){
+                        <div class="add-to-list-option">
+                            <label [for]="list + '-radio'"> {{ list }} </label>
+                            <input type="radio" name="add to list radio" [id]="list + '-radio'">
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div id="rate" class="control-option">
+            <button class="control-button" (click)="toggleRateDropdown()"> Rate
+                <i class="fa-solid fa-arrow-down"></i>
+            </button>
+            @if(controlButtons.rateClicked){
+                <div class="control-dropdown">
+                    @for(item of [1, 2, 3, 4, 5]; track $index){
+                        <div class="rate-option">
+                            <label [for]="item + '-radio'"> {{ item }} </label>
+                            <input type="radio" name="rate radio" [id]="item + '-radio'">
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div id="favorites" class="control-option">
+            <button class="control-button">
+                <i class="fa-solid fa-heart"></i>
+            </button>
+        </div>
+    </section>
+</div>

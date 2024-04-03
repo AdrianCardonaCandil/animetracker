@@ -1,4 +1,4 @@
-.anime-card {
+.anime-card a{
     height: fit-content;
     width: fit-content;
     color: var(--snow-color);
