@@ -18,7 +18,7 @@ export const routes: Routes = [
                 'path': "characters", component: CharactersComponent
             },
             {
-                'path': "episodes", component: EpisodesComponent
+                'path': "episodes/:page", component: EpisodesComponent
             }
         ]
     }
