@@ -1,5 +1,5 @@
 <section id="pagination">
 @for(page of [].constructor(numberOfPages()); track $index){
-    <a [id]="'page-anchor-' + [$index + 1]" title="'page-anchor-' + [$index]" [routerLink]="['../', $index + 1]" [ngStyle]="{'background':$index+1==this.currentPage ? 'var(--snow-color)' : 'transparent'}"></a>
+    <a [id]="'page-anchor-' + [$index + 1]" [title]="'page-anchor-' + [$index + 1]" [routerLink]="['../', $index + 1]" [ngStyle]="{'background':$index+1==this.currentPage ? 'var(--snow-color)' : 'transparent'}"></a>
 }
 </section>
