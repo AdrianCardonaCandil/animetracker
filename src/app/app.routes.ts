@@ -3,6 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ContentComponent } from './components/content/content.component';
 import { CharactersComponent } from './components/content/characters/characters.component';
 import { EpisodesComponent } from './components/content/episodes/episodes.component';
+import { SearchComponent } from './components/search/search.component';
 
 export const routes: Routes = [
     {
@@ -21,5 +22,8 @@ export const routes: Routes = [
                 'path': "episodes/:page", component: EpisodesComponent
             }
         ]
+    },
+    {
+        'path':'search', component:SearchComponent
     }
 ];
