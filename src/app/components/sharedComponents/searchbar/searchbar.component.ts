@@ -34,12 +34,18 @@ export class SearchbarComponent {
   /* Handler for data emmited from the search bar */
   emitOptions(optionSelected?: {class:string, value:String}) {
     let selected = optionSelected ? optionSelected : {class:'Name', value:this.name.value};
-    if (selected.class == "Genres" || selected.class == "Format"){
-      if (this.emittedOptions[selected.class].includes(String(selected.value))) {
-        this.emittedOptions[selected.class] = this.emittedOptions[selected.class].filter(elem => elem != selected.value)
-      } 
-        this.emittedOptions[selected.class].push(String(selected.value));
-    } else if (selected.class == "Name" || selected.class == "Year" || selected.class == "Season") this.emittedOptions[selected.class] = String(selected.value);
+    switch(selected.class){
+      case 'Genres':
+      case 'Format':
+        this.emittedOptions[selected.class].includes(String(selected.value)) ? this.emittedOptions[selected.class] =
+         this.emittedOptions[selected.class].filter(elem => elem != selected.value) :
+          this.emittedOptions[selected.class].push(String(selected.value));
+        break;
+      case 'Name':
+      case 'Year':
+      case 'Season':
+        this.emittedOptions[selected.class] = String(selected.value);
+    }
     this.itemsEmiiter.emit(this.emittedOptions);
   }
 }
