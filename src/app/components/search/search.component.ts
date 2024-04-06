@@ -11,14 +11,21 @@ import { TagsComponent } from './tags/tags.component';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
-  itemsSelected = {Name:"", Genres: new Array<string>, Year:"", Season:"", Format: new Array<string>}
+  selectedItems:{Name:string, Genres:String[], Year:string, Season:string, Format:String[]} = 
+  { 
+    Name:'',
+    Genres:[], 
+    Year:'',
+    Season:'', 
+    Format:[]
+  }
 
-  selectedHandler(option:{class:string, value:String}) {
-    if (option.class == 'Genres' || option.class == 'Format'){
-      this.itemsSelected[option.class].push(String(option.value));
-    }
-    if (option.class == 'Name' || option.class == 'Year' || option.class == 'Season'){
-      this.itemsSelected[option.class] = String(option.value);
-    }
+  getSelectedItems(selectedItems: any) {
+    this.selectedItems = selectedItems;
+    this.handleChanges();
+  }
+
+  handleChanges = () => {
+    console.log(this.selectedItems);
   }
 }
