@@ -31,15 +31,11 @@
 }
 
 #search-box input {
-    width: 90%;
+    width: 100%;
     border: none;
     border-radius: 0.5rem;
     background: transparent;
     outline: none;
-}
-
-#search-box button {
-    background: transparent;
 }
 
 /* -----------------------Search Input Styling --------------------------*/

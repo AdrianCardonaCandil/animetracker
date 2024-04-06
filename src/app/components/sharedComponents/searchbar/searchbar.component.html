@@ -3,8 +3,7 @@
     <div id="search">
         <label for="search-input"> Search </label>
         <div id="search-box">
-            <input type="search" id="search-input">
-            <button type="submit" class="fa fa-search"></button>
+            <input type="search" id="search-input" [formControl]="name" (keyup)="emitOptions()">
         </div>
     </div>
 
@@ -19,11 +18,11 @@
             <!-- For each option of the dropwdown menu -->
             <div [ngStyle]="{ 'display': buttonsSelected[$index] ? 'flex' : 'none' }" [id]="item + 'dropdown'" class="filter-dropdown">
                 <!-- For the genres dropdown menu using checkbox -->
-                @if(item == "Genres"){
+                @if(item == "Genres" || item == "Format"){
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
                             <label [for]="subitem + '-input'"> {{ subitem }} </label>
-                            <input [id]="subitem + '-input'" type="checkbox" [class]="item + '-option'">
+                            <input [id]="subitem + '-input'" type="checkbox" [class]="item + '-option'" (click)="emitOptions({class:item,value:subitem})">
                         </div>
                     }
                 }@else(){
@@ -31,7 +30,7 @@
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
                             <label [for]="subitem + '-input'"> {{ subitem }} </label>
-                            <input [id]="subitem + '-input'" type="radio" [class]="item + '-option'" [name]="item + '-option'">
+                            <input [id]="subitem + '-input'" type="radio" [class]="item + '-option'" [name]="item + '-option'" (click)="emitOptions({class:item,value:subitem})">
                         </div>
                     }
                 }
