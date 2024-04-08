@@ -6,7 +6,6 @@
     gap: 1em;
     box-sizing: border-box;
     height: fit-content;
-    margin: 5% auto 5% auto;
     position: relative;
 }
 
@@ -37,6 +36,8 @@
     background: transparent;
     outline: none;
 }
+
+
 
 /* -----------------------Search Input Styling --------------------------*/
 

@@ -1,0 +1,26 @@
+#tags {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1rem;
+    width: 85%;
+    max-height: 10rem;
+    overflow: auto;
+    margin: auto;
+    color: var(--snow-color);
+}
+
+#tags i {
+    font-size: x-large;
+    align-content: center;
+}
+
+.tag {
+    background: var(--black-lo);
+    padding: 0.75%;
+    font-size: smaller;
+    font-weight: bold;
+    max-width: 75rem;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--snow-color);
+}

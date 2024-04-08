@@ -1,1 +1,22 @@
-
+<section id="tags">
+    <i class="fa-solid fa-tag"></i>
+    @if(this.options.Name){
+        <article class="tag"> {{ this.options.Name }} </article>
+    }
+    @if(this.options.Genres){
+        @for(item of this.options.Genres; track $index){
+            <article class="tag"> {{ item }} </article>
+        }
+    }
+    @if(this.options.Year){
+        <article class="tag"> {{ this.options.Year }} </article>
+    }
+    @if(this.options.Season){
+        <article class="tag"> {{ this.options.Season }} </article>
+    }
+    @if(this.options.Format){
+        @for(item of this.options.Format; track $index){
+            <article class="tag"> {{ item }} </article>
+        }
+    }
+</section>

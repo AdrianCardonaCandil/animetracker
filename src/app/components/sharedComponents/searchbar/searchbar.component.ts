@@ -1,18 +1,21 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild, input} from '@angular/core';
 import { optionsBuilder } from "./optionsBuilder";
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgStyle } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, fromEvent} from 'rxjs';
 
 @Component({
   selector: 'app-searchbar',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgStyle],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './searchbar.component.html',
   styleUrl: './searchbar.component.css'
 })
 export class SearchbarComponent implements AfterViewInit{
+
+  /* Margin depending on what page why are in */
+  page = input();
 
   /* Handling buttons for displaying or not dropwdown menus.*/
   optionsBuilder = new optionsBuilder();
@@ -42,7 +45,7 @@ export class SearchbarComponent implements AfterViewInit{
           if (this.options[item].includes(String(value))) this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1);
           else this.options[item].push(String(value));
       }
-      this.itemsEmiiter.emit(this.options);
+      this.itemsEmiiter.emit(Object.assign({}, this.options));
   }
 
   // Input Component to Observe

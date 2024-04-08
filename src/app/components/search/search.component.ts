@@ -20,12 +20,7 @@ export class SearchComponent {
     Format:[]
   }
 
-  getSelectedItems(selectedItems: any) {
-    this.selectedItems = selectedItems;
-    this.handleChanges();
-  }
-
-  handleChanges = () => {
-    console.log(this.selectedItems);
+  setSelectedItems(items:{Name:string, Genres:String[], Year:string, Season:string, Format:String[]}){
+    this.selectedItems = items;
   }
 }
