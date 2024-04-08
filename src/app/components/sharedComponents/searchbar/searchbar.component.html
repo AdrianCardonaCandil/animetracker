@@ -3,7 +3,7 @@
     <div id="search">
         <label for="search-input"> Search </label>
         <div id="search-box">
-            <input type="search" id="search-input" [formControl]="name" (keyup)="emitOptions()">
+            <input type="search" id="search-input" [formControl]="name" #searchinput>
         </div>
     </div>
 
