@@ -2,3 +2,7 @@
     <app-searchbar (itemsEmiiter)="setSelectedItems($event)" page="search"></app-searchbar>
     <app-tags [options]="selectedItems"></app-tags>
 </section>
+<main>
+    <app-results></app-results>
+</main>
+<app-pagination [numberOfPages]="3"></app-pagination>
