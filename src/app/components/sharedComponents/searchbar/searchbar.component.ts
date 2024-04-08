@@ -22,30 +22,25 @@ export class SearchbarComponent {
 
   /* Declarations to handle emitted data from the search bar */
   name = new FormControl('');
-  emittedOptions = {
-    Name:String(),
-    Genres:new Array<String>,
-    Year:String(),
-    Season:String(),
-    Format: new Array<String>
+  options:{Name:string, Genres:string[], Year:string, Season:string, Format:string[]} = {
+    Name:'',
+    Genres:[],
+    Year:'',
+    Season:'',
+    Format:[]
   }
   @Output() itemsEmiiter = new EventEmitter();
 
   /* Handler for data emmited from the search bar */
-  emitOptions(optionSelected?: {class:string, value:String}) {
-    let selected = optionSelected ? optionSelected : {class:'Name', value:this.name.value};
-    switch(selected.class){
-      case 'Genres':
-      case 'Format':
-        this.emittedOptions[selected.class].includes(String(selected.value)) ? this.emittedOptions[selected.class] =
-         this.emittedOptions[selected.class].filter(elem => elem != selected.value) :
-          this.emittedOptions[selected.class].push(String(selected.value));
-        break;
-      case 'Name':
-      case 'Year':
-      case 'Season':
-        this.emittedOptions[selected.class] = String(selected.value);
-    }
-    this.itemsEmiiter.emit(this.emittedOptions);
+  emitOptions(item?:string, value?:String) {
+      switch(item){
+        case 'Name': case 'Year': case 'Season':
+          this.options[item] = String(value);
+          break;
+        case 'Genres': case 'Format':
+          if (this.options[item].includes(String(value))) this.options[item] = this.options[item].filter(elem => elem !== value);
+          else this.options[item].push(String(value));
+      }
+      this.itemsEmiiter.emit(this.options);
   }
 }

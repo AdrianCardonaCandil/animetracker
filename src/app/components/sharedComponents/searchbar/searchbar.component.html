@@ -22,7 +22,7 @@
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
                             <label [for]="subitem + '-input'"> {{ subitem }} </label>
-                            <input [id]="subitem + '-input'" type="checkbox" [class]="item + '-option'" (click)="emitOptions({class:item,value:subitem})">
+                            <input [id]="subitem + '-input'" type="checkbox" [class]="item + '-option'" (click)="emitOptions(item, subitem)">
                         </div>
                     }
                 }@else(){
@@ -30,7 +30,7 @@
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
                             <label [for]="subitem + '-input'"> {{ subitem }} </label>
-                            <input [id]="subitem + '-input'" type="radio" [class]="item + '-option'" [name]="item + '-option'" (click)="emitOptions({class:item,value:subitem})">
+                            <input [id]="subitem + '-input'" type="radio" [class]="item + '-option'" [name]="item + '-option'" (click)="emitOptions(item, subitem)">
                         </div>
                     }
                 }
