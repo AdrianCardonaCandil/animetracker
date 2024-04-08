@@ -39,7 +39,7 @@ export class SearchbarComponent implements AfterViewInit{
           this.options[item] = String(value);
           break;
         case 'Genres': case 'Format':
-          if (this.options[item].includes(String(value))) this.options[item] = this.options[item].filter(elem => elem !== value);
+          if (this.options[item].includes(String(value))) this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1);
           else this.options[item].push(String(value));
       }
       this.itemsEmiiter.emit(this.options);
