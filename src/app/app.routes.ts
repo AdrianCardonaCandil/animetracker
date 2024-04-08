@@ -24,6 +24,6 @@ export const routes: Routes = [
         ]
     },
     {
-        'path':'search', component:SearchComponent
+        'path':'search/:page', component:SearchComponent
     }
 ];

@@ -15,8 +15,8 @@
 .anime-cover {
     border-radius: 0.5rem;
     box-shadow: var(--black-box-shadow);
-    width: 15em;
-    height: 10em;
+    width: 15rem;
+    min-height: 25rem;
     flex: 10;
 }
 
