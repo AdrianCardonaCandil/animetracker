@@ -1,22 +1,22 @@
 <section id="tags">
     <i class="fa-solid fa-tag"></i>
     @if(this.options.Name){
-        <article class="tag"> {{ this.options.Name }} </article>
+        <article class="tag" (click)="changedOptions('Name', this.options.Name)"> {{ this.options.Name }} </article>
     }
     @if(this.options.Genres){
         @for(item of this.options.Genres; track $index){
-            <article class="tag"> {{ item }} </article>
+            <article class="tag" (click)="changedOptions('Genres', item)"> {{ item }}</article>
         }
     }
     @if(this.options.Year){
-        <article class="tag"> {{ this.options.Year }} </article>
+        <article class="tag" (click)="changedOptions('Year', this.options.Year)"> {{ this.options.Year }} </article>
     }
     @if(this.options.Season){
-        <article class="tag"> {{ this.options.Season }} </article>
+        <article class="tag" (click)="changedOptions('Season', this.options.Season)"> {{ this.options.Season }} </article>
     }
     @if(this.options.Format){
         @for(item of this.options.Format; track $index){
-            <article class="tag"> {{ item }} </article>
+            <article class="tag" (click)="changedOptions('Format', item)"> {{ item }} </article>
         }
     }
 </section>

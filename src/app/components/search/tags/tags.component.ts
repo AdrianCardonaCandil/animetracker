@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-tags',
@@ -16,5 +16,17 @@ export class TagsComponent {
     Year:'',
     Season:'',
     Format:new Array<String>
+  }
+  @Output() optionsChange = new EventEmitter();
+
+  changedOptions(key:string, value:string|String) {
+    switch(key){
+      case 'Name': case 'Year': case 'Season':
+        this.options[key] = ''
+        break
+      case 'Genres': case 'Format':
+        this.options[key].splice(this.options[key].findIndex(elem => elem === value), 1);
+    }
+    this.optionsChange.emit(structuredClone(this.options));
   }
 }

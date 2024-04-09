@@ -21,16 +21,14 @@
                 @if(item == "Genres" || item == "Format"){
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
-                            <label [for]="subitem + '-input'"> {{ subitem }} </label>
-                            <input [id]="subitem + '-input'" type="checkbox" [class]="item + '-option'" (click)="emitOptions(item, subitem)">
+                            <p (click)="emitOptions(item, subitem)"> {{ subitem }} </p>
                         </div>
                     }
                 }@else(){
                     <!-- For the genres dropdown menu using radiobuttons -->
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
-                            <label [for]="subitem + '-input'"> {{ subitem }} </label>
-                            <input [id]="subitem + '-input'" type="radio" [class]="item + '-option'" [name]="item + '-option'" (click)="emitOptions(item, subitem)">
+                            <p (click)="emitOptions(item, subitem)"> {{ subitem }} </p>
                         </div>
                     }
                 }

@@ -1,6 +1,6 @@
 <section id="search-bar-tags">
-    <app-searchbar (itemsEmiiter)="setSelectedItems($event)" page="search"></app-searchbar>
-    <app-tags [options]="selectedItems"></app-tags>
+    <app-searchbar [(options)]="options" page="search"></app-searchbar>
+    <app-tags [(options)]="options"></app-tags>
 </section>
 <main>
     <app-results></app-results>

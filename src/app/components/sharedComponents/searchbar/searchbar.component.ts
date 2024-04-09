@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Output, ViewChild, input} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild, WritableSignal, input, signal} from '@angular/core';
 import { optionsBuilder } from "./optionsBuilder";
 import { CommonModule, NgStyle } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -26,14 +26,14 @@ export class SearchbarComponent implements AfterViewInit{
 
   /* Declarations to handle emitted data from the search bar */
   name = new FormControl('');
-  options:{Name:string, Genres:string[], Year:string, Season:string, Format:string[]} = {
+  @Input() options: {Name:string, Genres:String[], Year:string, Season:string, Format:String[]} = {
     Name:'',
     Genres:[],
     Year:'',
     Season:'',
     Format:[]
   }
-  @Output() itemsEmiiter = new EventEmitter();
+  @Output() optionsChange = new EventEmitter();
 
   /* Handler for data emmited from the search bar */
   emitOptions(item?:string, value?:String|null) {
@@ -45,7 +45,7 @@ export class SearchbarComponent implements AfterViewInit{
           if (this.options[item].includes(String(value))) this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1);
           else this.options[item].push(String(value));
       }
-      this.itemsEmiiter.emit(Object.assign({}, this.options));
+      this.optionsChange.emit(structuredClone(this.options));
   }
 
   // Input Component to Observe

@@ -77,20 +77,23 @@
     flex-flow: column nowrap;
     height: auto;
     margin-top: 1%;
-    width: calc((100% / 5) - 1%);
+    width: calc((100% / 5) - 0.75em);
     gap: 0.75em;
     color: var(--snow-color);
-    background: var(--black);
+    background: var(--black-ex);
     border-radius: 0.5rem;
     box-shadow: var(--black-box-shadow);
     max-height: 20rem;
     overflow: auto;
     position: absolute;
+    z-index: 50;
 }
 
 .dropwdown-option {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
-    padding: 4%;
+    justify-content: space-around;
+    align-content: center;
+    padding: 7.5% 2.5%;
+    font-weight: bold;
 }
