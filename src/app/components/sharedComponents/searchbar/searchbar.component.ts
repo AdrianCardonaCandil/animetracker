@@ -4,6 +4,8 @@ import { CommonModule, NgStyle } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, fromEvent} from 'rxjs';
 
+type optionNames = 'Name'|'Genres'|'Year'|'Season'|'Format';
+
 @Component({
   selector: 'app-searchbar',
   standalone: true,
@@ -26,26 +28,34 @@ export class SearchbarComponent implements AfterViewInit{
 
   /* Declarations to handle emitted data from the search bar */
   name = new FormControl('');
-  @Input() options: {Name:string, Genres:String[], Year:string, Season:string, Format:String[]} = {
+  @Input() options: {Name:string, Genres:string[], Year:string, Season:string, Format:string} = {
     Name:'',
     Genres:[],
     Year:'',
     Season:'',
-    Format:[]
+    Format:''
   }
   @Output() optionsChange = new EventEmitter();
 
   /* Handler for data emmited from the search bar */
-  emitOptions(item?:string, value?:String|null) {
-      switch(item){
-        case 'Name': case 'Year': case 'Season':
-          this.options[item] === value ? this.options[item] = '' : this.options[item] = String(value);
-          break;
-        case 'Genres': case 'Format':
-          if (this.options[item].includes(String(value))) this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1);
-          else this.options[item].push(String(value));
-      }
-      this.optionsChange.emit(structuredClone(this.options));
+  emitOptions(item:optionNames, value?:String|null) {
+    this.filtersCleanup(item);
+
+    if (item === 'Genres'){
+      this.options[item].includes(String(value)) ? this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1) : this.options[item].push(String(value));
+    } else this.options[item] === String(value) ? this.options[item] = '' : this.options[item] = String(value);
+
+    this.optionsChange.emit(structuredClone(this.options));
+  }
+
+  filtersCleanup(item:optionNames) {
+    switch(item){
+      case 'Name': case 'Genres':
+        this.options.Year = ''; this.options.Season = ''; this.searchMode = 'normal';
+        break;
+      case 'Year': case 'Season':
+        this.options.Name = ''; this.options.Genres.length = 0; this.name.reset(); this.searchMode = 'time';
+    }
   }
 
   // Input Component to Observe
@@ -55,5 +65,7 @@ export class SearchbarComponent implements AfterViewInit{
       this.emitOptions('Name', this.name.value);
     })
   }
+
+  searchMode = '';
   
 }

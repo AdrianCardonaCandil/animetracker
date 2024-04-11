@@ -15,16 +15,16 @@ import { ResultsComponent } from './results/results.component';
 export class SearchComponent {
   constructor(){
     effect(()=>{
-      // Aqui es donde se ejecutará la lógica para enviar los datos hacia el servidor
+      console.log(this.options());
     })
   }
 
-  options:WritableSignal<{Name:string, Genres:String[], Year:string, Season:string, Format:String[]}> =
+  options:WritableSignal<{Name:string, Genres:string[], Year:string, Season:string, Format:string}> =
   signal({ 
     Name:'',
     Genres:[], 
     Year:'',
     Season:'', 
-    Format:[]
+    Format:''
   });
 }

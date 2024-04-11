@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
+type optionNames = 'Name'|'Genres'|'Year'|'Season'|'Format';
+
 @Component({
   selector: 'app-tags',
   standalone: true,
@@ -12,21 +14,17 @@ export class TagsComponent {
 
   @Input() options = {
     Name:'',
-    Genres:new Array<String>,
+    Genres:[''],
     Year:'',
     Season:'',
-    Format:new Array<String>
+    Format:''
   }
   @Output() optionsChange = new EventEmitter();
 
-  changedOptions(key:string, value:string|String) {
-    switch(key){
-      case 'Name': case 'Year': case 'Season':
-        this.options[key] = ''
-        break
-      case 'Genres': case 'Format':
-        this.options[key].splice(this.options[key].findIndex(elem => elem === value), 1);
-    }
+  changedOptions(key:optionNames, value:string|String) {
+    if (key == 'Genres'){
+      this.options[key].splice(this.options[key].findIndex(elem => elem === value), 1);
+    } else this.options[key] = '';
     this.optionsChange.emit(structuredClone(this.options));
   }
 }

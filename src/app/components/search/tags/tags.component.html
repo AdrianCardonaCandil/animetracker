@@ -15,8 +15,6 @@
         <article class="tag" (click)="changedOptions('Season', this.options.Season)"> {{ this.options.Season }} </article>
     }
     @if(this.options.Format){
-        @for(item of this.options.Format; track $index){
-            <article class="tag" (click)="changedOptions('Format', item)"> {{ item }} </article>
-        }
+        <article class="tag" (click)="changedOptions('Format', this.options.Format)"> {{ this.options.Format }} </article>
     }
 </section>

@@ -2,7 +2,7 @@
     <!-- Search Tag -->
     <div id="search">
         <label for="search-input"> Search </label>
-        <div id="search-box">
+        <div id="search-box" [ngStyle]="{'background': this.searchMode === '' ? 'var(--snow-color)' : this.searchMode === 'normal' ? 'var(--search-bar-green)' : 'var(--search-bar-red)'}">
             <input type="search" id="search-input" [formControl]="name" #searchinput>
         </div>
     </div>
@@ -12,19 +12,25 @@
         <div [id]="item" class="filter">
             <label [for]="item + '-button'"> {{ item }} </label>
             <div [id]="item + '-box'" class="filter-button">
-                <button [id]="item + '-button'" class="searchbar-button" (click)="handleFilterClick($index)"></button>
+                @if(item === 'Genres'){
+                    <button [id]="item + '-button'" class="searchbar-button" (click)="handleFilterClick($index)" [ngStyle]="{'background': this.searchMode === '' ? 'var(--snow-color)' : this.searchMode === 'normal' ? 'var(--search-bar-green)' : 'var(--search-bar-red)'}"></button>
+                }@else if(item === "Year" || item === "Season"){
+                    <button [id]="item + '-button'" class="searchbar-button" (click)="handleFilterClick($index)" [ngStyle]="{'background': this.searchMode === '' ? 'var(--snow-color)' : this.searchMode === 'time' ? 'var(--search-bar-green)' : 'var(--search-bar-red)'}"></button>
+                }@else{
+                    <button [id]="item + '-button'" class="searchbar-button" (click)="handleFilterClick($index)"></button>
+                }
                 <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
             </div>
             <!-- For each option of the dropwdown menu -->
             <div [ngStyle]="{ 'display': buttonsSelected[$index] ? 'flex' : 'none' }" [id]="item + 'dropdown'" class="filter-dropdown">
                 <!-- For the genres dropdown menu using checkbox -->
-                @if(item == "Genres" || item == "Format"){
+                @if(item == "Genres"){
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
-                            <p (click)="emitOptions(item, subitem)" [ngStyle]="{'color':this.options[item].includes(subitem) ? 'var(--dull-blue)' : 'var(--snow-color)'}"> {{ subitem }} </p>
+                            <p (click)="emitOptions(item, subitem)" [ngStyle]="{'color':this.options[item].includes('' + subitem) ? 'var(--dull-blue)' : 'var(--snow-color)'}"> {{ subitem }} </p>
                         </div>
                     }
-                }@else if (item == "Name" || item == "Year" || item == "Season"){
+                }@else if (item == "Name" || item == "Year" || item == "Season" || item == "Format"){
                     <!-- For the genres dropdown menu using radiobuttons -->
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">

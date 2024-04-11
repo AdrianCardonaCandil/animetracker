@@ -16,6 +16,9 @@
 
     --black-box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     --white-box-shadow: 0 3px 10px rgba(255, 255, 255, 0.1);
+
+    --search-bar-green: #828a7d;
+    --search-bar-red: #8a7d7f;
 }
 
 body {
