@@ -48,13 +48,15 @@ export class SearchbarComponent implements AfterViewInit{
     this.optionsChange.emit(structuredClone(this.options));
   }
 
+  // Cleans filters when a new option is selected
   filtersCleanup(item:optionNames) {
     switch(item){
       case 'Name': case 'Genres':
-        this.options.Year = ''; this.options.Season = ''; this.searchMode = 'normal';
-        break;
+        if(this.tracker === true) break;
+        else this.options.Year = ''; this.options.Season = ''; this.searchMode = 'normal'; this.tracker = true; break;
       case 'Year': case 'Season':
-        this.options.Name = ''; this.options.Genres.length = 0; this.name.reset(); this.searchMode = 'time';
+        if(this.tracker === false) break;
+        else this.options.Name = ''; this.options.Genres.length = 0; this.name.reset(); this.searchMode = 'time'; this.tracker = false;
     }
   }
 
@@ -66,6 +68,6 @@ export class SearchbarComponent implements AfterViewInit{
     })
   }
 
-  searchMode = '';
+  searchMode = ''; tracker:boolean|undefined = undefined;
   
 }
