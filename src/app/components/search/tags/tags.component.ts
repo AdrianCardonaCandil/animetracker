@@ -24,7 +24,11 @@ export class TagsComponent {
   changedOptions(key:optionNames, value:string|String) {
     if (key == 'Genres'){
       this.options[key].splice(this.options[key].findIndex(elem => elem === value), 1);
-    } else this.options[key] = '';
+    } else {
+      if (key == "Year") this.options.Season = '';
+      if (key == "Season") this.options.Year = '';
+      this.options[key] = '';
+    }
     this.optionsChange.emit(structuredClone(this.options));
   }
 }
