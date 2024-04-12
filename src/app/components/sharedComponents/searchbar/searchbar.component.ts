@@ -28,13 +28,7 @@ export class SearchbarComponent implements AfterViewInit{
 
   /* Declarations to handle emitted data from the search bar */
   name = new FormControl('');
-  @Input() options: {Name:string, Genres:string[], Year:string, Season:string, Format:string} = {
-    Name:'',
-    Genres:[],
-    Year:'',
-    Season:'',
-    Format:''
-  }
+  @Input() options: {Name:string, Genres:string[], Year:string, Season:string, Format:string} = {Name:'', Genres:[], Year:'', Season:'', Format:''}
   @Output() optionsChange = new EventEmitter();
 
   // Function to get the current season of the year.
@@ -42,27 +36,37 @@ export class SearchbarComponent implements AfterViewInit{
 
   /* Handler for data emmited from the search bar */
   emitOptions(item:optionNames, value?:String|null) {
-    this.filtersCleanup(item);
-    if (item == "Genres"){
-      this.options[item].includes(String(value)) ? this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1) : this.options[item].push(String(value));
-    } else {
-      if (item == "Year") this.options.Season = this.options.Season === '' ? ['Winter', 'Spring', 'Summer', 'Autumn'][this.getSeason(new Date())] : this.options.Season;
-      if (item == "Season") this.options.Year = this.options.Year === '' ? String(new Date().getFullYear()) : this.options.Year;
-      this.options[item] === String(value) ? this.options[item] = '' : this.options[item] = String(value);
-    }
+    switch(item){
+      case 'Name':
+        if (this.tracker !== true) this.modeHandler('normal');
+        this.options[item] = this.options[item] === String(value) ? '' : String(value); break;
+      case 'Genres':
+        if (this.tracker !== true) this.modeHandler('normal');
+        this.options[item].includes(String(value)) ? this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1) : this.options[item].push(String(value)); break;
+      case 'Year':
+        if (this.tracker !== false) this.modeHandler('time');
+        if (this.options[item] === String(value)){this.optionsCleanup(["Season"]); this.options[item] = ''}
+        else {
+          this.options[item] = String(value);
+          this.options.Season = this.options.Season === '' ? ['Winter', 'Spring', 'Summer', 'Autumn'][this.getSeason(new Date())] : this.options.Season;
+        };
+        break;
+      case 'Season':
+        if (this.tracker !== false) this.modeHandler('time');
+        if (this.options[item] === String(value)){this.optionsCleanup(["Year"]); this.options[item] = ''}
+        else {
+          this.options[item] = String(value);
+          this.options.Year = this.options.Year === '' ? String(new Date().getFullYear()) : this.options.Year;
+        };
+        break;
+      case 'Format':
+        this.options[item] = this.options[item] === String(value) ? '' : String(value); break;
+      }
     this.optionsChange.emit({...this.options});
   }
 
-  // Cleans filters when a new option is selected
-  filtersCleanup(item:optionNames) {
-    switch(item){
-      case 'Name': case 'Genres':
-        if(this.tracker === true) break;
-        else this.options.Year = ''; this.options.Season = ''; this.searchMode = 'normal'; this.tracker = true; break;
-      case 'Year': case 'Season':
-        if(this.tracker === false) break;
-        else this.options.Name = ''; this.options.Genres.length = 0; this.name.reset(); this.searchMode = 'time'; this.tracker = false;
-    }
+  optionsCleanup(items:optionNames[]){
+    items.forEach(elem => elem === "Genres" ? this.options[elem].length = 0 : this.options[elem] = '');
   }
 
   // Input Component to Observe
@@ -75,5 +79,12 @@ export class SearchbarComponent implements AfterViewInit{
 
   // Variables to track the current search mode in wich we are in.
   searchMode = ''; tracker:boolean|undefined = undefined;
-  
+
+  modeHandler(mode:'normal'|'time'){
+    if(mode === 'normal') {
+      this.optionsCleanup(["Year", "Season"]); this.searchMode = "normal"; this.tracker = true;
+    } else {
+      this.optionsCleanup(["Name", "Genres"]); this.searchMode = "time"; this.name.reset(); this.tracker = false;
+    }
+  }
 }
