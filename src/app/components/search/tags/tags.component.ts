@@ -29,6 +29,6 @@ export class TagsComponent {
       if (key == "Season") this.options.Year = '';
       this.options[key] = '';
     }
-    this.optionsChange.emit(structuredClone(this.options));
+    this.optionsChange.emit({...this.options});
   }
 }

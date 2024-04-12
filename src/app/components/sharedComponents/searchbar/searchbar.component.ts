@@ -50,7 +50,7 @@ export class SearchbarComponent implements AfterViewInit{
       if (item == "Season") this.options.Year = this.options.Year === '' ? String(new Date().getFullYear()) : this.options.Year;
       this.options[item] === String(value) ? this.options[item] = '' : this.options[item] = String(value);
     }
-    this.optionsChange.emit(structuredClone(this.options));
+    this.optionsChange.emit({...this.options});
   }
 
   // Cleans filters when a new option is selected
