@@ -1,4 +1,4 @@
-const genres = {
+const genres:{[key in genresNames]:number} = {
     'Action': 1,
     'Adventure': 2,
     'Avant Garde': 5,
@@ -37,4 +37,54 @@ const genres = {
     'Idols (Female)': 60,
     'Idols (Male)' : 61,
     'Isekai': 62,
+    'Iyashikei': 63,
+    'Love Polygon': 64,
+    'Magical Sex Shift': 65,
+    'Mahou Shoujo': 66,
+    'Martial Arts': 17,
+    'Mecha': 18,
+    'Medical': 67,
+    'Military': 38,
+    'Music': 19,
+    'Mythology': 6,
+    'Organized Crime': 68,
+    'Otaku Culture': 69,
+    'Parody': 20,
+    'Performing Arts': 70,
+    'Pets': 71,
+    'Psychological': 40,
+    'Racing': 3,
+    'Reincarnation': 72,
+    'Reverse Harem': 73,
+    'Romantic Subtext': 74,
+    'Samurai': 21,
+    'School': 23,
+    'Showbiz': 75,
+    'Space': 29,
+    'Strategy Game': 11,
+    'Super Power': 31,
+    'Survival': 76,
+    'Team Sports': 77,
+    'Time Travel': 78,
+    'Vampire': 32,
+    'Video Game': 79,
+    'Visual Arts': 80,
+    'Workplace': 48,
+    'Josei': 43,
+    'Kids': 15,
+    'Seinen': 42,
+    'Shoujo': 25,
+    'Shounen': 27
 }
+
+type genresNames = 'Action'|'Adventure'|'Avant Garde'|'Award Winning'|'Boys Love'|'Comedy'|'Drama'|'Fantasy'|
+'Girls Love'|'Gourmet'|'Horror'|'Mystery'|'Romance'|'Sci-Fi'|'Slice of Life'|'Sports'|'Supernatural'|'Suspense'|
+'Ecchi'|'Erotica'|'Hentai'|'Adult Cast'|'Anthropomorphic'|'CGDCT'|'Childcare'|'Combat Sports'|'Crossdressing'|
+'Delinquents'|'Detective'|'Educational'|'Gag Humor'|'Gore'|'Harem'|'High Stakes Game'|'Historical'|'Idols (Female)'|
+'Idols (Male)'|'Isekai'|'Iyashikei'|'Love Polygon'|'Magical Sex Shift'|'Mahou Shoujo'|'Martial Arts'|'Mecha'|
+'Medical'|'Military'|'Music'|'Mythology'|'Organized Crime'|'Otaku Culture'|'Parody'|'Performing Arts'|'Pets'|
+'Psychological'|'Racing'|'Reincarnation'|'Reverse Harem'|'Romantic Subtext'|'Samurai'|'School'|'Showbiz'|'Space'|
+'Strategy Game'|'Super Power'|'Survival'|'Team Sports'|'Time Travel'|'Vampire'|'Video Game'|'Visual Arts'|'Workplace'|
+'Josei'|'Kids'|'Seinen'|'Shoujo'|'Shounen';
+
+export {genres, genresNames};

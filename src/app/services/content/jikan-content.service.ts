@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { __env } from '../../../environments/env.dev';
+import { genres, genresNames } from './genres'
 
-type parameters = {Name:string, Genres:string[], Year:string, Season:string, Format:string, Page:string};
+type parameters = {Name:string, Genres:genresNames[], Year:string, Season:string, Format:string, Page:string};
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +36,14 @@ export class JikanContentService {
   // Function to get a full content season finding by year and season.
   private findSeasonContents = (year:string, season:string, format:string, page:string) => fetch(`${this.seasonpath}/${year}/${season}?${format !== '' ? `filter=${format}&` : ''}${page !== '' ? `page=${page}`: ''}`).then(res => res.json());
 
-  private findNameGenres = (name:string, genres:string[], format:string, page:string) => fetch(`${this.contentpath}?${name !== "" ? `q=${name}&` : ''}${genres.length !== 0 ? `genres=${genres.join(',')}&` : ''}${format !== '' ? `type=${format}&` : ''}${page !== '' ? `page=${page}` : ''}`).then(res => res.json());
+  // Function to search for content based on Name, Genres and other few filters.
+  private findNameGenres = (name:string, genres:number[], format:string, page:string) => fetch(`${this.contentpath}?${name !== "" ? `q=${name}&` : ''}${genres.length !== 0 ? `genres=${genres.join(',')}&` : ''}${format !== '' ? `type=${format}&` : ''}${page !== '' ? `page=${page}` : ''}`).then(res => res.json());
 
   find({Name, Genres, Year, Season, Format, Page}:parameters){
     if(Year || Season){
       return this.findSeasonContents(Year, Season, Format, Page);
     } else {
-      return this.findNameGenres(Name, Genres, Format, Page);
+      return this.findNameGenres(Name, Genres.map(elem => genres[elem]), Format, Page);
     }
   }
 }
