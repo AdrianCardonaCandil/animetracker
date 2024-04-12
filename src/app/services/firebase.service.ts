@@ -1,28 +1,40 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore/lite';
-import { getStorage } from 'firebase/storage';
+import { FirebaseApp, initializeApp } from "firebase/app";
+import { Firestore, and, endAt, getFirestore, limit, or, orderBy, startAt } from 'firebase/firestore/lite';
+import { FirebaseStorage, getStorage } from 'firebase/storage';
 import { __env } from '../../environments/env.dev';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class FirebaseService {
-  #app;
-  #db;
-  #storage;
-  #auth: any;
+  private _app:FirebaseApp;
+  private _db:Firestore;
+  private _storage:FirebaseStorage;
+  private _optParser;
+  #auth:any; // What is this, it is not asigned to nothing in the service.
 
   constructor() {
-    this.#app = initializeApp(__env.FIRE_API);
-    this.#db = getFirestore(this.#app);
-    this.#storage = getStorage(this.#app);
+    this._app = initializeApp(__env.FIRE_API);
+    this._db = getFirestore(this.app);
+    this._storage = getStorage(this.app);
+    this._optParser = {
+      limit:limit,
+      orderBy:orderBy,
+      endAt:endAt,
+      startAt:startAt,
+      join: {
+        or:or,
+        and:and
+      }
+    }
   }
 
-  get app() { return this.#app; }
-  get db() { return this.#db; }
-  get storage() { return this.#storage; }
-  get auth() { return this.#auth; }
+  get app() {return this._app};
+  get db() {return this._db}
+  get storage() {return this._storage};
+  get optParser() {return this._optParser};
+  getAuth() {return this.#auth} // Same, where does this come...
 }
 
-module.exports = require(process.cwd() + '/bin/Singleton')(new FirebaseService());
