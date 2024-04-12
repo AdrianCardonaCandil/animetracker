@@ -37,14 +37,19 @@ export class SearchbarComponent implements AfterViewInit{
   }
   @Output() optionsChange = new EventEmitter();
 
+  // Function to get the current season of the year.
+  getSeason = (d:Date) => Math.floor((d.getMonth() / 12 * 4)) % 4;
+
   /* Handler for data emmited from the search bar */
   emitOptions(item:optionNames, value?:String|null) {
     this.filtersCleanup(item);
-
-    if (item === 'Genres'){
+    if (item == "Genres"){
       this.options[item].includes(String(value)) ? this.options[item].splice(this.options[item].findIndex(elem => elem === value), 1) : this.options[item].push(String(value));
-    } else this.options[item] === String(value) ? this.options[item] = '' : this.options[item] = String(value);
-
+    } else {
+      if (item == "Year") this.options.Season = this.options.Season === '' ? ['Winter', 'Spring', 'Summer', 'Autumn'][this.getSeason(new Date())] : this.options.Season;
+      if (item == "Season") this.options.Year = this.options.Year === '' ? String(new Date().getFullYear()) : this.options.Year;
+      this.options[item] === String(value) ? this.options[item] = '' : this.options[item] = String(value);
+    }
     this.optionsChange.emit(structuredClone(this.options));
   }
 
@@ -68,6 +73,7 @@ export class SearchbarComponent implements AfterViewInit{
     })
   }
 
+  // Variables to track the current search mode in wich we are in.
   searchMode = ''; tracker:boolean|undefined = undefined;
   
 }
