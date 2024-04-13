@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Firestore, QueryConstraint, QueryFilterConstraint, WhereFilterOp, collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore/lite';
 import { FirebaseService } from '../firebase.service';
-import { Content, contentAtributeNames } from '../../schemas/Content.scheme';
+import { Content, contentAtributeNames, contentProps, parseContent } from '../../schemas/Content.scheme';
 
 interface filterOptions {
   limit?:number,
@@ -70,6 +70,6 @@ export class FirebaseContentService {
       }
     }
 
-    return getDocs(query(collection(this.db, this.coll), this.opts.join[opts.join](...constraints), ...options)).then(data => data.docs ? data.docs.map(content => content) : null);
+    return getDocs(query(collection(this.db, this.coll), this.opts.join[opts.join](...constraints), ...options)).then(data => data.docs ? data.docs.map(elem => elem.data()) : null);
   }
 }
