@@ -1,3 +1,6 @@
+export type contentAtributeNames = 'id'|'title'|'synopsis'|'score'|'status'|'episodesNumber'|'type'|'source'|
+'duration'|'cover'|'background'|'year'|'season'|'genres'|'studios';
+
 export interface Content {
     readonly id:string;
     title:string;
@@ -16,13 +19,15 @@ export interface Content {
     studios:string[]
 }
 
+export type contentAtributesToParse = {id:string, malid:string, title:string, synopsis:string, score:number,
+    status:string, episodesNumber:number, type:string, source:string, duration:string,
+     cover:string, background:string, images:{jpg:{large_image_url:string}},
+      trailer:{images:{maximum_image_url:string}}, year:number, season:string,
+       selfgenres:string[], genres:[{name:string}]|string[], studios:string[]}
+
 export function parseContent ({id, malid, title, synopsis, score, status, episodesNumber,
      type, source, duration, cover, background, images, trailer, year, season, genres,
-      studios}:{id:string, malid:string, title:string, synopsis:string, score:number,
-         status:string, episodesNumber:number, type:string, source:string, duration:string,
-          cover:string, background:string, images:{jpg:{large_image_url:string}},
-           trailer:{images:{maximum_image_url:string}}, year:number, season:string,
-            selfgenres:string[], genres:[{name:string}]|string[], studios:string[]}):Content|null {
+      studios}:contentAtributesToParse):Content|null {
     try {
         return {
             id: id || malid,
