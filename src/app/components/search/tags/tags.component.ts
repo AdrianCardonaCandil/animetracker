@@ -15,19 +15,22 @@ export class TagsComponent {
   @Input() options = {
     Name:'',
     Genres:[''],
-    Year:'',
+    Year:0,
     Season:'',
     Format:''
   }
   @Output() optionsChange = new EventEmitter();
 
-  changedOptions(key:optionNames, value:string|String) {
-    if (key == 'Genres'){
-      this.options[key].splice(this.options[key].findIndex(elem => elem === value), 1);
-    } else {
-      if (key == "Year") this.options.Season = '';
-      if (key == "Season") this.options.Year = '';
-      this.options[key] = '';
+  changedOptions(key:optionNames, value:string|number) {
+    switch(key){
+      case 'Genres':
+        this.options[key].splice(this.options[key].findIndex(elem => elem === value), 1); break;
+      case 'Year':
+        this.options.Season = ''; this.options[key] = 0; break;
+      case 'Season':
+        this.options.Year = 0; this.options[key] = ''; break;
+      default:
+        this.options[key] = '';
     }
     this.optionsChange.emit({...this.options});
   }

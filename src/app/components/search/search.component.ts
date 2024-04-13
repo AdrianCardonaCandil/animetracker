@@ -19,11 +19,11 @@ export class SearchComponent {
     })
   }
 
-  options:WritableSignal<{Name:string, Genres:string[], Year:string, Season:string, Format:string}> =
+  options:WritableSignal<{Name:string, Genres:string[], Year:number, Season:string, Format:string}> =
   signal({ 
     Name:'',
     Genres:[], 
-    Year:'',
+    Year:0,
     Season:'', 
     Format:''
   });

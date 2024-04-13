@@ -13,7 +13,7 @@ export class optionsBuilder {
         return ["Genres", "Year", "Season", "Format"];
     }
 
-    #buildGenres = ():Array<String> => {
+    #buildGenres = ():string[] => {
         return ['Action', 'Adventure', 'Avant Garde', 'Award Winning', 'Boys Love', 'Comedy', 'Drama', 'Fantasy',
         'Girls Love', 'Gourmet', 'Horror', 'Mystery', 'Romance', 'Sci-Fi', 'Slice of Life', 'Sports', 'Supernatural', 'Suspense',
         'Ecchi', 'Erotica', 'Hentai', 'Adult Cast', 'Anthropomorphic', 'CGDCT', 'Childcare', 'Combat Sports', 'Crossdressing',
@@ -25,18 +25,18 @@ export class optionsBuilder {
         'Josei', 'Kids', 'Seinen', 'Shoujo', 'Shounen'];
     }
 
-    #buildSeason = ():Array<String> => {
+    #buildSeason = ():string[] => {
         return ["Winter", "Spring", "Summer", "Fall"];
     }
 
-    #buildFormat = ():Array<String> => {
+    #buildFormat = ():string[]=> {
         return ["TvShow", "Movie", "TvShort", "Special", "Ova", "Ona", "Music"]
     }
 
-    #buildYear = ():Array<String> => {
-        const years:Array<String> = [];
+    #buildYear = ():number[] => {
+        const years:number[]= [];
         for (let i = 2025; i >= 1940; i--){
-            years.push(String(i));
+            years.push(i);
         }
         return years;
     }
