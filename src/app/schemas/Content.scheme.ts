@@ -19,33 +19,25 @@ export interface Content {
     studios:string[]
 }
 
-export type contentAtributesToParse = {id:string, malid:string, title:string, synopsis:string, score:number,
-    status:string, episodesNumber:number, type:string, source:string, duration:string,
-     cover:string, background:string, images:{jpg:{large_image_url:string}},
-      trailer:{images:{maximum_image_url:string}}, year:number, season:string,
-       selfgenres:string[], genres:[{name:string}]|string[], studios:string[]}
+export type firebaseContentProps = {id:string, title:string, synopsis:string, score:number; status:string; episodesNumber:number; type:string; source:string; duration:string; cover:string; background:string; year:number; season:string; genres:string[], studios:string[]};
+export type jikanContentProps = {mal_id:string, title:string, synopsis:string, score:number; status:string; episodesNumber:number; type:string; source:string; duration:string; images:{jpg:{large_image_url:string}}, trailer:{images:{maximum_image_url:string}}, year:number; season:string;  genres:[{name:string}], studios:[{name:string}]};
 
-export function parseContent ({id, malid, title, synopsis, score, status, episodesNumber,
-     type, source, duration, cover, background, images, trailer, year, season, genres,
-      studios}:contentAtributesToParse):Content|null {
+export function parseContent (firebase?:firebaseContentProps, jikan?:jikanContentProps):Content|null {
     try {
-        return {
-            id: id || malid,
-            title,
-            synopsis,
-            score,
-            status,
-            episodesNumber,
-            type,
-            source,
-            duration,
-            cover: cover || images?.jpg.large_image_url || trailer.images?.maximum_image_url,
-            background: background || trailer.images?.maximum_image_url || images?.jpg.large_image_url,
-            year,
-            season,
-            genres:<string[]>(typeof genres[0] == 'string' ? genres : genres.map(elem => (<{name:string}>elem).name.toLowerCase())),
-            studios
+        if (jikan){
+            return {
+                ...jikan, 
+                id: jikan.mal_id, 
+                cover: jikan.images?.jpg.large_image_url || jikan.trailer.images?.maximum_image_url,
+                background: jikan.trailer.images?.maximum_image_url || jikan.images?.jpg.large_image_url,
+                genres: jikan.genres.map(elem => elem.name.toLowerCase()),
+                studios: jikan.studios.map(elem => elem.name.toLowerCase())
+            } 
         }
+        if (firebase){
+            return {...firebase};
+        }
+        return null;
     } catch(error){
         console.log('Error parsing content', error);
         return null;
