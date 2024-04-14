@@ -22,6 +22,6 @@ describe('ContentsService', () => {
     let firebase:FirebaseService = new FirebaseService();
     let jikan:JikanContentService = new JikanContentService();
     let firContent:FirebaseContentService = new FirebaseContentService(firebase);
-    jikan.findById('35838').then(content => parseContent(content)).then(content => content ? firContent.create(content) : null);
+    jikan.findById('49458').then(content => parseContent(content)).then(content => content ? firContent.create(content, "Contents") : null);
   })
 });
