@@ -19,16 +19,16 @@ export class JikanContentService {
   }
   
   // Function to get a content by ID in Jikan
-  findById = (id:number) => fetch(`${this.contentpath}/${id}`).then(res => res.json()).then(res => res.data); // Works
+  findById = (id:string) => fetch(`${this.contentpath}/${id}`).then(res => res.json()).then(res => res.data); // Works
 
   // Function to get the characters of a content finding by ID.
-  findCharacters = (id:number) => fetch(`${this.contentpath}/${id}/characters`).then(res => res.json()).then(res => res.data); // Works
+  findCharacters = (id:string) => fetch(`${this.contentpath}/${id}/characters`).then(res => res.json()).then(res => res.data); // Works
 
   // Function to get the episodes of a content finding by ID.
-  findEpisodes = (id:number, page:number) => fetch(`${this.contentpath}/${id}/episodes?page=${page}`).then(res => res.json()); // Works
+  findEpisodes = (id:string, page:number) => fetch(`${this.contentpath}/${id}/episodes?page=${page}`).then(res => res.json()); // Works
 
   // Function to get the images of a content finding by ID.
-  findImages = (id:number) => fetch(`${this.contentpath}/${id}/pictures`).then(res => res.json()).then(res => res.data); // Works
+  findImages = (id:string) => fetch(`${this.contentpath}/${id}/pictures`).then(res => res.json()).then(res => res.data); // Works
 
   // Function to get a characters description finding by character ID.
   findCharacterDescription = (characterid:number) => fetch(`${this.characterpath}/${characterid}`).then(res => res.json()).then(res => res.data.about ? res.data.about : ''); // Works

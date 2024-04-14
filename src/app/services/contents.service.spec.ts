@@ -22,6 +22,6 @@ describe('ContentsService', () => {
     let firebase:FirebaseService = new FirebaseService();
     let jikan:JikanContentService = new JikanContentService();
     let firContent:FirebaseContentService = new FirebaseContentService(firebase);
-    firContent.find([["title", "==", "Sousou No Frieren"]], {limit:1, orderBy:{field:"title", order:"asc"}, join:"or"}).then(docs => docs?.map(elem => parseContent(elem as contentProps))).then(contents => console.log(contents));
+    jikan.findById('35838').then(content => parseContent(content)).then(content => content ? firContent.create(content) : null);
   })
 });

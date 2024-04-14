@@ -29,14 +29,15 @@ export class FirebaseContentService {
   public get opts() {return this.firebase.optParser};
 
   // Gets an anime from the database collection of contents based on contentid.
-  findById = (id:string) => getDoc(doc(this.db, this.coll, id)).then(res => res.data()).then(data => data ? data : null);
+  findById = (id:string) => getDoc(doc(this.db, this.coll, String(id))).then(res => res.data()).then(data => data ? data : null);
 
   // Inserts an anime in the database collection of contents.
   create = async (content:Content) => {
     try {
       if (await this.findById(content.id)) return null;
       else {
-        await setDoc(doc(this.db, this.coll, content.id), JSON.parse(JSON.stringify(content)));
+        console.log(content);
+        await setDoc(doc(this.db, this.coll, String(content.id)), JSON.parse(JSON.stringify(content)));
         return this.findById(content.id).then(content => content ? content : null);
       }
     } catch (error) {

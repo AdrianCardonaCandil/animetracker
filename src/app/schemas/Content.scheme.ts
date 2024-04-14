@@ -2,7 +2,7 @@ export type contentAtributeNames = 'id'|'title'|'synopsis'|'score'|'status'|'epi
 'duration'|'cover'|'background'|'year'|'season'|'genres'|'studios';
 
 export interface Content {
-    readonly id:string;
+    id:string;
     title:string;
     synopsis:string;
     score:number;
