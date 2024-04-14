@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Firestore, QueryConstraint, QueryFilterConstraint, WhereFilterOp, collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore/lite';
 import { FirebaseService } from '../firebase.service';
 import { Content, contentAtributeNames, contentProps, parseContent } from '../../schemas/Content.scheme';
+import { Characters } from '../../schemas/Characters.scheme';
+import { Episodes } from '../../schemas/Episodes.schema';
 
 interface filterOptions {
   limit?:number,
@@ -29,19 +31,18 @@ export class FirebaseContentService {
   public get opts() {return this.firebase.optParser};
 
   // Gets an anime from the database collection of contents based on contentid.
-  findById = (id:string, coll:string) => getDoc(doc(this.db, coll, String(id))).then(res => res.data()).then(data => data ? data : null);
+  findById = (id:number, coll:string) => getDoc(doc(this.db, coll, String(id))).then(res => res.data()).then(data => data ? data : null);
 
   // Inserts an anime in the database collection of contents.
-  create = async (content:Content, coll:string) => {
+  create = async (data:Content|Characters|Episodes, coll:string) => {
     try {
-      if (await this.findById(content.id, coll)) return null;
+      if (await this.findById(data.id, coll)) return null;
       else {
-        console.log(content);
-        await setDoc(doc(this.db, coll, String(content.id)), JSON.parse(JSON.stringify(content)));
-        return this.findById(content.id, coll).then(content => content ? content : null);
+        await setDoc(doc(this.db, coll, String(data.id)), JSON.parse(JSON.stringify(data)));
+        return this.findById(data.id, coll).then(content => content ? content : null);
       }
     } catch (error) {
-      console.log(`Error al crear el contenido con id ${content.id} en la base de datos.`, error);
+      console.log(`Error al crear el dato con id ${data.id} en la coleccion con nombre ${coll}.`, error);
       return null;
     }
   }

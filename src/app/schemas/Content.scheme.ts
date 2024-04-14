@@ -2,7 +2,7 @@ export type contentAtributeNames = 'id'|'title'|'synopsis'|'score'|'status'|'epi
 'duration'|'cover'|'background'|'year'|'season'|'genres'|'studios';
 
 export interface Content {
-    id:string;
+    readonly id:number;
     title:string;
     synopsis:string;
     score:number;
@@ -19,7 +19,7 @@ export interface Content {
     studios:string[]
 }
 
-export type contentProps = {id:string, mal_id:string, title:string, synopsis:string, score:number; status:string; episodes:number; type:string; source:string; duration:string; coverimage:string; backgroundimage:string; images:{jpg:{large_image_url:string}}, trailer:{images:{maximum_image_url:string}}, year:number; season:string; genres:string[]|[{name:string}], studios:string[]|[{name:string}]};
+export type contentProps = {id:number, mal_id:number, title:string, synopsis:string, score:number; status:string; episodes:number; type:string; source:string; duration:string; coverimage:string; backgroundimage:string; images:{jpg:{large_image_url:string}}, trailer:{images:{maximum_image_url:string}}, year:number; season:string; genres:string[]|[{name:string}], studios:string[]|[{name:string}]};
 
 export function parseContent (props:contentProps):Content|null {
     try {

@@ -5,6 +5,8 @@ import { JikanContentService } from './content/jikan-content.service';
 import { FirebaseContentService } from './content/firebase-content.service';
 import { FirebaseService } from './firebase.service';
 import { parseContent, contentProps } from '../schemas/Content.scheme';
+import { charactersProps, parseCharacters } from '../schemas/Characters.scheme';
+import { episodesProps, parseEpisodes } from '../schemas/Episodes.schema';
 
 describe('ContentsService', () => {
   let service: ContentsService;
@@ -22,6 +24,6 @@ describe('ContentsService', () => {
     let firebase:FirebaseService = new FirebaseService();
     let jikan:JikanContentService = new JikanContentService();
     let firContent:FirebaseContentService = new FirebaseContentService(firebase);
-    jikan.findById('49458').then(content => parseContent(content)).then(content => content ? firContent.create(content, "Contents") : null);
+    jikan.findEpisodes(52991, 1).then(episodes => parseEpisodes(episodes.data, 52991)).then(episodes => episodes ? firContent.create(episodes, "Episodes") : null);
   })
 });
