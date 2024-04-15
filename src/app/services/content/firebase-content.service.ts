@@ -4,6 +4,7 @@ import { FirebaseService } from '../firebase.service';
 import { Content, contentAtributeNames, contentProps, parseContent } from '../../schemas/Content.scheme';
 import { Characters } from '../../schemas/Characters.scheme';
 import { Episodes } from '../../schemas/Episodes.schema';
+import { Character } from '../../schemas/Character.scheme';
 
 interface filterOptions {
   limit?:number,
@@ -34,7 +35,7 @@ export class FirebaseContentService {
   findById = (id:number, coll:string) => getDoc(doc(this.db, coll, String(id))).then(res => res.data()).then(data => data ? data : null);
 
   // Inserts an anime in the database collection of contents.
-  create = async (data:Content|Characters|Episodes, coll:string) => {
+  create = async (data:Content|Characters|Episodes|Character, coll:string) => {
     try {
       if (await this.findById(data.id, coll)) return null;
       else {
