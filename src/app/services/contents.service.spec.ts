@@ -8,6 +8,7 @@ import { parseContent, contentProps } from '../schemas/Content.scheme';
 import { charactersProps, parseCharacters } from '../schemas/Characters.scheme';
 import { episodesProps, parseEpisodes } from '../schemas/Episodes.schema';
 import { characterProps, parseCharacter } from '../schemas/Character.scheme';
+import { increment } from 'firebase/firestore/lite';
 
 describe('ContentsService', () => {
   let service: ContentsService;
@@ -25,6 +26,7 @@ describe('ContentsService', () => {
     let firebase:FirebaseService = new FirebaseService();
     let jikan:JikanContentService = new JikanContentService();
     let firContent:FirebaseContentService = new FirebaseContentService(firebase);
-    jikan.findCharacter(188176).then(character => parseCharacter(character)).then(character => character ? firContent.create(character, "Character") : null).then(character => parseCharacter(character as characterProps)).then(character => console.log(character))
-  })
-});
+    jikan.findById(52991).then(content => content ? parseContent(content as contentProps) : null).then(content => content ? firContent.create(content, "Contents") : null).then(content => console.log(content))
+    
+})
+})

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, QueryConstraint, QueryFilterConstraint, WhereFilterOp, collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore/lite';
+import { FieldValue, Firestore, QueryConstraint, QueryFilterConstraint, WhereFilterOp, arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, increment, query, setDoc, updateDoc, where } from 'firebase/firestore/lite';
 import { FirebaseService } from '../firebase.service';
 import { Content, contentAtributeNames, contentProps, parseContent } from '../../schemas/Content.scheme';
 import { Characters } from '../../schemas/Characters.scheme';
@@ -74,5 +74,16 @@ export class FirebaseContentService {
     }
 
     return getDocs(query(collection(this.db, this.coll), this.opts.join[opts.join](...constraints), ...options)).then(data => data.docs ? data.docs.map(elem => elem.data()) : null);
+  }
+
+  /* Prueba de función de actualización para coleccion determinada.*/
+  updateContent = async (props:{[key in contentAtributeNames]?:string|number|FieldValue}, id:string):Promise<Content|null> => {
+    try {
+      await updateDoc(doc(this.db, this.coll, id), props);
+      return this.findById(Number(id), this.coll).then(content => content ? parseContent(content as contentProps) : null);
+    } catch (error) {
+      console.log(`Fallo al actualizar la coleccion contents`, error);
+      return null
+    }
   }
 }
