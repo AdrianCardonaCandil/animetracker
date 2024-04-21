@@ -1,5 +1,6 @@
-import { Component, InputSignal, input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AnimecardComponent } from '../../sharedComponents/animecard/animecard.component';
+import { Content } from '../../../schemas/Content.scheme';
 
 @Component({
   selector: 'app-results',
@@ -10,5 +11,5 @@ import { AnimecardComponent } from '../../sharedComponents/animecard/animecard.c
 })
 export class ResultsComponent {
   // Contents to represent input
-  contents:InputSignal<number[]> = input([].constructor(25));
+  @Input() contents:Content[] = [];
 }

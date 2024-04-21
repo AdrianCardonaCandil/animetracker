@@ -30,12 +30,12 @@ export class optionsBuilder {
     }
 
     #buildFormat = ():string[]=> {
-        return ["TvShow", "Movie", "TvShort", "Special", "Ova", "Ona", "Music"]
+        return ["Tv", "Movie", "Ova", "Special", "Ona", "Music"]
     }
 
     #buildYear = ():number[] => {
         const years:number[]= [];
-        for (let i = 2025; i >= 1940; i--){
+        for (let i = new Date().getFullYear(); i >= 1940; i--){
             years.push(i);
         }
         return years;

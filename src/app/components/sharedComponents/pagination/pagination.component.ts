@@ -12,5 +12,5 @@ import { RouterLink, ActivatedRoute} from '@angular/router';
 })
 export class PaginationComponent {
   last_page = input();
-  currentPage: number = 1;
+  currentPage = input(10);
 }

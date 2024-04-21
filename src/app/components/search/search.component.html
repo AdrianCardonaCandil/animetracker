@@ -3,6 +3,6 @@
     <app-tags [(options)]="options"></app-tags>
 </section>
 <main>
-    <app-results></app-results>
+    <app-results [contents]="contents"></app-results>
 </main>
-<app-pagination [last_page]="last_page"></app-pagination>
+<app-pagination [last_page]="last_page" [currentPage]="this.options().Page"></app-pagination>

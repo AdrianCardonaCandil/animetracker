@@ -4,18 +4,20 @@
     color: var(--snow-color);
     display: flex;
     flex-flow: column nowrap;
+    width: 15rem;
 }
 
 .anime-name {
     flex: 1;
     opacity: 0.6;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .anime-cover {
     border-radius: 0.5rem;
     box-shadow: var(--black-box-shadow);
-    width: 15rem;
     min-height: 25rem;
     flex: 10;
 }

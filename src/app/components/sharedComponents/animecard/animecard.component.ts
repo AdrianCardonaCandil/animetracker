@@ -12,4 +12,6 @@ import { RouterLink } from '@angular/router';
 export class AnimecardComponent {
   animeName = input("Shoujo Shuumatsu Ryoukou");
   imageSource = input("../../assets/images/shoujo-shuumatsu.jpeg");
+  contentID = input();
+  
 }
