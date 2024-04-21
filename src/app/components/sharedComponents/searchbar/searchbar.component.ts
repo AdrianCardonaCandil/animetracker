@@ -5,6 +5,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, fromEvent} from 'rxjs';
 
 type optionNames = 'Name'|'Genres'|'Year'|'Season'|'Format';
+const seasons = ['Winter', 'Spring', 'Summer', 'Fall'];
 
 @Component({
   selector: 'app-searchbar',
@@ -34,6 +35,11 @@ export class SearchbarComponent implements AfterViewInit{
   // Function to get the current season of the year.
   getSeason = (d:Date) => Math.floor((d.getMonth() / 12 * 4)) % 4;
 
+  // Function to confirm a valid season depending on the year selected.
+  isValidSeason = (season:any) => {
+    return this.options.Year === new Date().getFullYear() ? seasons.indexOf(season) <= this.getSeason(new Date()) : true;
+  }
+
   /* Handler for data emmited from the search bar */
   emitOptions(item:optionNames, value:string|number) {
     switch(item){
@@ -48,7 +54,7 @@ export class SearchbarComponent implements AfterViewInit{
         if (this.options[item] === value){this.optionsCleanup(["Season"]); this.options[item] = 0}
         else {
           this.options[item] = Number(value);
-          this.options.Season = this.options.Season === '' ? ['Winter', 'Spring', 'Summer', 'Autumn'][this.getSeason(new Date())] : this.options.Season;
+          this.options.Season = this.options.Season === '' ? seasons[this.getSeason(new Date())] : this.options.Season;
         };
         break;
       case 'Season':

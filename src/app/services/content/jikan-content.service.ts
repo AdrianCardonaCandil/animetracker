@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { __env } from '../../../environments/env.dev';
-import { genres, genresNames } from './genres'
-
-type parameters = {Name:string, Genres:genresNames[], Year:number, Season:string, Format:string, Page:number};
+import { genres, genresNames } from './genres';
 
 @Injectable({
   providedIn: 'root'
@@ -34,16 +32,16 @@ export class JikanContentService {
   findCharacter = (characterid:number) => fetch(`${this.characterpath}/${characterid}`).then(res => res.json()).then(res => res.data ? res.data : ''); // Works
 
   // Function to get a full content season finding by year and season.
-  private findSeasonContents = (year:number, season:string, format:string, page:number) => fetch(`${this.seasonpath}/${year}/${season}?${format !== '' ? `filter=${format}&` : ''}${page !== undefined ? `page=${page}`: ''}`).then(res => res.json());
+  private searchSeasonContents = (year:number, season:string, format:string, page:number) => fetch(`${this.seasonpath}/${year}/${season}?${format !== '' ? `filter=${format}&` : ''}${page !== undefined ? `page=${page}`: ''}`).then(res => res.json());
 
   // Function to search for content based on Name, Genres and other few filters.
-  private findNameGenres = (name:string, genres:number[], format:string, page:number) => fetch(`${this.contentpath}?${name !== "" ? `q=${name}&` : ''}${genres.length !== 0 ? `genres=${genres.join(',')}&` : ''}${format !== '' ? `type=${format}&` : ''}${page !== undefined ? `page=${page}` : ''}`).then(res => res.json());
+  private searchNameGenres = (name:string, genres:number[], format:string, page:number) => fetch(`${this.contentpath}?${name !== "" ? `q=${name}&` : ''}${genres.length !== 0 ? `genres=${genres.join(',')}&` : ''}${format !== '' ? `type=${format}&` : ''}${page !== undefined ? `page=${page}` : ''}`).then(res => res.json());
 
-  find({Name, Genres, Year, Season, Format, Page}:parameters){
-    if(Year || Season){
-      return this.findSeasonContents(Year, Season, Format, Page);
+  search(params:any){
+    if(params.Year || params.Season){
+      return this.searchSeasonContents(params.Year, params.Season, params.Format, params.Page);
     } else {
-      return this.findNameGenres(Name, Genres.map(elem => genres[elem]), Format, Page);
+      return this.searchNameGenres(params.Name, params.Genres.map((elem:genresNames) => genres[elem]), params.Format, params.Page);
     }
   }
 }

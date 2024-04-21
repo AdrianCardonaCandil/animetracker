@@ -11,10 +11,6 @@ import { RouterLink, ActivatedRoute} from '@angular/router';
   styleUrl: './pagination.component.css'
 })
 export class PaginationComponent {
-  numberOfPages = input(5);
-  currentPage: number;
-  constructor(private route:ActivatedRoute){
-    this.currentPage = Number(this.route.snapshot.paramMap.get('page'));
-    this.route.params.subscribe(params => this.currentPage = params['page']);
-  }
+  last_page = input();
+  currentPage: number = 1;
 }

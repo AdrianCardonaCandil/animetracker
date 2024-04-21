@@ -3,6 +3,7 @@ import { SearchbarComponent } from '../sharedComponents/searchbar/searchbar.comp
 import { TagsComponent } from './tags/tags.component';
 import { PaginationComponent } from '../sharedComponents/pagination/pagination.component';
 import { ResultsComponent } from './results/results.component';
+import { ContentsService } from '../../services/contents.service';
 
 @Component({
   selector: 'app-search',
@@ -13,11 +14,15 @@ import { ResultsComponent } from './results/results.component';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
-  constructor(){
+  constructor(contentService:ContentsService){
     effect(()=>{
-      console.log(this.options());
+      console.log(this.options())
     })
   }
+
+  // current and last page declaration
+  current_page:number = 1;
+  last_page:number|undefined = undefined;
 
   options:WritableSignal<{Name:string, Genres:string[], Year:number, Season:string, Format:string}> =
   signal({ 

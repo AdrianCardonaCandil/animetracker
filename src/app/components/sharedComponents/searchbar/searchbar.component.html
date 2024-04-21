@@ -30,11 +30,11 @@
                             <p (click)="emitOptions(item, subitem)" [ngStyle]="{'color':this.options[item].includes('' + subitem) ? 'var(--dull-blue)' : 'var(--snow-color)'}"> {{ subitem }} </p>
                         </div>
                     }
-                }@else if (item == "Name" || item == "Year" || item == "Season" || item == "Format"){
+                }@else if (item == "Year" || item == "Season" || item == "Format"){
                     <!-- For the genres dropdown menu using radiobuttons -->
                     @for(subitem of this.optionsBuilder.getOptions()[$index]; track $index){
                         <div [id]="subitem" class="dropwdown-option">
-                            <p (click)="emitOptions(item, subitem)" [ngStyle]="{'color':this.options[item] === subitem ? 'var(--dull-blue)' : 'var(--snow-color)'}"> {{ subitem }} </p>
+                            <p (click)="emitOptions(item, subitem)" [ngStyle]="{'color':this.options[item] === subitem ? 'var(--dull-blue)' : 'var(--snow-color)', 'display': item !== 'Season' ? 'block' : (isValidSeason(subitem) ? 'block' : 'none')}"> {{ subitem }} </p>
                         </div>
                     }
                 }
