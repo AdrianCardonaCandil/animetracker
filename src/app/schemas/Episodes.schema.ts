@@ -11,21 +11,25 @@ export interface Episodes {
     pages:number[]
 }
 
-export type episodesProps = [{
-    number:number,
-    title:string,
-    romanji:string,
-    aired:string,
-    mal_id:number
-    title_romanji:string
-}[], number][]
+export type episodesProps = {
+    episodes:[{
+        number:number,
+        title:string,
+        romanji:string,
+        aired:string,
+        mal_id:number
+        title_romanji:string
+    }[], number][],
+    id:number,
+    pages:number[]
+}
 
-export function parseEpisodes(props:episodesProps, content_id:number, pages?:number[]):Episodes|null{
+export function parseEpisodes(props:episodesProps):Episodes|null{
     try {
         return {
-            episodes: props.map(elem => {
+            episodes: props.episodes.map((elem:any) => {
                 return {
-                    data:elem[0].map(elem => {
+                    data:elem.data.map((elem:any) => {
                         return {
                             number: elem.number || elem.mal_id,
                             title: elem.title,
@@ -33,11 +37,11 @@ export function parseEpisodes(props:episodesProps, content_id:number, pages?:num
                             aired: elem.aired
                         }
                     }),
-                    page:elem[1]
+                    page:elem.page
                 }
             }),
-            id: content_id,
-            pages:pages || []
+            id: props.id,
+            pages: props.pages
         }
     } catch (error) {
         console.log('Error parsing episodes', error);
