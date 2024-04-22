@@ -45,13 +45,15 @@ export class ContentsService implements Contents {
   }
 
   
-  /*
+  
   findEpisodes = (id:number, page:number):Promise<Episodes|null> => {
     return this.dbService.findById(id, "Episodes").then((episodes:any) => {
+      // Si en la base de datos hay algo de los episodios
       if (episodes){
-        if (episodes.pages.include(page)) return {...episodes, episodes:episodes.slice(100*(page-1), 100+(page))};
+        // Si está la página que busco
+        if (episodes.pages.include(page)) return {...episodes, episodes:episodes.filter((elem:any) => elem.page == page)};
+        
       }
     })
   }
-  */
 }

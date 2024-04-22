@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { FieldValue, Firestore, QueryConstraint, QueryFilterConstraint, WhereFilterOp, arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, increment, query, setDoc, updateDoc, where } from 'firebase/firestore/lite';
+import { DocumentData, FieldValue, Firestore, QueryConstraint, QueryFilterConstraint, WhereFilterOp, arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, increment, query, setDoc, updateDoc, where } from 'firebase/firestore/lite';
 import { FirebaseService } from '../firebase.service';
 import { Content, contentAtributeNames, contentProps, parseContent } from '../../schemas/Content.scheme';
 import { Characters } from '../../schemas/Characters.scheme';
-import { Episodes } from '../../schemas/Episodes.schema';
+import { Episodes, episodesAttributesNames, parseEpisodes } from '../../schemas/Episodes.schema';
 import { Character } from '../../schemas/Character.scheme';
 
 interface filterOptions {
@@ -83,6 +83,16 @@ export class FirebaseContentService {
       return this.findById(Number(id), this.coll).then(content => content ? parseContent(content as contentProps) : null);
     } catch (error) {
       console.log(`Fallo al actualizar la coleccion contents`, error);
+      return null
+    }
+  }
+
+  updateEpisodes = async (props:{[key in episodesAttributesNames]?:string|number|FieldValue}, id:string):Promise<DocumentData|null> => {
+    try {
+      await updateDoc(doc(this.db, "Episodes", id), props);
+      return this.findById(Number(id), "Episodes").then(episodes => episodes ? episodes : null);
+    } catch (error) {
+      console.log(`Fallo al actualizar la coleccion episodes`, error);
       return null
     }
   }

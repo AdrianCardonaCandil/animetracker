@@ -1,3 +1,5 @@
+export type episodesAttributesNames = 'episodes'|'id'|'pages';
+
 export interface Episodes {
     episodes:{data:{
         number:number,
@@ -9,26 +11,31 @@ export interface Episodes {
     pages:number[]
 }
 
-export type episodesProps = [[{
+export type episodesProps = [{
     number:number,
     title:string,
     romanji:string,
     aired:string,
     mal_id:number
     title_romanji:string
-}], number]
+}[], number][]
 
 export function parseEpisodes(props:episodesProps, content_id:number, pages?:number[]):Episodes|null{
     try {
         return {
-            episodes: [{data:props[0].map(elem => {
+            episodes: props.map(elem => {
                 return {
-                    number:elem.number || elem.mal_id,
-                    title:elem.title,
-                    romanji:elem.romanji || elem.title_romanji,
-                    aired:elem.aired
+                    data:elem[0].map(elem => {
+                        return {
+                            number: elem.number || elem.mal_id,
+                            title: elem.title,
+                            romanji: elem.romanji || elem.title_romanji,
+                            aired: elem.aired
+                        }
+                    }),
+                    page:elem[1]
                 }
-            }), page:props[1]}],
+            }),
             id: content_id,
             pages:pages || []
         }
