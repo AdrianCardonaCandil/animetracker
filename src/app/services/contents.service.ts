@@ -4,7 +4,8 @@ import { FirebaseContentService } from './content/firebase-content.service';
 import { Content, contentProps, parseContent } from '../schemas/Content.scheme';
 import Contents from '../models/content.model';
 import { Characters, charactersProps, parseCharacters } from '../schemas/Characters.scheme';
-import { Episodes } from '../schemas/Episodes.schema';
+import { Episodes, parseEpisodes } from '../schemas/Episodes.schema';
+import { arrayUnion } from 'firebase/firestore/lite';
 
 @Injectable({
   providedIn: 'root'
@@ -45,15 +46,18 @@ export class ContentsService implements Contents {
   }
 
   
-  
+  /* Finds episodes for a content by ID. Works with pagination what it means, returns the page if found in db, if other pages are found 
+  adds the new page to the previous ones. If no page is found for the content, creates the first one. */
   findEpisodes = (id:number, page:number):Promise<Episodes|null> => {
     return this.dbService.findById(id, "Episodes").then((episodes:any) => {
-      // Si en la base de datos hay algo de los episodios
       if (episodes){
-        // Si está la página que busco
-        if (episodes.pages.include(page)) return {...episodes, episodes:episodes.filter((elem:any) => elem.page == page)};
-        
+        if (episodes?.pages?.include(page)) return {...episodes, episodes:episodes.filter((elem:any) => elem.page == page)};
+        return this.apiService.findEpisodes(id, page).then(episodes => episodes ? this.dbService.updateEpisodes({
+          episodes: arrayUnion({data:episodes.data, page:page}),
+          pages: arrayUnion(page)
+        }, String(id)) : null);
       }
-    })
+      return this.apiService.findEpisodes(id, page).then(episodes => episodes ? this.dbService.create(<Episodes>parseEpisodes({episodes:[[episodes.data, page]], id:id, pages:[page]}), "Episodes") : null);
+    }).then(episodes => episodes ? parseEpisodes(episodes) : null);
   }
 }
