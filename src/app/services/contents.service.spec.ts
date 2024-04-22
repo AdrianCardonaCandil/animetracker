@@ -26,7 +26,7 @@ describe('ContentsService', () => {
     let firebase:FirebaseService = new FirebaseService();
     let jikan:JikanContentService = new JikanContentService();
     let firContent:FirebaseContentService = new FirebaseContentService(firebase);
-    jikan.findById(52991).then(content => content ? parseContent(content as contentProps) : null).then(content => content ? firContent.create(content, "Contents") : null).then(content => console.log(content))
+    jikan.findEpisodes(52991, 1).then(episodes => parseEpisodes([episodes.data, 1] as episodesProps, 52991, [])).then(episodes => console.log(episodes))
     
 })
 })
