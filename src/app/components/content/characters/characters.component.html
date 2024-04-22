@@ -1,5 +1,5 @@
 <section id="characters">
-    @for(item of [].constructor(15); track $index){
-        <app-character></app-character>
+    @for(item of this.characters.characters; track $index){
+        <app-character [name]="this.characters.characters[$index].name" [imageSource]="this.characters.characters[$index].image" [characterId]="this.characters.characters[$index].id"></app-character>
     }
 </section>

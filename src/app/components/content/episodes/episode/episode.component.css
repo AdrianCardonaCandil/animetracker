@@ -1,13 +1,18 @@
 .episode {
     display: flex;
-    justify-content: space-around;
     align-items: center;
     height: 5rem;
     border-bottom: 0.05rem solid var(--snow-color);
     color: var(--snow-color)
 }
 
-.episode-title {
+.episode-data {
+    flex: 1;
+    text-align: center;
+}
+
+#episode-title {
+    flex: 3;
     font-weight: bold;
     color: var(--dull-blue);
 }

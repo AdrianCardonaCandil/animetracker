@@ -15,11 +15,12 @@ export interface Content {
     backgroundimage:string;
     year:number;
     season:string;
+    rating:string;
     genres:string[],
     studios:string[]
 }
 
-export type contentProps = {id:number, mal_id:number, title:string, synopsis:string, score:number; status:string; episodes:number; type:string; source:string; duration:string; coverimage:string; backgroundimage:string; images:{jpg:{large_image_url:string}}, trailer:{images:{maximum_image_url:string}}, year:number; season:string; genres:string[]|[{name:string}], studios:string[]|[{name:string}]};
+export type contentProps = {id:number, mal_id:number, title:string, synopsis:string, score:number; status:string; episodes:number; rating:string, type:string; source:string; duration:string; coverimage:string; backgroundimage:string; images:{jpg:{large_image_url:string}}, trailer:{images:{maximum_image_url:string}}, year:number; season:string; genres:string[]|[{name:string}], studios:string[]|[{name:string}]};
 
 export function parseContent (props:contentProps):Content|null {
     try {
@@ -32,6 +33,7 @@ export function parseContent (props:contentProps):Content|null {
             episodes:props.episodes,
             type:props.type,
             source:props.source,
+            rating:props.rating,
             duration:props.duration,
             coverimage: props.coverimage || props.images?.jpg.large_image_url || props.trailer?.images.maximum_image_url,
             backgroundimage: props.backgroundimage || props.trailer.images.maximum_image_url || props.images.jpg.large_image_url,

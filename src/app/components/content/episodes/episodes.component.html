@@ -1,10 +1,10 @@
 <section id="episodes">
-    @for(item of [].constructor(50); track $index){
+    @for(item of this.episodes.episodes[0].data; track $index){
         <app-episode [episode]="{
-            number:$index,
-            title:'El Final De La Aventura',
-            date:'2024-04-03T18:00:00+00:00'
+            number:item.number,
+            title:item.title,
+            date:item.aired
         }"></app-episode>
     }
 </section>
-<app-pagination></app-pagination>
+<app-pagination [last_page]="last_page" [currentPage]="current_page"></app-pagination>

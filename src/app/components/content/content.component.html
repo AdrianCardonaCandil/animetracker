@@ -1,9 +1,21 @@
 <section id="ilustration">
-    <img title="ilustration image of the page content" alt="ilustration image" [src]="imageSource()">
+    <img title="ilustration image of the page content" alt="ilustration image" [src]="content.backgroundimage">
 </section>
-<app-maininfo></app-maininfo>
+<app-maininfo [contentdata]="{name:this.content.title, synopsis:this.content.synopsis, imageSource:this.content.coverimage, score:this.content.score}"></app-maininfo>
 <section id="side-and-main">
-    <app-sideinfo></app-sideinfo>
+    <app-sideinfo [contentdata]="
+        [
+            {id:'Type', value:this.content.type},
+            {id:'Source', value:this.content.source},
+            {id:'Episodes', value:this.content.episodes.toString()},
+            {id:'Duration', value:this.content.duration},
+            {id:'Status', value:this.content.status},
+            {id:'Season', value:this.content.season},
+            {id:'Year', value:this.content.year.toString()},
+            {id:'Studios', value:this.content.studios},
+            {id:'Genres', value:this.content.genres},
+            {id:'Rating', value:this.content.rating},
+        ]"></app-sideinfo>
     <main>
         <app-contentnav></app-contentnav>
         <router-outlet></router-outlet>

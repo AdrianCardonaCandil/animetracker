@@ -9,16 +9,16 @@ import { Component, input } from '@angular/core';
 })
 export class SideinfoComponent {
   contentdata = input([
-    {id:'Type', value:'TV'},
-    {id:'Source',value:'Manga'},
-    {id:'Episodes',value:'28'},
-    {id:'Duration',value:'24 minutes per ep'},
-    {id:'Status',value:'Finished Airing'},
-    {id:'Season',value:'fall'},
-    {id:'Year',value:'2023'},
-    {id:'Studios',value:'Madhouse'},
-    {id:'Genres',value:['Adventure', 'Drama', 'Fantasy']},
-    {id:'Rating',value:'PG-13 - Teens 13 or older'}
+    {id:'Type', value:'Not Defined'},
+    {id:'Source',value:'Not Defined'},
+    {id:'Episodes',value:'0'},
+    {id:'Duration',value:'Not Defined'},
+    {id:'Status',value:'Not Defined'},
+    {id:'Season',value:'Not Defined'},
+    {id:'Year',value:'Not Defined'},
+    {id:'Studios',value:['Not Defined']},
+    {id:'Genres',value:['Not Defined']},
+    {id:'Rating',value:'Not Defined'}
   ])
 
   isArray(item: any){

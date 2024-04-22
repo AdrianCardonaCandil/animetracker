@@ -17,17 +17,9 @@ export class MaininfoComponent {
   }
   contentdata = input(
     {
-      name:'Sousou No Frieren',
-      synopsis:'Lorem ipsum dolor sit amet,\
-      consectetur adipiscing elit. In fermentum\
-      consectetur turpis vel condimentum. Nulla\
-      lacinia sem eu leo interdum, vitae lacinia\
-      erat pulvinar. Proin ut tellus metus. Donec\
-      id libero vitae ligula sollicitudin porta. Ut\
-      id tellus sagittis, suscipit velit at, luctus\
-      tellus. Interdum et malesuada fames ac ante\
-      ipsum primis in faucibus.',
-      imageSource:'../../../../assets/images/frieren.jpg',
+      name:'Not Defined',
+      synopsis:'Not Defined',
+      imageSource:'assets/images/frieren.jpg',
       score:5
     }
   );

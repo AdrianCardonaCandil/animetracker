@@ -9,6 +9,7 @@ export interface Episodes {
     }[], page:number}[],
     id:number,
     pages:number[]
+    last_page:number
 }
 
 export type episodesProps = {
@@ -22,6 +23,7 @@ export type episodesProps = {
     }[], page:number}[],
     id:number,
     pages:number[]
+    last_page:number
 }
 
 export function parseEpisodes(props:episodesProps):Episodes|null{
@@ -41,7 +43,8 @@ export function parseEpisodes(props:episodesProps):Episodes|null{
                 }
             }),
             id: props.id,
-            pages: props.pages
+            pages: props.pages,
+            last_page:props.last_page
         }
     } catch (error) {
         console.log('Error parsing episodes', error);

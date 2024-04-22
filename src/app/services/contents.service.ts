@@ -58,7 +58,7 @@ export class ContentsService implements Contents {
           pages: arrayUnion(page)
         }, String(id)) : null).then((episodes:any) => {return {...episodes, episodes:episodes.episodes.filter((elem:any) => elem.page == page)}});
       }
-      return this.apiService.findEpisodes(id, page).then(episodes => episodes ? this.dbService.create(<Episodes>parseEpisodes({episodes:[{data:episodes.data, page:page}], id:id, pages:[page]}), "Episodes") : null)
+      return this.apiService.findEpisodes(id, page).then(episodes => episodes ? this.dbService.create(<Episodes>parseEpisodes({episodes:[{data:episodes.data, page:page}], id:id, pages:[page], last_page:episodes.pagination.last_visible_page}), "Episodes") : null)
       .then((episodes:any) => {return {...episodes, episodes:episodes.episodes.filter((elem:any) => elem.page == page)}})
     }).then(episodes => episodes ? parseEpisodes(episodes) : null);
   }
