@@ -6,6 +6,7 @@ import Contents from '../models/content.model';
 import { Characters, charactersProps, parseCharacters } from '../schemas/Characters.scheme';
 import { Episodes, parseEpisodes } from '../schemas/Episodes.schema';
 import { arrayUnion } from 'firebase/firestore/lite';
+import { Character, characterProps, parseCharacter } from '../schemas/Character.scheme';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class ContentsService implements Contents {
   }
 
   // Stores a content in the db. Returns it aswell.
-  create = async (content:Content) => this.dbService.create(content, "Contents").then(content => content ? parseContent(content as contentProps) : null);
+  create = async (content:Content):Promise<Content|null> => this.dbService.create(content, "Contents").then(content => content ? parseContent(content as contentProps) : null);
 
   // Returns contents queried from the search page as an array of Content.
   search = (params:Object):Promise<Object|[]> => {
@@ -41,7 +42,7 @@ export class ContentsService implements Contents {
   findCharacters = (id:number):Promise<Characters|null> => {
     return this.dbService.findById(id, "Characters").then(characters => {
       if (characters) return characters;
-      return this.apiService.findCharacters(id).then(characters => characters ? this.dbService.create(<Characters>parseCharacters(characters["characters"] as charactersProps, id), "Characters") : null);
+      return this.apiService.findCharacters(id).then(characters => characters ? this.dbService.create(<Characters>parseCharacters(characters as charactersProps, id), "Characters") : null);
     }).then(characters => characters ? parseCharacters(characters["characters"] as charactersProps, id) : null);
   }
 
@@ -51,13 +52,22 @@ export class ContentsService implements Contents {
   findEpisodes = (id:number, page:number):Promise<Episodes|null> => {
     return this.dbService.findById(id, "Episodes").then((episodes:any) => {
       if (episodes){
-        if (episodes?.pages?.include(page)) return {...episodes, episodes:episodes.filter((elem:any) => elem.page == page)};
+        if (episodes.pages.includes(page)) return {...episodes, episodes:episodes.episodes.filter((elem:any) => elem.page == page)};
         return this.apiService.findEpisodes(id, page).then(episodes => episodes ? this.dbService.updateEpisodes({
           episodes: arrayUnion({data:episodes.data, page:page}),
           pages: arrayUnion(page)
-        }, String(id)) : null);
+        }, String(id)) : null).then((episodes:any) => {return {...episodes, episodes:episodes.episodes.filter((elem:any) => elem.page == page)}});
       }
-      return this.apiService.findEpisodes(id, page).then(episodes => episodes ? this.dbService.create(<Episodes>parseEpisodes({episodes:[[episodes.data, page]], id:id, pages:[page]}), "Episodes") : null);
+      return this.apiService.findEpisodes(id, page).then(episodes => episodes ? this.dbService.create(<Episodes>parseEpisodes({episodes:[{data:episodes.data, page:page}], id:id, pages:[page]}), "Episodes") : null)
+      .then((episodes:any) => {return {...episodes, episodes:episodes.episodes.filter((elem:any) => elem.page == page)}})
     }).then(episodes => episodes ? parseEpisodes(episodes) : null);
+  }
+
+  // Finds character information by ID. Returned from the db if finded. Otherwise, returned from api and stored on db.
+  findCharacter = (id:number):Promise<Character|null> => {
+    return this.dbService.findById(id, "Character").then(character => {
+      if (character) return character;
+      return this.apiService.findCharacter(id).then(character => character ? this.dbService.create(<Character>parseCharacter(character as characterProps), "Character") : null);
+    }).then(character => character ?  parseCharacter(character as characterProps) : null);
   }
 }
