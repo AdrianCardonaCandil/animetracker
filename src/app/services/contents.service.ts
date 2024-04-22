@@ -44,6 +44,7 @@ export class ContentsService implements Contents {
     }).then(characters => characters ? parseCharacters(characters["characters"] as charactersProps, id) : null);
   }
 
+  
   /*
   findEpisodes = (id:number, page:number):Promise<Episodes|null> => {
     return this.dbService.findById(id, "Episodes").then((episodes:any) => {
