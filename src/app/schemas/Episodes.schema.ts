@@ -5,7 +5,8 @@ export interface Episodes {
         romanji:string
         aired:string
     }[], page:number}[],
-    id:number
+    id:number,
+    pages:number[]
 }
 
 export type episodesProps = [[{
@@ -28,7 +29,8 @@ export function parseEpisodes(props:episodesProps, content_id:number, pages?:num
                     aired:elem.aired
                 }
             }), page:props[1]}],
-            id: content_id
+            id: content_id,
+            pages:pages || []
         }
     } catch (error) {
         console.log('Error parsing episodes', error);
