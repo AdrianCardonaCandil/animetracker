@@ -12,14 +12,14 @@ export interface Episodes {
 }
 
 export type episodesProps = {
-    episodes:[{
+    episodes:{data:{
         number:number,
         title:string,
         romanji:string,
         aired:string,
         mal_id:number
         title_romanji:string
-    }[], number][],
+    }[], page:number}[],
     id:number,
     pages:number[]
 }
@@ -27,9 +27,9 @@ export type episodesProps = {
 export function parseEpisodes(props:episodesProps):Episodes|null{
     try {
         return {
-            episodes: props.episodes.map((elem:any) => {
+            episodes: props.episodes.map((elem) => {
                 return {
-                    data:elem.data.map((elem:any) => {
+                    data:elem.data.map((elem) => {
                         return {
                             number: elem.number || elem.mal_id,
                             title: elem.title,

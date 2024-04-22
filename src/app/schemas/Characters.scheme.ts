@@ -25,6 +25,7 @@ export type charactersProps = [{
 }]
 
 export function parseCharacters(props:charactersProps, content_id:number):Characters|null {
+   
     try {
         return {
             characters: props.map(elem => {
