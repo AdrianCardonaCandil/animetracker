@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UserCredential } from '@firebase/auth';
 import { FirebaseAuthService } from './firebase-auth.service';
+import User from "../../schemas/User.scheme"
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,7 @@ export class AuthService {
 
   async signup({ email, password }: { email: string; password: string; }): Promise<UserCredential | null> {
     try {
-      const userCredential = await this.firebaseAuthService.signUp(email, password);
-      return userCredential;
+      return await this.firebaseAuthService.signUp(email, password);
     } catch (error) {
       console.error("Signup Error:", error);
       throw error;
@@ -30,17 +30,15 @@ export class AuthService {
 
   async signIn({ email, password }: { email: string; password: string; }): Promise<UserCredential | null> {
     try {
-      const userCredential = await this.firebaseAuthService.signIn(email, password);
-      return userCredential;
+      return await this.firebaseAuthService.signIn(email, password);
     } catch (error) {
       console.error("Signin Error:", error);
       throw error;
     }
   }
 
-  getCurrentUser() {
+  getCurrentUser(): User | null {
     return this.firebaseAuthService.currentUser;
   }
 
-  // Other useful methods for authorization can be added here
 }
