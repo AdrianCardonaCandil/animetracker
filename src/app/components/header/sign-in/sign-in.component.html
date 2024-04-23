@@ -1,0 +1,18 @@
+<div id="overlay" (click)="signUpClicked()"></div>
+<main class="container">
+  <h1 class="container-title">Sign In</h1>
+  <i aria-hidden="true" class="fa fa-times" id="closeLoginBtn" (click)="signUpClicked()"></i>
+  <form [formGroup]="form" class="container-form" method="post">
+    <label class="container-form-label">
+      <input class="container-form-input" name="username" id="username" formControlName="username"
+             placeholder="Username" required type="text">
+    </label>
+    <label class="container-form-label">
+      <input class="container-form-input" name="password" id="password" formControlName="password"
+             placeholder="password" required type="password">
+    </label>
+    <p class="container-form-message">Already signed up? <a class="container-form-link" id="signinLink" href="#">Sign
+      in</a></p>
+    <button class="container-form-button" type="submit" (click)="login()">Log In</button>
+  </form>
+</main>
