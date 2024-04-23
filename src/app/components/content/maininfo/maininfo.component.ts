@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   selector: 'app-maininfo',
   standalone: true,
   imports: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './maininfo.component.html',
   styleUrl: './maininfo.component.css'
   

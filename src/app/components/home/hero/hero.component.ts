@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-hero',
   standalone: true,
   imports: [RouterLink],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })

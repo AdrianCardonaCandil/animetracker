@@ -6,7 +6,6 @@ type optionNames = 'Name'|'Genres'|'Year'|'Season'|'Format';
   selector: 'app-tags',
   standalone: true,
   imports: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './tags.component.html',
   styleUrl: './tags.component.css'
 })

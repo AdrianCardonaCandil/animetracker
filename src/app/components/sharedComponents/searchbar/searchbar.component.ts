@@ -11,7 +11,6 @@ const seasons = ['Winter', 'Spring', 'Summer', 'Fall'];
   selector: 'app-searchbar',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, NgStyle],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './searchbar.component.html',
   styleUrl: './searchbar.component.css'
 })

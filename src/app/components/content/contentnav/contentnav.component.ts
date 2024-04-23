@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-contentnav',
   standalone: true,
   imports: [RouterLink],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './contentnav.component.html',
   styleUrl: './contentnav.component.css'
 })
