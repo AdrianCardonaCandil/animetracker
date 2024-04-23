@@ -47,7 +47,7 @@ export class FirebaseContentService {
   }
 
   // Filters in the database collection of contents based in some parameters
-  find = (props:[contentAtributeNames, WhereFilterOp, string][], opts:filterOptions) => { 
+  find = (props:[contentAtributeNames, WhereFilterOp, string][], opts:filterOptions) => {
     let constraints:QueryFilterConstraint[] = [];
     props.forEach(elem => {
       constraints.push(where(elem[0], elem[1], elem[2])); // Operators avaliable = <, <=, ==, >=, >. array-contains
@@ -59,10 +59,10 @@ export class FirebaseContentService {
     opts.orderBy && (opts.orderBy.order = opts.orderBy.order ? opts.orderBy.order : 'asc');
     opts.orderBy && options.push(this.opts.orderBy(opts.orderBy.field, opts.orderBy.order));
     delete opts.orderBy;
-    
+
     // Selecting join option for filters if not selected by user (default = 'or')
     if (!opts.join) opts.join = 'or';
-    
+
     for (let [key, value] of Object.entries(opts)){
       switch(key){
         case 'limit':
