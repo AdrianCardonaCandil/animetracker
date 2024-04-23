@@ -22,8 +22,6 @@ export class FirebaseService {
     this._optParser = {
       limit:limit,
       orderBy:orderBy,
-      endAt:endAt,
-      startAt:startAt,
       join: {
         or:or,
         and:and

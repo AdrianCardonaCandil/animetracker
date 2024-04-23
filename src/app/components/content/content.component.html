@@ -1,20 +1,20 @@
 <section id="ilustration">
     <img title="ilustration image of the page content" alt="ilustration image" [src]="content.backgroundimage">
 </section>
-<app-maininfo [contentdata]="{name:this.content.title, synopsis:this.content.synopsis, imageSource:this.content.coverimage, score:this.content.score}"></app-maininfo>
+<app-maininfo [contentdata]="{name:this.content.title || 'Not Defined', synopsis:this.content.synopsis || 'Not Defined', imageSource:this.content.coverimage || 'Not Defined', score:this.content.score || 0}"></app-maininfo>
 <section id="side-and-main">
     <app-sideinfo [contentdata]="
         [
-            {id:'Type', value:this.content.type},
-            {id:'Source', value:this.content.source},
-            {id:'Episodes', value:this.content.episodes.toString()},
-            {id:'Duration', value:this.content.duration},
-            {id:'Status', value:this.content.status},
-            {id:'Season', value:this.content.season},
-            {id:'Year', value:this.content.year.toString()},
-            {id:'Studios', value:this.content.studios},
-            {id:'Genres', value:this.content.genres},
-            {id:'Rating', value:this.content.rating},
+            {id:'Type', value:this.content.type || 'Not Defined'},
+            {id:'Source', value:this.content.source || 'Not Defined'},
+            {id:'Episodes', value: '' + this.content.episodes || 'Not Defined'},
+            {id:'Duration', value:this.content.duration || 'Not Defined'},
+            {id:'Status', value:this.content.status || 'Not Defined'},
+            {id:'Season', value:this.content.season || 'Not Defined'},
+            {id:'Year', value: '' + this.content.year || 'Not Defined'},
+            {id:'Studios', value:this.content.studios || 'Not Defined'},
+            {id:'Genres', value:this.content.genres || 'Not Defined'},
+            {id:'Rating', value:this.content.rating || 'Not Defined'},
         ]"></app-sideinfo>
     <main>
         <app-contentnav></app-contentnav>

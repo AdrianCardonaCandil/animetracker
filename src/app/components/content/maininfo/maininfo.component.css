@@ -17,8 +17,24 @@
     border-radius: 0.5rem;
 }
 
+#score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    font-size: large;
+    gap: 1rem;
+    right: 1rem;
+    top: -6rem;
+    width: 7.5rem;
+    height: 5rem;
+    color: var(--snow-color);
+    background-color: var(--black-mo);
+    border-radius: 0.25rem;
+}
 
 #name-and-synopsis {
+    margin-top: 2.5rem;
     color: var(--snow-color);
     max-height: 15rem;
     overflow: auto;

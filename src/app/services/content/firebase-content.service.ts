@@ -6,11 +6,9 @@ import { Characters } from '../../schemas/Characters.scheme';
 import { Episodes, episodesAttributesNames, parseEpisodes } from '../../schemas/Episodes.schema';
 import { Character } from '../../schemas/Character.scheme';
 
-interface filterOptions {
+export default interface filterOptions {
   limit?:number,
   orderBy?:{'field':contentAtributeNames, 'order':'asc'|'desc'},
-  startAt?:number,
-  endAt?:number,
   join?:'or'|'and';
 }
 
@@ -49,7 +47,7 @@ export class FirebaseContentService {
   }
 
   // Filters in the database collection of contents based in some parameters
-  find = (props:[[contentAtributeNames, WhereFilterOp, string]], opts:filterOptions) => { 
+  find = (props:[contentAtributeNames, WhereFilterOp, string][], opts:filterOptions) => { 
     let constraints:QueryFilterConstraint[] = [];
     props.forEach(elem => {
       constraints.push(where(elem[0], elem[1], elem[2])); // Operators avaliable = <, <=, ==, >=, >. array-contains
@@ -67,13 +65,13 @@ export class FirebaseContentService {
     
     for (let [key, value] of Object.entries(opts)){
       switch(key){
-        case 'limit': case 'startAt': case 'endAt':
+        case 'limit':
           options.push(this.opts[key](value));
           break;
       }
     }
 
-    return getDocs(query(collection(this.db, this.coll), this.opts.join[opts.join](...constraints), ...options)).then(data => data.docs ? data.docs.map(elem => elem.data()) : null);
+    return getDocs(query(collection(this.db, this.coll), this.opts.join[opts.join](...constraints), ...options)).then(data => data.docs ? data.docs.map(elem => parseContent(elem.data() as contentProps)) : null);
   }
 
   /* Prueba de función de actualización para coleccion determinada.*/

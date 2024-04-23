@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { JikanContentService } from './content/jikan-content.service';
-import { FirebaseContentService } from './content/firebase-content.service';
-import { Content, contentProps, parseContent } from '../schemas/Content.scheme';
+import filterOptions, { FirebaseContentService } from './content/firebase-content.service';
+import { Content, contentAtributeNames, contentProps, parseContent } from '../schemas/Content.scheme';
 import Contents from '../models/content.model';
 import { Characters, charactersProps, parseCharacters } from '../schemas/Characters.scheme';
 import { Episodes, parseEpisodes } from '../schemas/Episodes.schema';
-import { arrayUnion } from 'firebase/firestore/lite';
+import { DocumentData, WhereFilterOp, arrayUnion } from 'firebase/firestore/lite';
 import { Character, characterProps, parseCharacter } from '../schemas/Character.scheme';
 
 @Injectable({
@@ -69,5 +69,10 @@ export class ContentsService implements Contents {
       if (character) return character;
       return this.apiService.findCharacter(id).then(character => character ? this.dbService.create(<Character>parseCharacter(character as characterProps), "Character") : null);
     }).then(character => character ?  parseCharacter(character as characterProps) : null);
+  }
+  
+  // Queries the contents database with a set of parameters and a set of options. Returns the docs founded that satisfies given queries.
+  find(params:[contentAtributeNames, WhereFilterOp, string][], option:filterOptions):Promise<(Content | null)[] | null>{
+    return this.dbService.find(params, option);
   }
 }
