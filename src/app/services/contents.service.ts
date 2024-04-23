@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from "@angular/core";
 import { JikanContentService } from './content/jikan-content.service';
 import filterOptions, { FirebaseContentService } from './content/firebase-content.service';
 import { Content, contentAtributeNames, contentProps, parseContent } from '../schemas/Content.scheme';
@@ -20,7 +20,7 @@ export class ContentsService implements Contents {
     this.apiService = apiService;
     this.dbService = dbService;
   }
-  
+
   // Finds a content by ID. Returned from the db if finded. Otherwise, returned from api and stored on db.
   findById = (id:number):Promise<Content|null> => {
     return this.dbService.findById(id, "Contents").then(content => {
@@ -46,8 +46,8 @@ export class ContentsService implements Contents {
     }).then(characters => characters ? parseCharacters(characters["characters"] as charactersProps, id) : null);
   }
 
-  
-  /* Finds episodes for a content by ID. Works with pagination what it means, returns the page if found in db, if other pages are found 
+
+  /* Finds episodes for a content by ID. Works with pagination what it means, returns the page if found in db, if other pages are found
   adds the new page to the previous ones. If no page is found for the content, creates the first one. */
   findEpisodes = (id:number, page:number):Promise<Episodes|null> => {
     return this.dbService.findById(id, "Episodes").then((episodes:any) => {
@@ -70,7 +70,7 @@ export class ContentsService implements Contents {
       return this.apiService.findCharacter(id).then(character => character ? this.dbService.create(<Character>parseCharacter(character as characterProps), "Character") : null);
     }).then(character => character ?  parseCharacter(character as characterProps) : null);
   }
-  
+
   // Queries the contents database with a set of parameters and a set of options. Returns the docs founded that satisfies given queries.
   find(params:[contentAtributeNames, WhereFilterOp, string][], option:filterOptions):Promise<(Content | null)[] | null>{
     return this.dbService.find(params, option);

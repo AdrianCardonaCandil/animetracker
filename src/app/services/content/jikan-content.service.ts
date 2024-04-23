@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { __env } from '../../../environments/env.dev';
+import { __env } from '../../environments/env.dev';
 import { genres, genresNames } from './genres';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class JikanContentService {
     this.characterpath = `${__env.JIKAN_PATH}/characters`;
     this.seasonpath = `${__env.JIKAN_PATH}/seasons`;
   }
-  
+
   // Function to get a content by ID in Jikan
   findById = (id:number) => fetch(`${this.contentpath}/${id}`).then(res => res.json()).then(res => res.data); // Works
 
