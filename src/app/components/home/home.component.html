@@ -1,7 +1,7 @@
 <main>
-    <app-hero title="Sousou No Frieren" description="The adventure is over but life goes on for an elf mage just beginning to learn what living is all about. Elf mage Frieren and her courageous fellow adventurers have defeated the Demon King and brought peace to the land. But Frieren will long outlive the rest of her former party. How will she come to understand what life means to the people around her?" imageSource="../../assets/images/frieren.jpg"></app-hero>
+    <app-hero [title]="this.hero?.title" [description]="this.hero?.synopsis" [imageSource]="this.hero?.backgroundimage" [contentID]="this.hero?.id"></app-hero>
     <app-searchbar page="index"></app-searchbar>
-    @for(item of [].constructor(3); track $index){
-        <app-animelist></app-animelist>
+    @for(item of [this.ranked, this.seasonal, this.upcoming]; track $index){
+        <app-animelist [descriptor]="this.rowNames[$index]" [contents]="item"></app-animelist>
     }
 </main>

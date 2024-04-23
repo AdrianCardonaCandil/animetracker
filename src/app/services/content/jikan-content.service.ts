@@ -31,6 +31,9 @@ export class JikanContentService {
   // Function to get a characters description finding by character ID.
   findCharacter = (characterid:number) => fetch(`${this.characterpath}/${characterid}`).then(res => res.json()).then(res => res.data ? res.data : ''); // Works
 
+  // Function to get the upcoming season of contents from the API section of seasons.
+  findupcoming = (limit:number, page?:number) => fetch(`${this.seasonpath}/upcoming?${page ? `page=${page}` : ''}&${limit ? `limit=${limit}` : ''}`).then(res => res.json()); // Works
+
   // Function to get a full content season finding by year and season.
   private searchSeasonContents = (year:number, season:string, format:string, page:number) => fetch(`${this.seasonpath}/${year}/${season}?${format !== '' ? `filter=${format}&` : ''}${page !== undefined ? `page=${page}`: ''}`).then(res => res.json());
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApp, initializeApp } from "firebase/app";
-import { Firestore, and, endAt, getFirestore, limit, or, orderBy, startAt } from 'firebase/firestore/lite';
+import { Firestore, and, getFirestore, limit, or, orderBy} from 'firebase/firestore/lite';
 import { FirebaseStorage, getStorage } from 'firebase/storage';
 import { __env } from '../../environments/env.dev';
 

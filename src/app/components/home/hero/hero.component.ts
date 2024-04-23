@@ -13,4 +13,5 @@ export class HeroComponent {
   title = input();
   description = input();
   imageSource = input();
+  contentID = input();
 }

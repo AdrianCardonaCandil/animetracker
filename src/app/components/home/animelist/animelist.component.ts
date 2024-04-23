@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, InputSignal, input, signal } from '@angular/core';
 import { AnimecardComponent } from '../../sharedComponents/animecard/animecard.component';
+import { Content } from '../../../schemas/Content.scheme';
 
 @Component({
   selector: 'app-animelist',
@@ -11,4 +12,5 @@ import { AnimecardComponent } from '../../sharedComponents/animecard/animecard.c
 })
 export class AnimelistComponent {
   descriptor = input("Anime Row");
+  contents:InputSignal<Content[]|undefined> = input();
 }
