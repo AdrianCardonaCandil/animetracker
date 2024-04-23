@@ -1,6 +1,5 @@
 export default interface User {
-  readonly id: string
-  username: string
+  readonly username: string
   email: string
   password: string
   description: string
