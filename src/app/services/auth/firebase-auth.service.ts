@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { doc, setDoc, Firestore, getDoc, updateDoc } from 'firebase/firestore/lite';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
+import { Auth, setPersistence,onAuthStateChanged, browserLocalPersistence,createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, signOut } from 'firebase/auth';
 import { FirebaseService } from '../firebase.service';
 import User from "../../schemas/User.scheme";
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +19,8 @@ export class FirebaseAuthService {
     this._auth = this.firebaseService.auth;
     this._currentUserSubject = new BehaviorSubject<User | null>(null);
 
-    this._auth.onAuthStateChanged(async user => {
-      if (user) {
-        const userData = await this.getUserData(user.uid);
-        this._currentUserSubject.next(userData);
-      } else {
-        this._currentUserSubject.next(null);
-      }
-    });
+    this.initAuthStatePersistence();
+    this.initAuthState();
   }
 
   get db(): Firestore {
@@ -41,9 +35,35 @@ export class FirebaseAuthService {
     return this._currentUserSubject;
   }
 
+  private async initAuthState() {
+    try {
+      onAuthStateChanged(this._auth, async user => {
+        if (user) {
+          console.log("User signed in:", user.uid);
+          const userData = await this.getUserData(<string>user.uid);
+          console.log("User data:", userData);
+          this._currentUserSubject.next(userData);
+        } else {
+          console.log("User signed out");
+          this._currentUserSubject.next(null);
+        }
+      });
+    } catch (error) {
+      console.error("Error initializing auth state:", error);
+    }
+  }
+  private async initAuthStatePersistence() {
+    try {
+      await setPersistence(this._auth, browserLocalPersistence);
+      console.log("Auth persistence set successfully.");
+    } catch (error) {
+      console.error("Error setting auth persistence:", error);
+    }
+  }
+
   async signUp(username: string, email: string, password: string): Promise<User> {
     try {
-      // Create the user with email and password
+
       await createUserWithEmailAndPassword(this._auth, email, password);
 
       // Set the user's document with the username as the document ID
@@ -59,8 +79,8 @@ export class FirebaseAuthService {
         completed: [],
         planToWatch: [],
         favorites: [],
-        userScores: {}, // Initialize as empty object
-        contentProgress: {} // Initialize as empty object
+        userScores: {},
+        contentProgress: {}
       });
 
       const newUser = {
@@ -79,7 +99,6 @@ export class FirebaseAuthService {
         contentProgress: {}
       };
 
-      // Update currentUserSubject with the new user
       this._currentUserSubject.next(newUser as User);
 
       return newUser as User;
@@ -88,24 +107,32 @@ export class FirebaseAuthService {
       throw error;
     }
   }
-
   async signIn(username: string, password: string): Promise<User | null> {
     try {
-      // Find the user's email based on the provided username
+
       const email = await this.getUserEmailByUsername(username);
 
-      // Sign in with email and password
-      const userCredential = await signInWithEmailAndPassword(this._auth, email, password);
+
+      await signInWithEmailAndPassword(this._auth, email, password);
 
       // Return the user data
       const user = await this.getUserData(username);
 
-      // Update currentUserSubject with the signed-in user
       this._currentUserSubject.next(user);
 
       return user;
     } catch (error) {
       console.error("Signin Error:", error);
+      throw error;
+    }
+  }
+
+  async logout(): Promise<void> {
+    try {
+      await this._auth.signOut();
+      this._currentUserSubject.next(null);
+    } catch (error) {
+      console.error("Logout Error:", error);
       throw error;
     }
   }
@@ -123,15 +150,24 @@ export class FirebaseAuthService {
   }
 
   private async getUserData(username: string): Promise<User | null> {
-    const userRef = doc(this._db, this._coll, username);
-    const userDoc = await getDoc(userRef);
+    try {
+      const docRef = doc(this._db, this._coll, username); // Fetch document by username
+      const docSnap = await getDoc(docRef);
 
-    if (!userDoc.exists()) {
-      console.log('User not found');
+      if (docSnap.exists()) {
+        const userData = docSnap.data() as User;
+        console.log("User document found for username:", username);
+        return userData;
+      } else {
+        console.log("User document not found for username:", username);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
       return null;
     }
-
-    const userData = userDoc.data() as User;
-    return { ...userData };
   }
+
+
+
 }
