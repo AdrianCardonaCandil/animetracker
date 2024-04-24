@@ -12,19 +12,19 @@ export class FirebaseAuthService {
   private _coll = "Users";
   private _db: Firestore;
   private _auth: Auth;
-  private _currentUserSubject: BehaviorSubject<User | null>; // BehaviorSubject to hold the current user state
+  private _currentUserSubject: BehaviorSubject<User | null>;
 
   constructor(private firebaseService: FirebaseService) {
     this._db = this.firebaseService.db;
     this._auth = this.firebaseService.auth;
-    this._currentUserSubject = new BehaviorSubject<User | null>(null); // Initialize with null
+    this._currentUserSubject = new BehaviorSubject<User | null>(null);
 
     this._auth.onAuthStateChanged(async user => {
       if (user) {
         const userData = await this.getUserData(user.uid);
         this._currentUserSubject.next(userData);
       } else {
-        this._currentUserSubject.next(null); // User is logged out, set to null
+        this._currentUserSubject.next(null);
       }
     });
   }
@@ -51,7 +51,6 @@ export class FirebaseAuthService {
         username: username,
         email: email,
         password: password,
-        // Include any other fields you need to initialize
         description: "",
         country: "",
         profilePicture: "",
@@ -60,11 +59,11 @@ export class FirebaseAuthService {
         completed: [],
         planToWatch: [],
         favorites: [],
-        userScores: new Map<string, number>(),
-        contentProgress: new Map<string, number>()
+        userScores: {}, // Initialize as empty object
+        contentProgress: {} // Initialize as empty object
       });
 
-      return {
+      const newUser = {
         username: username,
         email: email,
         password: password,
@@ -76,9 +75,14 @@ export class FirebaseAuthService {
         completed: [],
         planToWatch: [],
         favorites: [],
-        userScores: new Map<string, number>(),
-        contentProgress: new Map<string, number>()
+        userScores: {},
+        contentProgress: {}
       };
+
+      // Update currentUserSubject with the new user
+      this._currentUserSubject.next(newUser as User);
+
+      return newUser as User;
     } catch (error) {
       console.error("Signup Error:", error);
       throw error;
@@ -91,17 +95,21 @@ export class FirebaseAuthService {
       const email = await this.getUserEmailByUsername(username);
 
       // Sign in with email and password
-      await signInWithEmailAndPassword(this._auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(this._auth, email, password);
 
       // Return the user data
-      return await this.getUserData(username);
+      const user = await this.getUserData(username);
+
+      // Update currentUserSubject with the signed-in user
+      this._currentUserSubject.next(user);
+
+      return user;
     } catch (error) {
       console.error("Signin Error:", error);
       throw error;
     }
   }
 
-  // Method to get user's email based on username
   private async getUserEmailByUsername(username: string): Promise<string> {
     const userRef = doc(this._db, this._coll, username);
     const userDoc = await getDoc(userRef);
@@ -114,7 +122,6 @@ export class FirebaseAuthService {
     return userDoc.get('email');
   }
 
-  // Method to get user data
   private async getUserData(username: string): Promise<User | null> {
     const userRef = doc(this._db, this._coll, username);
     const userDoc = await getDoc(userRef);

@@ -4,6 +4,8 @@ import User from "../../schemas/User.scheme";
 import Auth from "../../models/auth.model";
 import { Observable } from "rxjs";
 import { map } from 'rxjs/operators';
+import * as console from "console";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Injectable({
   providedIn: 'root'
@@ -21,18 +23,12 @@ export class AuthService implements Auth {
     }
   }
 
-  signUp({ username, email, password }: { username: string; email: string; password: string; }): Promise<Observable<User | null>> {
+  signUp({ username, email, password }: { username: string; email: string; password: string; }): Promise<User | null> {
     return this.firebaseAuthService.signUp(username, email, password).then(user => {
       if (user) {
-        return new Observable<User | null>((observer) => {
-          observer.next(user);
-          observer.complete();
-        });
+        return user;
       } else {
-        return new Observable<User | null>((observer) => {
-          observer.next(null);
-          observer.complete();
-        });
+        return null;
       }
     }).catch(err => {
       console.error("Signup Error:", err);
@@ -40,29 +36,12 @@ export class AuthService implements Auth {
     });
   }
 
-  signIn({ username, password }: { username: string; password: string; }): Promise<Observable<User | null>> {
-    return this.firebaseAuthService.signIn(username, password).then(user => {
-      if (user) {
-        return new Observable<User | null>((observer) => {
-          observer.next(user);
-          observer.complete();
-        });
-      } else {
-        return new Observable<User | null>((observer) => {
-          observer.next(null);
-          observer.complete();
-        });
-      }
-    }).catch(err => {
-      console.error("Signin Error:", err);
-      throw err;
-    });
+  signIn({ username, password }: { username: string; password: string; }): Promise<User | null> {
+    return this.firebaseAuthService.signIn(username, password);
   }
 
-  isLoggedIn(): Promise<Observable<User | null>> {
-    return Promise.resolve(this.firebaseAuthService.currentUser.pipe(
-      map(user => user ? { ...user } : null)
-    ));
+  isLoggedIn(): Observable<User | null>{
+    return this.firebaseAuthService.currentUser;
   }
 
   get user(): Observable<User | null> {
