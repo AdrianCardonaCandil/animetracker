@@ -6,7 +6,6 @@ import { RouterLink, ActivatedRoute} from '@angular/router';
   selector: 'app-pagination',
   standalone: true,
   imports: [RouterLink, NgStyle],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
 })

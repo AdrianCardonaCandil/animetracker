@@ -7,7 +7,6 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './animecard.component.html',
   styleUrl: './animecard.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AnimecardComponent {
   animeName = input("Shoujo Shuumatsu Ryoukou");

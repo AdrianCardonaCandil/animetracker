@@ -5,7 +5,7 @@ import { Content, contentAtributeNames, contentProps, parseContent } from '../sc
 import Contents from '../models/content.model';
 import { Characters, charactersProps, parseCharacters } from '../schemas/Characters.scheme';
 import { Episodes, parseEpisodes } from '../schemas/Episodes.schema';
-import { DocumentData, WhereFilterOp, arrayUnion } from 'firebase/firestore/lite';
+import { DocumentData, WhereFilterOp, arrayUnion, limit } from 'firebase/firestore/lite';
 import { Character, characterProps, parseCharacter } from '../schemas/Character.scheme';
 
 @Injectable({
@@ -62,6 +62,10 @@ export class ContentsService implements Contents {
       .then((episodes:any) => {return {...episodes, episodes:episodes.episodes.filter((elem:any) => elem.page == page)}})
     }).then(episodes => episodes ? parseEpisodes(episodes) : null);
   }
+
+  // Finds the upcoming seasons of contents directly from the API used.
+  findUpcoming = (limit:number, page?:number) => this.apiService.findupcoming(limit, page ? page : 1).then(contents => {return {...contents, data:contents.data.map((content:any) => parseContent(content))}});
+  
 
   // Finds character information by ID. Returned from the db if finded. Otherwise, returned from api and stored on db.
   findCharacter = (id:number):Promise<Character|null> => {
