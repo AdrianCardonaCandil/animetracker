@@ -68,6 +68,7 @@ export class FirebaseAuthService {
 
       // Set the user's document with the username as the document ID
       await setDoc(doc(this._db, this._coll, cred.user.uid), {
+        id: cred.user.uid,
         username: username,
         email: email,
         password: password,
@@ -84,6 +85,7 @@ export class FirebaseAuthService {
       });
 
       const newUser = {
+        id: cred.user.uid,
         username: username,
         email: email,
         password: password,
@@ -109,13 +111,13 @@ export class FirebaseAuthService {
   }
   async signIn(username: string, password: string): Promise<User | null> {
     try {
-      // Get the email associated with the provided username
+
       const email = await this.getUserEmailByUsername(username);
 
-      // Sign in with email and password
+
       const credentials = await signInWithEmailAndPassword(this._auth, email, password);
 
-      // Get user data
+
       const user = await this.getUserData(credentials.user.uid);
 
       this._currentUserSubject.next(user);
@@ -146,7 +148,6 @@ export class FirebaseAuthService {
         throw new Error('User not found');
       }
 
-      // Assuming username is unique, there will be only one document
       const userDoc = querySnapshot.docs[0];
       return userDoc.get('email');
     } catch (error) {
