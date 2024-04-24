@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { doc, setDoc, Firestore, getDoc, updateDoc } from 'firebase/firestore/lite';
+import {doc, setDoc, Firestore, getDoc, updateDoc, getDocs, query, collection, where} from 'firebase/firestore/lite';
 import { Auth, setPersistence,onAuthStateChanged, browserLocalPersistence,createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, signOut } from 'firebase/auth';
 import { FirebaseService } from '../firebase.service';
 import User from "../../schemas/User.scheme";
@@ -64,10 +64,10 @@ export class FirebaseAuthService {
   async signUp(username: string, email: string, password: string): Promise<User> {
     try {
 
-      await createUserWithEmailAndPassword(this._auth, email, password);
+      const cred = await createUserWithEmailAndPassword(this._auth, email, password);
 
       // Set the user's document with the username as the document ID
-      await setDoc(doc(this._db, this._coll, username), {
+      await setDoc(doc(this._db, this._coll, cred.user.uid), {
         username: username,
         email: email,
         password: password,
@@ -109,14 +109,14 @@ export class FirebaseAuthService {
   }
   async signIn(username: string, password: string): Promise<User | null> {
     try {
-
+      // Get the email associated with the provided username
       const email = await this.getUserEmailByUsername(username);
 
+      // Sign in with email and password
+      const credentials = await signInWithEmailAndPassword(this._auth, email, password);
 
-      await signInWithEmailAndPassword(this._auth, email, password);
-
-      // Return the user data
-      const user = await this.getUserData(username);
+      // Get user data
+      const user = await this.getUserData(credentials.user.uid);
 
       this._currentUserSubject.next(user);
 
@@ -138,28 +138,35 @@ export class FirebaseAuthService {
   }
 
   private async getUserEmailByUsername(username: string): Promise<string> {
-    const userRef = doc(this._db, this._coll, username);
-    const userDoc = await getDoc(userRef);
+    try {
+      const querySnapshot = await getDocs(query(collection(this._db, this._coll), where("username", "==", username)));
 
-    if (!userDoc.exists()) {
-      console.log('User not found');
-      throw new Error('User not found');
+      if (querySnapshot.size === 0) {
+        console.log('User not found');
+        throw new Error('User not found');
+      }
+
+      // Assuming username is unique, there will be only one document
+      const userDoc = querySnapshot.docs[0];
+      return userDoc.get('email');
+    } catch (error) {
+      console.error("Error getting user email by username:", error);
+      throw error;
     }
-
-    return userDoc.get('email');
   }
 
-  private async getUserData(username: string): Promise<User | null> {
+
+  private async getUserData(uid: string): Promise<User | null> {
     try {
-      const docRef = doc(this._db, this._coll, username); // Fetch document by username
+      const docRef = doc(this._db, this._coll, uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         const userData = docSnap.data() as User;
-        console.log("User document found for username:", username);
+        console.log("User document found for username:", uid);
         return userData;
       } else {
-        console.log("User document not found for username:", username);
+        console.log("User document not found for username:", uid);
         return null;
       }
     } catch (error) {
