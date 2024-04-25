@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, input, Output, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  input,
+  OnChanges,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {UsersService} from "../../../services/user/users.service";
 import {ContentsService} from "../../../services/contents.service";
 import {NgClass} from "@angular/common";
@@ -13,7 +22,7 @@ import {NgClass} from "@angular/common";
   styleUrl: './maininfo.component.css'
 
 })
-export class MaininfoComponent {
+export class MaininfoComponent implements OnChanges {
   contentLists = [ 'completed', 'planToWatch', 'dropped', 'watching' ];
   controlButtons = {
     listClicked:false,
@@ -94,6 +103,7 @@ export class MaininfoComponent {
   async checkFavorites(): Promise<void> {
     if (this.user && this.id) {
       this.isInFavorites = await this.userService.checkOnList(this.user, this.id, "favorites");
+      console.log(this.isInFavorites, this.user, this.id);
     } else {
       this.isInFavorites = false;
     }
@@ -102,6 +112,7 @@ export class MaininfoComponent {
     if (this.user) {
       this.contentService.like(this.user, <string>this.id).then(likes => {
         this.likes = likes
+        console.log("like",likes);
         this.likesChanged.emit(likes);
         this.isInFavorites = !this.isInFavorites; // Toggle favorite status
       });

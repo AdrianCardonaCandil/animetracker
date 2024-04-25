@@ -110,7 +110,6 @@ export class FirebaseContentService {
       const userData = userDocSnapshot.data();
       const contentData = contentDocSnapshot.data();
       const favorites = userData["favorites"] || [];
-
       if (favorites.includes(contentId)) {
         await updateDoc(contentDocRef, {
           likes: increment(-1)

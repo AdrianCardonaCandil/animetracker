@@ -66,7 +66,7 @@ export class FirebaseUserService {
     return querySnapshot.docs.length ? parse(querySnapshot.docs[0].data()) : null;
   }
 
-  checkOnList = async (contentId: string, nameList: string, userId: string) => {
+  checkOnList = async (userId: string,contentId: string, nameList: string, ) => {
     try {
       const userDoc = await getDoc(doc(this._db, this._coll, userId));
       if (!userDoc.exists()) {
