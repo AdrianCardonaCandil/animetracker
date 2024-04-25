@@ -1,0 +1,137 @@
+
+.user-profile-description::-webkit-scrollbar {
+  display: none;
+}
+
+.user-profile-info {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1D1D1F;
+  box-shadow: 0 0 15px 4px rgba(255, 255,255, 0.1);
+  gap:3%;
+  border-radius: 10px;
+  padding: 2em;
+}
+
+.user-profile-image {
+  min-height: 10em;
+  max-height: 10em;
+  max-width: 10em;
+  min-width: 10em;
+  margin-left:3.5%;
+  border-radius: 5em;
+
+}
+
+.user-profile-details {
+  position: relative;
+  flex:10;
+
+  height:10em;
+  color:white;
+  text-align: left;
+  display: flex;
+  flex-flow: column nowrap;
+
+  gap: 10%;
+}
+
+.user-profile-name {
+  font-size: var(--medium-big-font-size);
+  font-weight: bold;
+}
+
+.user-profile-description {
+  text-align: justify;
+  line-height:1.2em;
+  font-size: var(--medium-font-size);
+  overflow: auto;
+  max-height: 50%;
+}
+
+.user-profile-edit-btn {
+  flex:2;
+  background-color: #6e839a;
+  color: #ffffff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size:var(--medium-font-size);
+  text-decoration: none;
+  overflow: hidden;
+  padding: 1em 0.5em;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  height:fit-content;
+  margin: 2% 2%;
+
+}
+.user-profile-edit-btn{
+  flex:none;
+}
+.user-profile-edit-btn:hover {
+  background-color: #333333;
+}
+
+@media screen and (width < 70em) and (width >= 35em){
+  .user-profile-info {
+    flex-flow: row wrap;
+    justify-content: center;
+
+
+  }
+
+  .user-profile-image {
+    flex: 0 0 40%;
+    height: auto;
+    margin-top: 1em;
+    align-items: center;
+  }
+
+  .user-profile-details {
+    flex: 0 0 45%;
+    height: auto;
+    margin-top: 1em;
+  }
+  .user-profile-edit-btn{
+    flex:none;
+  }
+}
+@media screen and (width < 35rem) {
+
+  .user-profile-edit-btn{
+    flex:none;
+  }
+
+  .user-profile-details {
+    flex:10;
+    height:100%;
+    color:white;
+    text-align: left;
+    display: flex;
+    margin: 0 5%;
+
+  }
+
+  .user-profile-info {
+    flex-flow: column nowrap;
+  }
+
+  .user-profile-image {
+    margin-top: 5%;
+    flex:30;
+    min-height: 10em;
+    max-height: 10em;
+    max-width: 10em;
+    min-width: 10em;
+    margin-left:3.5%;
+
+  }
+
+}
+
+
+
