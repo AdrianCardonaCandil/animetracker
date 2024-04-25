@@ -1,0 +1,11 @@
+
+  <div class="user-profile-info">
+<img alt="User Image" class="user-profile-image" src= "../../../../assets/images/frieren.jpg">
+<div class="user-profile-details">
+  <div class="user-profile-name">{{ username }}</div>
+  <div class="user-profile-description">{{ description }}</div>
+</div>
+    @if(userId===accountId && accountId !==undefined){
+  <button class="user-profile-edit-btn" id="editProfileBtn">Edit Profile</button>
+    }
+</div>
