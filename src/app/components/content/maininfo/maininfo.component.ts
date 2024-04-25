@@ -1,10 +1,14 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, input, Output, SimpleChanges} from '@angular/core';
 import {UsersService} from "../../../services/user/users.service";
+import {ContentsService} from "../../../services/contents.service";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-maininfo',
   standalone: true,
-  imports: [],
+  imports: [
+    NgClass
+  ],
   templateUrl: './maininfo.component.html',
   styleUrl: './maininfo.component.css'
 
@@ -16,7 +20,8 @@ export class MaininfoComponent {
     rateClicked:false
   }
   selectedList: string | null = null;
-
+  isInFavorites: boolean = false;
+  listSelected: boolean = false;
   @Input() id?: string;
   @Input() user?: string;
   @Input() likes?: number;
@@ -32,19 +37,21 @@ export class MaininfoComponent {
     }
   );
   constructor(
+    private contentService: ContentsService,
     private userService: UsersService
   ) { }
-  toggleToListDropdown() {
-    if (this.user && this.id) {
-      this.controlButtons.listClicked = !this.controlButtons.listClicked;
-    }else {
-      alert('You need to be logged in to add animes to lists');
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('user' in changes || 'id' in changes) {
+      this.checkFavorites();
+      this.setDefaultSelectedList();
     }
   }
 
-  toggleRateDropdown() {
+  // lists related methods
+  toggleToListDropdown() {
     if (this.user && this.id) {
-      this.controlButtons.rateClicked = !this.controlButtons.rateClicked;
+      this.controlButtons.listClicked = !this.controlButtons.listClicked;
     }else {
       alert('You need to be logged in to add animes to lists');
     }
@@ -82,6 +89,34 @@ export class MaininfoComponent {
     return this.selectedList === option;
   }
 
+  // like related methods
 
+  async checkFavorites(): Promise<void> {
+    if (this.user && this.id) {
+      this.isInFavorites = await this.userService.checkOnList(this.user, this.id, "favorites");
+    } else {
+      this.isInFavorites = false;
+    }
+  }
+  likeContent(): void {
+    if (this.user) {
+      this.contentService.like(this.user, <string>this.id).then(likes => {
+        this.likes = likes
+        this.likesChanged.emit(likes);
+        this.isInFavorites = !this.isInFavorites; // Toggle favorite status
+      });
+    } else {
+      alert('You need to be logged in to give likes.');
+    }
+  }
+  // rate related methods
+
+  toggleRateDropdown() {
+    if (this.user && this.id) {
+      this.controlButtons.rateClicked = !this.controlButtons.rateClicked;
+    }else {
+      alert('You need to be logged in to add animes to lists');
+    }
+  }
 
 }

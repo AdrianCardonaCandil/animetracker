@@ -10,4 +10,5 @@ export default interface Contents {
     findCharacters(id:number):Promise<Characters|null>
     findEpisodes(id:number, page:number):Promise<Episodes|null>
     findCharacter(id:number):Promise<Character|null>
+    like(userId: string, contentId: string):Promise<number>
 }

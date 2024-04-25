@@ -43,9 +43,9 @@
             }
         </div>
         <div id="favorites" class="control-option">
-            <button class="control-button">
-                <i class="fa-solid fa-heart"></i>
-            </button>
+          <button class="control-button" type="button"
+                  [ngClass]="{'fa': true, 'fa-heart': true, 'shadow': isInFavorites, 'black': !isInFavorites, 'liked': isInFavorites}"
+                  (click)="likeContent()" aria-hidden="true"></button>
         </div>
     </section>
 </section>

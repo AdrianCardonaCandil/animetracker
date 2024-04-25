@@ -21,6 +21,8 @@ export class ContentsService implements Contents {
     this.dbService = dbService;
   }
 
+
+
   // Finds a content by ID. Returned from the db if finded. Otherwise, returned from api and stored on db.
   findById = (id:number):Promise<Content|null> => {
     return this.dbService.findById(id, "Contents").then(content => {
@@ -65,7 +67,7 @@ export class ContentsService implements Contents {
 
   // Finds the upcoming seasons of contents directly from the API used.
   findUpcoming = (limit:number, page?:number) => this.apiService.findupcoming(limit, page ? page : 1).then(contents => {return {...contents, data:contents.data.map((content:any) => parseContent(content))}});
-  
+
 
   // Finds character information by ID. Returned from the db if finded. Otherwise, returned from api and stored on db.
   findCharacter = (id:number):Promise<Character|null> => {
@@ -78,5 +80,9 @@ export class ContentsService implements Contents {
   // Queries the contents database with a set of parameters and a set of options. Returns the docs founded that satisfies given queries.
   find(params:[contentAtributeNames, WhereFilterOp, string][], option:filterOptions):Promise<(Content | null)[] | null>{
     return this.dbService.find(params, option);
+  }
+
+  like(userId: string , contentId: string): Promise<number> {
+   return this.dbService.like(userId, contentId);
   }
 }

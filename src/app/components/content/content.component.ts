@@ -25,7 +25,7 @@ export class ContentComponent implements OnInit{
   contentService:ContentsService;
   route:ActivatedRoute;
   // Content definition and fallback
-  content:Content = {title:'Not Defined', id:0, score:0, season:'Not Defined', duration:'Not Defined', episodes:0, source:'', genres:[], studios:[], synopsis:'', type:'', year:0, status:'', coverimage:'assets/images/frieren.jpg', backgroundimage:'assets/images/frieren.jpg', rating:''};
+  content:Content = {title:'Not Defined', id:0, score:0, season:'Not Defined', duration:'Not Defined', episodes:0, source:'', genres:[], studios:[], synopsis:'', type:'', year:0, status:'', coverimage:'assets/images/frieren.jpg', backgroundimage:'assets/images/frieren.jpg', rating:'', likes:0};
 
   constructor(contentService:ContentsService, route:ActivatedRoute, private authService: AuthService,){
     this.contentService = contentService;

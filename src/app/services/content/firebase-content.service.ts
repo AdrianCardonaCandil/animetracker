@@ -94,4 +94,44 @@ export class FirebaseContentService {
       return null
     }
   }
+
+  like = async (userId:string, contentId:string) => {
+    try {
+      const userDocRef = doc(this.db, "Users", userId);
+      const contentDocRef = doc(this.db, this.coll, contentId);
+
+      // Check if the content is already in favorites
+      const userDocSnapshot = await getDoc(userDocRef);
+      const contentDocSnapshot = await getDoc(contentDocRef);
+      if (!userDocSnapshot.exists()) {
+        return false;
+      }
+
+      const userData = userDocSnapshot.data();
+      const contentData = contentDocSnapshot.data();
+      const favorites = userData["favorites"] || [];
+
+      if (favorites.includes(contentId)) {
+        await updateDoc(contentDocRef, {
+          likes: increment(-1)
+        });
+        await updateDoc(userDocRef, {
+          favorites: arrayRemove(contentId)
+        });
+        return contentData ? contentData["likes"] - 1 : 0
+      }
+
+      await updateDoc(contentDocRef, {
+        likes: increment(1)
+      });
+
+      await updateDoc(userDocRef, {
+        favorites: arrayUnion(contentId)
+      });
+      return contentData ? contentData["likes"] + 1 : 0
+
+    } catch (error) {
+      return false;
+    }
+  }
 }
