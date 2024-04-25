@@ -46,4 +46,9 @@ export class ContentComponent implements OnInit{
     });
 
   }
+
+  onLikesChanged(likes: number) {
+    this.content.likes = likes;
+  }
+  protected readonly String = String;
 }
