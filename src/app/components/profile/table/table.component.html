@@ -1,0 +1,53 @@
+<section class="table-descriptor">
+
+  <p class="table-title">Title</p>
+  @if(!isDropped ){
+    @if(listName === "watching"){
+      <p class="table-title">User Progress</p>
+    }
+    @else {
+      <p class="table-title">User Score</p>
+    }
+  } @else {
+    <p class="table-title">Year</p>
+  }
+  <p class="table-title">Score</p>
+  <p class="table-title">Type</p>
+  <p class="table-title last_title">Genres</p>
+</section>
+
+<ng-container *ngIf="list">
+  <ng-container *ngFor="let item of list | keyvalue">
+    @if (listName === "watching") {
+
+      <app-progress-row
+        [rowTitle]="item.value.title"
+        [rowContentCover]="item.value.coverImg"
+        [rowContentScore]="item.value.score"
+        [rowType]="item.value.type"
+        [rowContentId]="item.key"
+        [rowGenres]="item.value.genres"
+        [user] = user?.id
+        [rowProgress]="item.value.contentProgress"
+        [episodes]="item.value.episodes"
+        [accountId] = "accountId"
+        (changeToCompleted)="updateListOnCompleted($event)">
+
+        ></app-progress-row>
+    } @else{
+    <app-normal-row
+      [rowTitle]="item.value.title"
+      [rowContentCover]="item.value.coverImg"
+      [rowContentScore]="item.value.score"
+      [rowType]="item.value.type"
+      [rowYear]="item.value.year"
+      [isDropped]="isDropped"
+      [rowUserScore]="item.value.userScore"
+      [rowContentId]="item.key"
+      [rowGenre]="item.value.genres"
+      class="positions">
+    </app-normal-row>
+    }
+  </ng-container>
+</ng-container>
+

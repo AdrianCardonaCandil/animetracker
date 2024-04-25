@@ -1,0 +1,35 @@
+.table-descriptor {
+  flex: 1;
+  min-height: 1cm;
+  padding: 1em;
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content:space-around;
+  font-size: var(--medium-font-size);
+}
+.table-descriptor {
+  background-color: #1D1D1F88;
+}
+
+.table-descriptor > p {
+  margin: 0;
+  color: white;
+}
+
+.positions {
+  width:100%;
+  display:block;
+  color: #f5f5f5;
+  overflow: auto;
+}
+
+.positions::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (width < 35rem){
+.last_title {
+  display: none;
+}
+}
