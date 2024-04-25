@@ -5,6 +5,9 @@ import { ContentnavComponent } from './contentnav/contentnav.component';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { ContentsService } from '../../services/contents.service';
 import { Content } from '../../schemas/Content.scheme';
+import {AuthService} from "../../services/auth/auth.service";
+import User from "../../schemas/User.scheme";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-content',
@@ -15,17 +18,32 @@ import { Content } from '../../schemas/Content.scheme';
 })
 export class ContentComponent implements OnInit{
 
+  id?: string
+  userId?: string;
+  loggedInUser: Observable<User | null>
+
   contentService:ContentsService;
   route:ActivatedRoute;
   // Content definition and fallback
   content:Content = {title:'Not Defined', id:0, score:0, season:'Not Defined', duration:'Not Defined', episodes:0, source:'', genres:[], studios:[], synopsis:'', type:'', year:0, status:'', coverimage:'assets/images/frieren.jpg', backgroundimage:'assets/images/frieren.jpg', rating:''};
 
-  constructor(contentService:ContentsService, route:ActivatedRoute){
+  constructor(contentService:ContentsService, route:ActivatedRoute, private authService: AuthService,){
     this.contentService = contentService;
     this.route = route;
+    this.loggedInUser = this.authService.user
   }
 
   ngOnInit(){
-   this.contentService.findById(Number(this.route.snapshot.paramMap.get('id'))).then(content => content ? this.content = content : null).then(content => console.log(content));
+    this.contentService.findById(Number(this.route.snapshot.paramMap.get('id')))
+      .then(content => {
+        if (content) {
+          this.content = content;
+          this.id = String(this.content.id);
+        }
+      });
+   this.authService.user.subscribe((user: User | null) => {
+      this.userId = user?.id;
+    });
+
   }
 }

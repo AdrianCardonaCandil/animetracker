@@ -20,7 +20,8 @@
                     @for(list of contentLists; track $index){
                         <div class="add-to-list-option">
                             <label [for]="list + '-radio'"> {{ list }} </label>
-                            <input type="radio" name="add to list radio" [id]="list + '-radio'">
+                            <input type="radio" name="add to list radio" [id]="list + '-radio'"
+                                   (click)="listSelection(list)" [checked]="isListSelected(list)">
                         </div>
                     }
                 </div>
