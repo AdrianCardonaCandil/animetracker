@@ -1,0 +1,14 @@
+<a [routerLink]="['/content-page',rowContentId]">
+<div class="position-content">
+  <p class=" position position-title" >{{rowTitle}}</p>
+  @if(!isDropped){
+    <p class="position position-user-score">{{rowUserScore}}</p>
+  } @else {
+    <p class="position position-year">{{rowYear}}</p>
+  }
+  <p class="position position-score" >{{rowContentScore}}</p>
+  <p class="position position-user-type">{{rowType}}</p>
+  <p class="position position-status">{{rowGenre}}</p>
+  <img alt="" title="" src= "{{rowContentCover}}">
+</div>
+</a>
