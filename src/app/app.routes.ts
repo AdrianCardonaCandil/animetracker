@@ -4,6 +4,7 @@ import { ContentComponent } from './components/content/content.component';
 import { CharactersComponent } from './components/content/characters/characters.component';
 import { EpisodesComponent } from './components/content/episodes/episodes.component';
 import { SearchComponent } from './components/search/search.component';
+import { RankingComponent } from './components/ranking/ranking.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,8 @@ export const routes: Routes = [
     },
     {
         'path':'search/:page', component:SearchComponent
+    },
+    {
+        'path':'ranking', component:RankingComponent
     }
 ];

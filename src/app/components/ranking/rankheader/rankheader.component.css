@@ -1,0 +1,17 @@
+#ranking-header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    background-color: var(--black-mo);
+    color: var(--snow-color);
+    height: 4rem;
+    box-shadow: var(--black-box-shadow);
+}
+
+#ranking-header p {
+    flex: 1;
+    align-content: center;
+    height: 100%;
+    font-size: large;
+    text-align: center;
+}

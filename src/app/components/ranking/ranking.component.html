@@ -1,0 +1,6 @@
+<main>
+    <app-rankheader></app-rankheader>
+    @for(content of this.rankingPositions ;track $index){
+        <app-rankposition [attributes]="[$index + 1, this.rankingPositions[$index].title, this.rankingPositions[$index].score, this.rankingPositions[$index].status]" [contentId]="this.rankingPositions[$index].id" [rankingBackground]="this.rankingPositions[$index].coverimage || this.rankingPositions[$index].backgroundimage"></app-rankposition>
+    }
+</main>

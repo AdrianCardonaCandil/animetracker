@@ -1,0 +1,8 @@
+<article id="rank-position">
+    <a class="position-anchor" [routerLink]="['/content', this.contentId]">
+    @for(attr of attributes; track $index){
+        <p class="position-attribute"> {{ attr }} </p>
+    }
+    <img alt="anime cover image" [src]="this.rankingBackground">
+    </a>
+</article>

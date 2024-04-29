@@ -26,6 +26,6 @@ export class ContentComponent implements OnInit{
   }
 
   ngOnInit(){
-   this.contentService.findById(Number(this.route.snapshot.paramMap.get('id'))).then(content => content ? this.content = content : null).then(content => console.log(content));
+   this.contentService.findById(Number(this.route.snapshot.paramMap.get('id'))).then(content => content ? this.content = content : null);
   }
 }
