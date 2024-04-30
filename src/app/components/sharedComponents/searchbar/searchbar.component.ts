@@ -72,6 +72,7 @@ export class SearchbarComponent implements AfterViewInit{
     if (this.router.url == '/'){
       localStorage.setItem('options', JSON.stringify({...this.options}));
       this.router.navigate(['/search', 1]);
+      return;
     }
 
     this.optionsChange.emit({...this.options});
