@@ -70,8 +70,9 @@ export class EditProfileComponent {
         this.editDetailsForm.get('email')?.setErrors({ 'emailExists': true });
         return;
       }
-      //this.usersService.modifyUserDetails({username, email, description})
-
+      if(this.userId) {
+        this.usersService.modifyUserDetails(this.userId, username, email, description)
+      }
     }
   }
 

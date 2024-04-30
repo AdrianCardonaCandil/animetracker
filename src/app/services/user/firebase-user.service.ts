@@ -255,7 +255,7 @@ export class FirebaseUserService {
   }
   checkEmailExistence = async (email: string) => {
 
-    const emailQuery = query(collection(this._db, "Users"), where("email", "==", email));
+    const emailQuery = query(collection(this._db, this._coll), where("email", "==", email));
 
     const [emailDocs] = await Promise.all([
       getDocs(emailQuery),
@@ -263,5 +263,22 @@ export class FirebaseUserService {
 
     return (!emailDocs.empty)
 
+  }
+
+  async modifyUserDetails(uid: string, username: string, email: string, description: string) {
+    const userRef = doc(this._db, this._coll, uid);
+    const userDoc = await getDoc(userRef);
+    if (!userDoc.exists) {
+      throw new Error('User not found');
+    }
+    const userData = userDoc.data() || {}
+    const username_data = userData['username'] || '';
+    const description_data = userData['description'] || '';
+    const email_data = userData['email'] || '';
+
+    (username_data !== username) ? await updateDoc(userRef, { username : username_data  }) : null;
+    (description_data !== description) ? await updateDoc(userRef, { description : description_data  }) : null;
+    (email_data !== email) ? await updateDoc(userRef, { email : email_data  }) : null;
+    return true
   }
 }

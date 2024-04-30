@@ -12,4 +12,5 @@ export default interface Users {
   decrementEpisodesCount: (userId: string , contentId: string ) => Promise<number>
   checkUserExistance:(username:string) => Promise<boolean>
   checkEmailExistance:(email:string) => Promise<boolean>
+  modifyUserDetails: ( uid: string, username: string, email: string, description: string ) => Promise<boolean>
  }
