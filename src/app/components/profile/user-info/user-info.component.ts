@@ -12,6 +12,7 @@ import {EditProfileComponent} from "../edit-profile/edit-profile.component";
 })
 export class UserInfoComponent {
   @Input() username?: string;
+  @Input() email?: string;
   @Input() description?: string;
   @Input() profilePicture?: string;
   @Input() accountId?: string;

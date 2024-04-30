@@ -12,31 +12,36 @@
       <form [formGroup]="editDetailsForm" (ngSubmit)="submitForm()" class="edit-details-form">
         <label class="container-form-label">
           <input class="container-form-input" id="username" formControlName="username"
-                 placeholder="Enter your username" type="text"
+                 placeholder='{{username}}' type="text"
+                 [(ngModel)]="username"
                  [ngClass]="{'valid': editDetailsForm.get('username')?.valid, 'invalid': editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)}">
         </label>
-          <div *ngIf="editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)" class="alert">
-            <div *ngIf="editDetailsForm.get('username')?.errors?.['minlength']" class="error-message">Username must be at least 2 characters long.</div>
-          </div>
+        <div *ngIf="editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)" class="alert">
+          <div *ngIf="editDetailsForm.get('username')?.errors?.['minlength']" class="error-message">Username must be at least 2 characters long.</div>
+          <div *ngIf="editPasswordForm.get('username')?.errors?.['usernameExists']" class="alert">
+        </div>
         <label class="edit-details-form-label">
           <input class="container-form-input" id="email" formControlName="email"
-                 placeholder="Enter your email" type="email"
+                 placeholder="{{email}}" type="email"
+                 [(ngModel)]="email"
                  [ngClass]="{'valid': editDetailsForm.get('email')?.valid, 'invalid': editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)}">
         </label>
         <div *ngIf="editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)" class="alert">
           <div *ngIf="editDetailsForm.get('email')?.errors?.['email']" class="error-message">Invalid email format.</div>
+          <div *ngIf="editPasswordForm.get('email')?.errors?.['emailExists']" class="alert">
         </div>
         <label class="container-form-label" for="description">
           <textarea class="container-form-input form-control" id="description" formControlName="description"
-                 placeholder="description" minlength="10" maxlength="500" type="text"
-                 [ngClass]="{'valid': editDetailsForm.get('description')?.valid, 'invalid': editDetailsForm.get('description')?.invalid && (editDetailsForm.get('description')?.dirty || editDetailsForm.get('description')?.touched)}">
+                    placeholder="{{description}}" minlength="10" maxlength="500" type="text"
+                    [(ngModel)]="description"
+                    [ngClass]="{'valid': editDetailsForm.get('description')?.valid, 'invalid': editDetailsForm.get('description')?.invalid && (editDetailsForm.get('description')?.dirty || editDetailsForm.get('description')?.touched)}">
           </textarea>
         </label>
-          <div *ngIf="editDetailsForm.get('description')?.invalid && (editDetailsForm.get('description')?.dirty || editDetailsForm.get('description')?.touched)"
-               class="alert">
-            <div *ngIf="editDetailsForm.get('description')?.errors?.['minlength']" class="error-message">description must be at least 10 characters long.</div>
-            <div *ngIf="editDetailsForm.get('description')?.errors?.['maxlength']" class="error-message">description can't be more than 500 characters long.</div>
-          </div>
+        <div *ngIf="editDetailsForm.get('description')?.invalid && (editDetailsForm.get('description')?.dirty || editDetailsForm.get('description')?.touched)"
+             class="alert">
+          <div *ngIf="editDetailsForm.get('description')?.errors?.['minlength']" class="error-message">description must be at least 10 characters long.</div>
+          <div *ngIf="editDetailsForm.get('description')?.errors?.['maxlength']" class="error-message">description can't be more than 500 characters long.</div>
+        </div>
         <button class="container-form-button" type="submit">Update</button>
       </form>
     </section>
@@ -67,6 +72,7 @@
     <div class="edit-profile-button-group">
       <form [formGroup]="editPfpForm" (ngSubmit)="updateProfilePicture()" class="edit-pfp-form">
         <input accept="image/*" class="container-choose-image-button" (change)="onProfileImageChange($event)" formControlName="profileImage" type="file"
+
                [ngClass]="{'valid': editPfpForm.get('profileImage')?.valid, 'invalid': editPfpForm.get('profileImage')?.invalid && (editPfpForm.get('profileImage')?.dirty || editPfpForm.get('profileImage')?.touched)}">
         <img *ngIf="profileImage" class="container-chosen-image" [src]="(profileImage)" alt="Selected Image">
         <div *ngIf="editDetailsForm.get('profileImage')?.invalid && (editDetailsForm.get('profileImage')?.dirty || editDetailsForm.get('profileImage')?.touched)"
@@ -77,5 +83,5 @@
       </form>
     </div>
   </section>
-<button class="deleteProfile" (click)="deleteProfile()">Delete Profile</button>
+  <button class="deleteProfile" (click)="deleteProfile()">Delete Profile</button>
 </section>

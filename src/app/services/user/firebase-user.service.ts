@@ -15,6 +15,7 @@ import {
   or,
   Firestore
 } from 'firebase/firestore/lite';
+import {updateEmail} from 'firebase/auth'
 import { FirebaseService } from '../firebase.service';
 import { Auth } from "firebase/auth";
 import { BehaviorSubject } from "rxjs"; // Import BehaviorSubject from rxjs
@@ -26,9 +27,11 @@ export class FirebaseUserService {
 
   private _coll = "Users";
   private _db: Firestore;
+  private _auth: Auth;
 
   constructor(private firebaseService: FirebaseService) {
     this._db = this.firebaseService.db;
+    this._auth = this.firebaseService.auth;
   }
 
   get db(): Firestore {
@@ -266,19 +269,55 @@ export class FirebaseUserService {
   }
 
   async modifyUserDetails(uid: string, username: string, email: string, description: string) {
+
     const userRef = doc(this._db, this._coll, uid);
     const userDoc = await getDoc(userRef);
+
     if (!userDoc.exists) {
       throw new Error('User not found');
     }
-    const userData = userDoc.data() || {}
-    const username_data = userData['username'] || '';
-    const description_data = userData['description'] || '';
-    const email_data = userData['email'] || '';
 
-    (username_data !== username) ? await updateDoc(userRef, { username : username_data  }) : null;
-    (description_data !== description) ? await updateDoc(userRef, { description : description_data  }) : null;
-    (email_data !== email) ? await updateDoc(userRef, { email : email_data  }) : null;
-    return true
+    const userData = userDoc.data() || {};
+
+    const usernameData = userData['username'] || '';
+    const descriptionData = userData['description'] || '';
+    const emailData = userData['email'] || '';
+
+    const isEmailModified = emailData !== email;
+
+    if (isEmailModified) {
+      try {
+        if (this._auth.currentUser) {
+          await Promise.all([
+            updateDoc(userRef, {email: email}),
+            updateEmail(this._auth.currentUser, email)
+          ]);
+        }
+      } catch (error) {
+        console.error('Error updating email:', error);
+        throw error;
+      }
+    }
+
+    // Update other details
+    const updates: any = {}; // Object to store updates
+    if (usernameData !== username) {
+      updates.username = username;
+    }
+    if (descriptionData !== description) {
+      updates.description = description;
+    }
+
+    if (Object.keys(updates).length > 0) {
+      try {
+        await updateDoc(userRef, updates);
+        return true;
+      } catch (error) {
+        console.error('Error updating user details:', error);
+        throw error;
+      }
+    }
+    return true;
   }
+
 }

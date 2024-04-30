@@ -14,15 +14,22 @@ import {NgClass, NgIf} from "@angular/common";
     NgIf,
     NgClass
   ],
-  styleUrls: ['./edit-profile.component.css']
+  styleUrl: './edit-profile.component.css'
 })
 export class EditProfileComponent {
   @Output() editProfile = new EventEmitter();
+  @Output() updateProfileDetails = new EventEmitter();
+  @Output() updatePfp = new EventEmitter();
   @Input() userId?: string;
+  @Input() username?: string;
+  @Input() email?: string;
+  @Input() description?: string;
+
   editDetailsForm: FormGroup;
   editPasswordForm: FormGroup;
   editPfpForm: FormGroup;
   profileImage: File | null = null;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,9 +63,13 @@ export class EditProfileComponent {
   }
 
   async submitForm() {
+    console.log("submitting forms")
+    console.log(this.editDetailsForm.valid)
+    console.log(this.editDetailsForm.errors)
     if (this.editDetailsForm.valid) {
+      console.log("details form is valid")
       const { username, email, description } = this.editDetailsForm.value;
-
+      console.log(username)
       const usernameExists = await this.checkUsernameExists(username);
       if (usernameExists) {
         this.editDetailsForm.get('username')?.setErrors({ 'usernameExists': true });
@@ -71,7 +82,12 @@ export class EditProfileComponent {
         return;
       }
       if(this.userId) {
-        this.usersService.modifyUserDetails(this.userId, username, email, description)
+        this.usersService.modifyUserDetails(this.userId, username, email, description).then( r => {
+          if (r) {
+            this.updateProfileDetails.emit({username,email,description} )
+            this.closeEdit()
+          }
+        })
       }
     }
   }
@@ -104,11 +120,11 @@ export class EditProfileComponent {
   }
 
   async checkUsernameExists(username: string): Promise<boolean> {
-    return this.usersService.checkUserExistence(username);
+    return  await this.usersService.checkUserExistence(username);
   }
 
   async checkEmailExists(email: string): Promise<boolean> {
-    return this.usersService.checkEmailExistence(email);
+    return await this.usersService.checkEmailExistence(email);
   }
 
   getUsernameErrorMessage() {
