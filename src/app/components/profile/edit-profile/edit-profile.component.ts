@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from "../../../services/auth/auth.service";
 import { UsersService } from "../../../services/user/users.service";
@@ -17,6 +17,7 @@ import {NgClass, NgIf} from "@angular/common";
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent {
+  @Output() editProfile = new EventEmitter();
   @Input() userId?: string;
   editDetailsForm: FormGroup;
   editPasswordForm: FormGroup;
@@ -56,7 +57,7 @@ export class EditProfileComponent {
 
   async submitForm() {
     if (this.editDetailsForm.valid) {
-      const { username, email } = this.editDetailsForm.value;
+      const { username, email, description } = this.editDetailsForm.value;
 
       const usernameExists = await this.checkUsernameExists(username);
       if (usernameExists) {
@@ -69,10 +70,8 @@ export class EditProfileComponent {
         this.editDetailsForm.get('email')?.setErrors({ 'emailExists': true });
         return;
       }
+      //this.usersService.modifyUserDetails({username, email, description})
 
-
-      // Proceed with updating profile
-      // Call relevant service methods here
     }
   }
 
@@ -147,5 +146,9 @@ export class EditProfileComponent {
     if (inputElement.files && inputElement.files[0]) {
       this.profileImage = inputElement.files[0];
     }
+  }
+
+  closeEdit() {
+    this.editProfile.emit();
   }
 }

@@ -21,4 +21,7 @@ export class UserInfoComponent {
   openEditWindow() {
     this.openEdit = true;
   }
+  closeEditWindow() {
+    this.openEdit = false;
+  }
 }

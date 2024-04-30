@@ -245,9 +245,23 @@ export class FirebaseUserService {
   }
 
   checkUserExistance = async (username: string) => {
-    return false;
+    const usernameQuery = query(collection(this._db, this._coll), where("username", "==", username));
+
+    const [usernameDocs] = await Promise.all([
+      getDocs(usernameQuery),
+    ]);
+
+    return (!usernameDocs.empty)
   }
   checkEmailExistence = async (email: string) => {
-    return false;
+
+    const emailQuery = query(collection(this._db, "Users"), where("email", "==", email));
+
+    const [emailDocs] = await Promise.all([
+      getDocs(emailQuery),
+    ]);
+
+    return (!emailDocs.empty)
+
   }
 }

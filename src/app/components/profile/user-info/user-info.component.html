@@ -9,7 +9,7 @@
   <button class="user-profile-edit-btn" id="editProfileBtn" (click)="openEditWindow()">Edit Profile</button>
 
       @if(openEdit){
-        <app-edit-profile></app-edit-profile>
+        <app-edit-profile (editProfile)="closeEditWindow()"></app-edit-profile>
       }
     }
 
