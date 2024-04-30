@@ -19,6 +19,7 @@ import { ActivatedRoute } from "@angular/router"; // Import Users as a named exp
 export class SignUpComponent {
   @Output() signUp = new EventEmitter();
   form: FormGroup;
+  errorSignUp: boolean = false;
   description = "";
   profilePicture = "";
   constructor(private formBuilder: FormBuilder, private Auth: AuthService) {
@@ -35,18 +36,21 @@ export class SignUpComponent {
   submitForm() {
     if (this.form.valid) {
       const { username, email, password } = this.form.value
-
-      // @ts-ignore
+      try {
       this.Auth.signUp({ username, email, password })
-        .then((user: any): any => {
-          if (!user) return null
-
-          this.Auth.signIn({ username, password })
-          this.closesignUp()
-        })
-        .catch((error: any) => {
-          console.error(error);
-        });
+        .then((user)=> {
+          if (user !== null) {
+            this.Auth.signIn({ username, password })
+            this.closesignUp()
+            alert('SignUp successful');
+          } else {
+            this.errorSignUp = true;
+          }
+          })
+        } catch (error) {
+          console.error('Error during login:', error);
+          this.errorSignUp = true;
+        }
     }
     else console.log("NO SUBMIT")
   }

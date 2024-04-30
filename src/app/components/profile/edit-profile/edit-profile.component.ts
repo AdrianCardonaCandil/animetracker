@@ -70,6 +70,7 @@ export class EditProfileComponent {
         return;
       }
 
+
       // Proceed with updating profile
       // Call relevant service methods here
     }

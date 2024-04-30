@@ -45,6 +45,9 @@
     <div *ngIf="form.hasError('passwordMismatch')" class="alert">
       <div class="error-message">Passwords do not match.</div>
     </div>
+    <div *ngIf=errorSignUp class="error-message">
+      Error trying to SignUp, user or email already exists in data base
+    </div>
     <p class="container-form-message">Already signed up? <a class="container-form-link" href="#" id="loginLink">Log
       in</a></p>
     <button class="container-form-button" type="submit" form="form" (click)="submitForm()">Sign In</button>

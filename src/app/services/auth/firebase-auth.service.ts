@@ -61,9 +61,22 @@ export class FirebaseAuthService {
     }
   }
 
-  async signUp(username: string, email: string, password: string): Promise<User> {
+  async signUp(username: string, email: string, password: string): Promise<User | null> {
     try {
 
+      // Check if username or email already exists
+      const usernameQuery = query(collection(this._db, "Users"), where("username", "==", username));
+      const emailQuery = query(collection(this._db, "Users"), where("email", "==", email));
+
+      const [usernameDocs, emailDocs] = await Promise.all([
+        getDocs(usernameQuery),
+        getDocs(emailQuery)
+      ]);
+
+      if (!usernameDocs.empty || !emailDocs.empty) {
+        // Username or email already exists
+        return null;
+      }
       const cred = await createUserWithEmailAndPassword(this._auth, email, password);
 
       // Set the user's document with the username as the document ID
