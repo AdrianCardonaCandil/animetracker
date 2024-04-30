@@ -176,6 +176,8 @@ export class FirebaseAuthService {
     }
   }
 
-
+  deleteAccount = async (userId: string) => {
+    return false;
+  }
 
 }

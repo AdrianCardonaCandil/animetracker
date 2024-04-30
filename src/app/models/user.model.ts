@@ -10,4 +10,6 @@ export default interface Users {
   isOnList: (userId: string , contentId: string ) => Promise<string | null>
   incrementEpisodesCount: (userId: string , contentId: string ) => Promise<number>
   decrementEpisodesCount: (userId: string , contentId: string ) => Promise<number>
-}
+  checkUserExistance:(username:string) => Promise<boolean>
+  checkEmailExistance:(email:string) => Promise<boolean>
+ }

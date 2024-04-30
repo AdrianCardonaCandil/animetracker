@@ -243,4 +243,11 @@ export class FirebaseUserService {
       throw error;
     }
   }
+
+  checkUserExistance = async (username: string) => {
+    return false;
+  }
+  checkEmailExistence = async (email: string) => {
+    return false;
+  }
 }

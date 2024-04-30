@@ -49,4 +49,6 @@ export class AuthService implements Auth {
       map(user => user ? { ...user } : null)
     );
   }
+  deleteAccount = async (userId: string): Promise<boolean> =>
+    this.firebaseAuthService.deleteAccount(userId);
 }
