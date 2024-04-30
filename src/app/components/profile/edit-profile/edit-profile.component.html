@@ -10,17 +10,33 @@
         <h2>Edit Details</h2>
       </span>
       <form [formGroup]="editDetailsForm" (ngSubmit)="submitForm()" class="edit-details-form">
-        <label class="edit-details-form-label">
-          <input class="edit-details-form-input" formControlName="username" placeholder="Username" type="text">
-          <!-- Error message handling for username field -->
+        <label class="container-form-label">
+          <input class="container-form-input" id="username" formControlName="username"
+                 placeholder="Enter your username" type="text"
+                 [ngClass]="{'valid': editDetailsForm.get('username')?.valid, 'invalid': editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)}">
         </label>
+          <div *ngIf="editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)" class="alert">
+            <div *ngIf="editDetailsForm.get('username')?.errors?.['minlength']" class="error-message">Username must be at least 2 characters long.</div>
+          </div>
         <label class="edit-details-form-label">
-          <input class="edit-details-form-input" formControlName="email" placeholder="Email" type="email">
-          <!-- Error message handling for email field -->
+          <input class="container-form-input" id="email" formControlName="email"
+                 placeholder="Enter your email" type="email"
+                 [ngClass]="{'valid': editDetailsForm.get('email')?.valid, 'invalid': editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)}">
         </label>
-        <label class="edit-details-form-label">
-          <textarea class="edit-details-form-input" formControlName="description" placeholder="Description"></textarea>
+        <div *ngIf="editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)" class="alert">
+          <div *ngIf="editDetailsForm.get('email')?.errors?.['email']" class="error-message">Invalid email format.</div>
+        </div>
+        <label class="container-form-label" for="description">
+          <textarea class="container-form-input form-control" id="description" formControlName="description"
+                 placeholder="description" minlength="10" maxlength="500" type="text"
+                 [ngClass]="{'valid': editDetailsForm.get('description')?.valid, 'invalid': editDetailsForm.get('description')?.invalid && (editDetailsForm.get('description')?.dirty || editDetailsForm.get('description')?.touched)}">
+          </textarea>
         </label>
+          <div *ngIf="editDetailsForm.get('description')?.invalid && (editDetailsForm.get('description')?.dirty || editDetailsForm.get('description')?.touched)"
+               class="alert">
+            <div *ngIf="editDetailsForm.get('description')?.errors?.['minlength']" class="error-message">description must be at least 10 characters long.</div>
+            <div *ngIf="editDetailsForm.get('description')?.errors?.['maxlength']" class="error-message">description can't be more than 500 characters long.</div>
+          </div>
         <button class="container-form-button" type="submit">Update</button>
       </form>
     </section>
@@ -30,11 +46,13 @@
       </span>
       <form [formGroup]="editPasswordForm" (ngSubmit)="updatePassword()" class="edit-password-form">
         <label class="container-form-label">
-          <input class="container-form-input" formControlName="password" placeholder="New Password" type="password">
+          <input class="container-form-input" formControlName="password" placeholder="New Password" type="password"
+                 [ngClass]="{'valid': editPasswordForm.get('password')?.valid, 'invalid': editPasswordForm.get('password')?.invalid && (editPasswordForm.get('password')?.dirty || editPasswordForm.get('password')?.touched)}">>
         </label>
         <label class="container-form-label">
-          <input class="container-form-input" formControlName="repeat_password" placeholder="Repeat Password" type="password">
-          <div *ngIf="editPasswordForm.get('repeat_password')?.errors?.passwordMismatch" class="alert">
+          <input class="container-form-input" formControlName="repeat_password" placeholder="Repeat Password" type="password"
+                 [ngClass]="{'valid': editPasswordForm.get('repeat_password')?.valid, 'invalid':editPasswordForm.get('repeat_password')?.invalid && (editPasswordForm.get('repeat_password')?.dirty || editPasswordForm.get('repeat_password')?.touched)}">
+          <div *ngIf="editPasswordForm.get('repeat_password')?.errors?.['passwordMismatch']" class="alert">
             <div class="error-message">Passwords do not match.</div>
           </div>
         </label>
@@ -48,8 +66,9 @@
     </span>
     <div class="edit-profile-button-group">
       <form [formGroup]="editPfpForm" (ngSubmit)="updateProfilePicture()" class="edit-pfp-form">
-        <input accept="image/*" class="container-choose-image-button" (change)="onProfileImageChange($event)" formControlName="profileImage" type="file">
-        <img *ngIf="profileImage" class="container-chosen-image" [src]="URL.createObjectURL(profileImage)" alt="Selected Image">
+        <input accept="image/*" class="container-choose-image-button" (change)="onProfileImageChange($event)" formControlName="profileImage" type="file"
+               [ngClass]="{'valid': editPfpForm.get('profileImage')?.valid, 'invalid': editPfpForm.get('profileImage')?.invalid && (editPfpForm.get('profileImage')?.dirty || editPfpForm.get('profileImage')?.touched)}">
+        <img *ngIf="profileImage" class="container-chosen-image" [src]="(profileImage)" alt="Selected Image">
         <button class="container-form-button" type="submit">Update</button>
       </form>
     </div>

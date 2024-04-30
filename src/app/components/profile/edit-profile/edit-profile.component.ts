@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from "../../../services/auth/auth.service";
 import { UsersService } from "../../../services/user/users.service";
+import {NgClass, NgIf} from "@angular/common";
 
 
 @Component({
@@ -9,7 +10,9 @@ import { UsersService } from "../../../services/user/users.service";
   templateUrl: './edit-profile.component.html',
   standalone: true,
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf,
+    NgClass
   ],
   styleUrls: ['./edit-profile.component.css']
 })
@@ -17,8 +20,7 @@ export class EditProfileComponent {
   @Input() userId?: string;
   editDetailsForm: FormGroup;
   editPasswordForm: FormGroup;
-  editPfpForm: FormGroup; // New form for profile picture
-  descriptionMaxLength = 500;
+  editPfpForm: FormGroup;
   profileImage: File | null = null;
 
   constructor(
@@ -29,11 +31,13 @@ export class EditProfileComponent {
     this.editDetailsForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.email]],
-      description: ['', [Validators.minLength(10), Validators.maxLength(this.descriptionMaxLength)]]
+      description: ['', [Validators.minLength(10), Validators.maxLength(500)]]
+    }, {
+      validators: [this.checkEmailExists, this.checkUsernameExists ]
     });
 
     this.editPasswordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/)]],
+      password: ['', [Validators.required,Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/)]],
       repeat_password: ['', Validators.required]
     }, {
       validator: this.passwordMatchValidator
@@ -75,8 +79,7 @@ export class EditProfileComponent {
     if (this.editPasswordForm.valid) {
       const password = this.editPasswordForm.get('password')?.value;
 
-      // Proceed with updating password
-      // Call relevant service methods here
+
     }
   }
 
@@ -85,8 +88,7 @@ export class EditProfileComponent {
       const formData = new FormData();
       formData.append('profileImage', this.profileImage as Blob);
 
-      // Proceed with updating profile picture
-      // Call relevant service methods here
+
     }
   }
 
@@ -145,6 +147,4 @@ export class EditProfileComponent {
       this.profileImage = inputElement.files[0];
     }
   }
-
-  protected readonly URL = module
 }

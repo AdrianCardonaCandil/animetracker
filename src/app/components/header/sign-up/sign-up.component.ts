@@ -21,7 +21,7 @@ export class SignUpComponent {
   form: FormGroup;
   description = "";
   profilePicture = "";
-  constructor(private formBuilder: FormBuilder,  private router: ActivatedRoute, private Auth: AuthService) {
+  constructor(private formBuilder: FormBuilder, private Auth: AuthService) {
     this.form = this.formBuilder.group({
       username: [ '', [ Validators.required, Validators.minLength(2) ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
