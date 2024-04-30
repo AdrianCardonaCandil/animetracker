@@ -26,5 +26,8 @@ img {
     font-size: large;
     text-align: center;
     font-weight: bolder;
-    border-image: linear-gradient(transparent 1%, var(--snow-color) 99% 99%, transparent 1%) 0 0 0 1 / 0.05rem;
+}
+
+#rank-position a p:nth-child(2) {
+    border-left: 0.1mm solid var(--snow-color);
 }
