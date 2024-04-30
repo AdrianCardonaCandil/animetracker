@@ -26,7 +26,11 @@ export class SearchComponent {
     this.contentService = contentService;
 
     this.current_page = Number(route.snapshot.paramMap.get('page'));
-    route.params.subscribe(params => {this.current_page = Number(params['page']); this.options.set({...this.options()})})
+    route.params.subscribe(params => {this.current_page = Number(params['page']); this.options.set({...this.options()})});
+    this.route.url.subscribe(() =>{
+      this.options.set(localStorage.getItem('options') ? JSON.parse(<string>localStorage.getItem('options')) : this.options());
+      localStorage.clear();
+    });
 
     effect(() => {
       if (this.current_page == this.options().Page && this.options().Page !== 1){

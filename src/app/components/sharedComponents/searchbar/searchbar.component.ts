@@ -3,6 +3,7 @@ import { optionsBuilder } from "./optionsBuilder";
 import { CommonModule, NgStyle } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, fromEvent} from 'rxjs';
+import { Router } from '@angular/router';
 
 type optionNames = 'Name'|'Genres'|'Year'|'Season'|'Format';
 const seasons = ['Winter', 'Spring', 'Summer', 'Fall'];
@@ -67,6 +68,12 @@ export class SearchbarComponent implements AfterViewInit{
       case 'Format':
         this.options[item] = this.options[item] === String(value) ? '' : String(value); break;
       }
+    
+    if (this.router.url == '/'){
+      localStorage.setItem('options', JSON.stringify({...this.options}));
+      this.router.navigate(['/search', 1]);
+    }
+
     this.optionsChange.emit({...this.options});
   }
 
@@ -91,5 +98,10 @@ export class SearchbarComponent implements AfterViewInit{
     } else {
       this.optionsCleanup(["Name", "Genres"]); this.searchMode = "time"; this.name.reset(); this.tracker = false;
     }
+  }
+
+  router: Router;
+  constructor(router:Router){
+    this.router = router;
   }
 }
