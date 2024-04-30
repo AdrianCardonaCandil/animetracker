@@ -6,6 +6,11 @@
   <div class="user-profile-description">{{ description }}</div>
 </div>
     @if(userId===accountId && accountId !==undefined){
-  <button class="user-profile-edit-btn" id="editProfileBtn">Edit Profile</button>
+  <button class="user-profile-edit-btn" id="editProfileBtn" (click)="openEditWindow()">Edit Profile</button>
+
+      @if(openEdit){
+        <app-edit-profile></app-edit-profile>
+      }
     }
-</div>
+
+  </div>

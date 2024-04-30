@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, RouterOutlet} from "@angular/router";
 import { UsersService } from "../../services/user/users.service";
 import User from "../../schemas/User.scheme"
-import {EditProfileComponent} from "./edit-profile/edit-profile.component";
 import {UserInfoComponent} from "./user-info/user-info.component";
 import {ProfileNavComponent} from "./profile-nav/profile-nav.component";
 import {TableComponent} from "./table/table.component";
@@ -13,7 +12,6 @@ import {AuthService} from "../../services/auth/auth.service";
   templateUrl: './profile.component.html',
   standalone: true,
   imports: [
-    EditProfileComponent,
     RouterOutlet,
     UserInfoComponent,
     ProfileNavComponent,

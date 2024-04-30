@@ -1,0 +1,188 @@
+#overlay {
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  z-index: 9998;
+  overflow: auto;
+}
+
+.container-edit-profile {
+  position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 60%;
+  max-width: 80%;
+  max-height: 85%;
+  padding: 2em;
+  background-color: #272735;
+  border-radius: 1em;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+.container-edit-profile::-webkit-scrollbar {
+  display: none;
+}
+
+.edit-profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 2em;
+  color: #ffffff;
+}
+
+.edit-details-form-label,
+.container-form-label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+
+.edit-details-form-input,
+.container-form-input,
+.edit-details-form-input textarea {
+  width: 100%;
+  padding: 0.8em;
+  border-radius: 0.5em;
+  border: 0.1em solid #ccc;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+
+
+.edit-details-form-input textarea {
+  height: 8em;
+}
+#closeBtn {
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #ffffff;
+}
+
+.container-edit-details-pfp {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.left-section {
+  display: flex;
+  flex-direction: column;
+  width: 45%; /* Adjust as needed */
+}
+.edit-pfp-header h2,
+.edit-details-header h2,
+.edit-password-header h2{
+  font-size: var(--big-font-size);
+  font-weight: bold;
+  color: #000000;
+}
+.container-edit-details,
+.container-edit-password,
+.container-edit-pfp {
+  box-sizing: border-box;
+  margin-bottom: 2em;
+  padding: 1em;
+  border-radius: 0.5em;
+  height: auto;
+  background-color: #ffffff;
+  box-shadow: 0 0 20em rgba(0, 0, 0, 0.1);
+}
+
+.container-edit-pfp {
+  width: 45%;
+  height: auto;
+}
+
+.container-form-button,
+.container-choose-image-label,
+.deleteProfile {
+  display: inline-block;
+  padding: 0.8em 2em;
+  margin-top: 1em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 1em;
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+.container-choose-image-button {
+  color: #000000;
+}
+.container-form-button:hover,
+.container-choose-image-label:hover,
+.deleteProfile:hover {
+  background-color: #0056b3;
+}
+.container-chosen-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: 1em;
+}
+.edit-profile-button-group {
+  overflow: hidden;
+}
+.deleteProfile {
+  background-color: #dc3545;
+}
+
+
+.edit-details-form-input:invalid:focus,
+.container-form-input:invalid:focus,
+.edit-details-form-input textarea:invalid:focus {
+  border-color: red;
+}
+.edit-details-form-input:valid,
+.container-form-input:valid,
+.edit-details-form-input textarea:valid{
+  border-color: green;
+}
+
+@media screen and (width < 70rem) {
+  .container-edit-profile {
+
+    flex-wrap: wrap;
+    width: 90%;
+    padding: 1em;
+  }
+
+
+}
+@media screen and (width < 35rem) {
+
+
+  .container-edit-profile {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 80%;
+    max-height: 85%;
+  }
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+  }
+
+  .container-edit-pfp, .container-edit-password, .container-edit-details{
+    width: 100%;
+  }
+
+
+
+}
+

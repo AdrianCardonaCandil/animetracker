@@ -1,0 +1,58 @@
+<div id="overlay"></div>
+<section class="container-edit-profile">
+  <span class="edit-profile-header">
+    <h1>Edit Profile</h1>
+    <i aria-hidden="true" class="fa fa-times" id="closeBtn"></i>
+  </span>
+  <div class="left-section">
+    <section class="container-edit-details">
+      <span class="edit-details-header">
+        <h2>Edit Details</h2>
+      </span>
+      <form [formGroup]="editDetailsForm" (ngSubmit)="submitForm()" class="edit-details-form">
+        <label class="edit-details-form-label">
+          <input class="edit-details-form-input" formControlName="username" placeholder="Username" type="text">
+          <!-- Error message handling for username field -->
+        </label>
+        <label class="edit-details-form-label">
+          <input class="edit-details-form-input" formControlName="email" placeholder="Email" type="email">
+          <!-- Error message handling for email field -->
+        </label>
+        <label class="edit-details-form-label">
+          <textarea class="edit-details-form-input" formControlName="description" placeholder="Description"></textarea>
+        </label>
+        <button class="container-form-button" type="submit">Update</button>
+      </form>
+    </section>
+    <section class="container-edit-password">
+      <span class="edit-password-header">
+        <h2>Edit Password</h2>
+      </span>
+      <form [formGroup]="editPasswordForm" (ngSubmit)="updatePassword()" class="edit-password-form">
+        <label class="container-form-label">
+          <input class="container-form-input" formControlName="password" placeholder="New Password" type="password">
+        </label>
+        <label class="container-form-label">
+          <input class="container-form-input" formControlName="repeat_password" placeholder="Repeat Password" type="password">
+          <div *ngIf="editPasswordForm.get('repeat_password')?.errors?.passwordMismatch" class="alert">
+            <div class="error-message">Passwords do not match.</div>
+          </div>
+        </label>
+        <button class="container-form-button" type="submit">Update</button>
+      </form>
+    </section>
+  </div>
+  <section class="container-edit-pfp">
+    <span class="edit-pfp-header">
+      <h2>Edit Profile Picture</h2>
+    </span>
+    <div class="edit-profile-button-group">
+      <form [formGroup]="editPfpForm" (ngSubmit)="updateProfilePicture()" class="edit-pfp-form">
+        <input accept="image/*" class="container-choose-image-button" (change)="onProfileImageChange($event)" formControlName="profileImage" type="file">
+        <img *ngIf="profileImage" class="container-chosen-image" [src]="URL.createObjectURL(profileImage)" alt="Selected Image">
+        <button class="container-form-button" type="submit">Update</button>
+      </form>
+    </div>
+  </section>
+</section>
+<button class="deleteProfile" (click)="deleteProfile()">Delete Profile</button>
