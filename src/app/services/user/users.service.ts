@@ -35,7 +35,7 @@ export class UsersService implements Users {
   checkUserExistence = async (username: string): Promise<boolean> =>
     this.firebaseUserService.checkUserExistance(username);
   checkEmailExistence = async (email: string): Promise<boolean> =>
-    this.firebaseUserService.checkUserExistance(email);
+    this.firebaseUserService.checkEmailExistence(email);
 
   modifyUserDetails = async ( uid: string, username:string, email:string, description:string): Promise<boolean> =>
     this.firebaseUserService.modifyUserDetails( uid, username,email,description);

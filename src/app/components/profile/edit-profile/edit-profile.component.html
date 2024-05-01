@@ -16,19 +16,23 @@
                  [(ngModel)]="username"
                  [ngClass]="{'valid': editDetailsForm.get('username')?.valid, 'invalid': editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)}">
         </label>
-        <div *ngIf="editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)" class="alert">
-          <div *ngIf="editDetailsForm.get('username')?.errors?.['minlength']" class="error-message">Username must be at least 2 characters long.</div>
-          <div *ngIf="editPasswordForm.get('username')?.errors?.['usernameExists']" class="alert"></div>
-        </div>
-        <label class="edit-details-form-label">
-          <input class="container-form-input" id="email" formControlName="email"
-                 placeholder="{{email}}" type="email"
-                 [(ngModel)]="email"
-                 [ngClass]="{'valid': editDetailsForm.get('email')?.valid, 'invalid': editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)}">
-        </label>
+
+          <div *ngIf="editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)" class="alert">
+            <div *ngIf="editDetailsForm.get('username')?.errors?.['required']" class="error-message">Username is required.</div>
+            <div *ngIf="editDetailsForm.get('username')?.errors?.['minlength']" class="error-message">Username must be at least 2 characters long.</div>
+            <div *ngIf="editDetailsForm.get('username')?.errors?.['usernameExists']" class="error-message">Username already exists.</div>
+          </div>
+
+          <label class="edit-details-form-label">
+            <input class="container-form-input" id="email" formControlName="email"
+                   placeholder="{{email}}" type="email"
+                   [(ngModel)]="email"
+                   [ngClass]="{'valid': editDetailsForm.get('email')?.valid, 'invalid': editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)}">
+          </label>
         <div *ngIf="editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)" class="alert">
+          <div *ngIf="editDetailsForm.get('email')?.errors?.['required']" class="error-message">Email is required.</div>
           <div *ngIf="editDetailsForm.get('email')?.errors?.['email']" class="error-message">Invalid email format.</div>
-          <div *ngIf="editPasswordForm.get('email')?.errors?.['emailExists']" class="alert"></div>
+          <div *ngIf="editDetailsForm.get('email')?.errors?.['emailExists']" class="error-message">Email already exists.</div>
         </div>
         <label class="container-form-label" for="description">
           <textarea class="container-form-input form-control" id="description" formControlName="description"

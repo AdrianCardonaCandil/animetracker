@@ -131,29 +131,38 @@ export class EditProfileComponent {
 
   async checkUsernameExists(control: AbstractControl): Promise<ValidationErrors | null> {
     const username = control.value;
-    const exists = await this.usersService.checkUserExistence(username);
-    if(username === this.username){
+
+    if (username === this.username) {
       return null;
     }
+
+    const exists = await this.usersService.checkUserExistence(username);
+
     if (exists) {
-      this.editDetailsForm.get('username')?.setErrors({ 'usernameExists': true });
-      return { usernameExists: true } ;
+      return { 'usernameExists': true };
+    } else {
+      return null;
     }
-    return null
   }
 
   async checkEmailExists(control: AbstractControl): Promise<ValidationErrors | null> {
     const email = control.value;
-    const exists = await this.usersService.checkEmailExistence(email);
-    if(email=== this.email){
+
+
+    if (email === this.email) {
       return null;
     }
+
+
+    const exists = await this.usersService.checkEmailExistence(email);
+    console.log("Email exists:", exists);
     if (exists) {
-      this.editDetailsForm.get('email')?.setErrors({ 'emailExists': true });
-      return { emailExists: true } ;
+      return { 'emailExists': true };
+    } else {
+      return null;
     }
-    return null
   }
+
 
 
   getUsernameErrorMessage() {
