@@ -54,17 +54,26 @@
         <h2>Edit Password</h2>
       </span>
       <form [formGroup]="editPasswordForm" (ngSubmit)="updatePassword()" class="edit-password-form">
-        <label class="container-form-label">
-          <input class="container-form-input" formControlName="password" placeholder="New Password" type="password"
-                 [ngClass]="{'valid': editPasswordForm.get('password')?.valid, 'invalid': editPasswordForm.get('password')?.invalid && (editPasswordForm.get('password')?.dirty || editPasswordForm.get('password')?.touched)}">
+        <label class="container-form-label" for="password">
+          <input class="container-form-input" id="password" formControlName="password" placeholder="Enter your password"
+                 required type="password"
+                 [ngClass]="{'valid': editPasswordForm.get('password')?.valid, 'invalid': editPasswordForm.get('password')?.invalid && (editPasswordForm.get('password')?.dirty ||editPasswordForm.get('password')?.touched)}">
         </label>
-        <label class="container-form-label">
-          <input class="container-form-input" formControlName="repeat_password" placeholder="Repeat Password" type="password"
-                 [ngClass]="{'valid': editPasswordForm.get('repeat_password')?.valid, 'invalid':editPasswordForm.get('repeat_password')?.invalid && (editPasswordForm.get('repeat_password')?.dirty || editPasswordForm.get('repeat_password')?.touched)}">
-          <div *ngIf="editPasswordForm.get('repeat_password')?.errors?.['passwordMismatch']" class="alert">
-            <div class="error-message">Passwords do not match.</div>
+        <div *ngIf="editPasswordForm.get('password')?.invalid && (editPasswordForm.get('password')?.dirty || editPasswordForm.get('password')?.touched)"
+             class="alert">
+          <div *ngIf="editPasswordForm.get('password')?.errors?.['required']" class="error-message">Password is required.</div>
+          <div *ngIf="editPasswordForm.get('password')?.errors?.['pattern']" class="error-message">Invalid password format. Password
+            must contain at least one number, one uppercase letter, one lowercase letter, and be at least 8 characters long.
           </div>
+        </div>
+        <label class="container-form-label" for="repeat_password">
+          <input class="container-form-input" id="repeat_password" formControlName="repeat_password"
+                 placeholder="Repeat your password" required type="password"
+                 [ngClass]="{'valid': editPasswordForm.get('repeat_password')?.valid, 'invalid': editPasswordForm.get('repeat_password')?.invalid && (editPasswordForm.get('repeat_password')?.dirty || editPasswordForm.get('repeat_password')?.touched)}">
         </label>
+        <div *ngIf="editPasswordForm.hasError('passwordMismatch')" class="alert">
+          <div class="error-message">Passwords do not match.</div>
+        </div>
         <button class="container-form-button" type="submit">Update</button>
       </form>
     </section>

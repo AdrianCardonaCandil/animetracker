@@ -137,7 +137,7 @@ export class FirebaseAuthService {
 
       return user;
     } catch (error) {
-      console.error("Signin Error:", error);
+      console.error("SignIn Error:", error);
       throw error;
     }
   }
