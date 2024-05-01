@@ -65,60 +65,36 @@
 
 .control-dropdown {
     margin-top: 1rem;
-    color: var(--dark-blue);
-    background: var(--snow-color-mo);
+    color: var(--snow-color);
+    background: var(--black-ex);
     border-radius: 0.5rem;
-    border: 1px solid var(--black);
-}
-
-.add-to-list-option{
+    border: 1px solid var(--snow-color);
+    font-size: small;
+    cursor: pointer;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    font-size:x-small;
-    padding: 4%;
-    height: 4rem;
-    width: 100%;
-    border-radius: 0.5rem;
+    height: 15rem;
+    box-sizing: border-box;
+}
+
+.add-to-list-option {
+   flex: 1;
+   text-align: center;
+   align-content: center;
+   opacity: 0.75;
 }
 
 .add-to-list-option:hover {
-    background: var(--snow-color);
-    font-weight: bold;
+    opacity: 1;
 }
 
 .rate-option {
-    position: relative;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
-    height: 4rem;
-    font-size: small;
-    border-radius: 0.5rem;
-}
-
-.rate-option input {
-    margin: 0 0 0.5rem 0;
+    flex: 1;
+    text-align: center;
+    align-content: center;
+    opacity: 0.7;
 }
 
 .rate-option:hover {
-    background: var(--snow-color);
-    font-weight: bold;
-}
-
-.black {
-  color: black;
-  box-shadow: 0 3px 10px rgb(255, 255, 255);
-
-}
-
-.shadow {
-  box-shadow: 0 3px 10px rgb(255, 0, 0);
-
-}
-
-.liked {
-  color: red;
+    opacity: 1;
 }

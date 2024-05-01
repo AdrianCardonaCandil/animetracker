@@ -10,14 +10,12 @@ import {
 } from '@angular/core';
 import {UsersService} from "../../../services/user/users.service";
 import {ContentsService} from "../../../services/contents.service";
-import {NgClass} from "@angular/common";
+import {NgClass, NgStyle, TitleCasePipe} from "@angular/common";
 
 @Component({
   selector: 'app-maininfo',
   standalone: true,
-  imports: [
-    NgClass
-  ],
+  imports: [NgClass, NgStyle, TitleCasePipe],
   templateUrl: './maininfo.component.html',
   styleUrl: './maininfo.component.css'
 
@@ -129,5 +127,4 @@ export class MaininfoComponent implements OnChanges {
       alert('You need to be logged in to add animes to lists');
     }
   }
-
 }
