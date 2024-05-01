@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"; // Import Sig
 import { Observable } from 'rxjs';
 import User from '../../schemas/User.scheme'
 import { AuthService } from '../../services/auth/auth.service';
+import {MobileMenuComponent} from "./mobile-menu/mobile-menu.component";
 
 @Component({
   selector: 'app-header',
@@ -20,7 +21,8 @@ import { AuthService } from '../../services/auth/auth.service';
     NgIf,
     FormsModule,
     ReactiveFormsModule,
-    SignInComponent
+    SignInComponent,
+    MobileMenuComponent
   ],
   styleUrls: [ './header.component.css' ]
 })
@@ -28,7 +30,7 @@ export class HeaderComponent {
   protected userLogged$!: Observable<User | null>
   showSignInModal = false;
   showSignUpModal = false;
-
+  showMobileMenu = false;
   constructor(private Auth: AuthService) {
     this.userLogged$ = Auth.user
   }
@@ -53,5 +55,9 @@ export class HeaderComponent {
 
   logout() {
     this.Auth.logout()
+  }
+
+  mobileMenu() {
+    this.showMobileMenu = !this.showMobileMenu
   }
 }

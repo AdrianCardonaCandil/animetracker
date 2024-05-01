@@ -89,7 +89,7 @@ export class FirebaseUserService {
     }
   }
 
-  trackingList = async (userId: string, contentId: string, newListName: string): Promise<boolean> => {
+  trackingList = async (userId: string, contentId: string, newListName: string) => {
     console.log(`Moving ${contentId} to ${newListName} list`);
     try {
       const userRef = doc(this._db, this._coll, userId);
@@ -100,24 +100,35 @@ export class FirebaseUserService {
         return false;
       }
 
-      const userData = userDoc.data()!;
+      const userData = userDoc.data();
+
       const currentListName = await this.isOnList(userId, contentId);
 
+      // Remove contentId from the current list if it exists
       if (currentListName && userData[currentListName]) {
-        const updatedList = userData[currentListName].filter((item: any) => item !== contentId);
+        const updatedList = userData[currentListName].filter((item: string) => item !== contentId);
         await updateDoc(userRef, { [currentListName]: updatedList });
       }
 
-      const updatedList = [...(userData[newListName] || []), contentId];
-      await updateDoc(userRef, { [newListName]: updatedList });
+      // Add contentId to the new list only if it's not already there
+      if (newListName !== currentListName) {
+        const newList = userData[newListName];
+        const alreadyInList = newList && newList.includes(contentId);
+        if (!alreadyInList) {
+          const updatedList = [...(userData[newListName] || []), contentId];
+          await updateDoc(userRef, { [newListName]: updatedList });
 
-      if (newListName === "watching") {
-        const contentProgress = userData['contentProgress'] || {};
-        if (!contentProgress.hasOwnProperty(contentId)) {
-          contentProgress[contentId] = 0;
-          await updateDoc(userRef, { contentProgress });
+          // If the new list is 'watching', add contentProgress
+          if (newListName === "watching") {
+            const contentProgress = userData["contentProgress"] || {};
+            if (!contentProgress.hasOwnProperty(contentId)) {
+              contentProgress[contentId] = 0;
+              await updateDoc(userRef, { contentProgress });
+            }
+          }
         }
       }
+
       console.log('Content moved to the new list successfully');
       return true;
     } catch (error) {

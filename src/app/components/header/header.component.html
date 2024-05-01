@@ -18,7 +18,14 @@
       <p>{{(userLogged$|async)?.username}}</p>
       <button id="signOutButton" name="Sign Out" (click)="logout()">Sign Out</button>
     }
-
+    <div class="top-header-mobile-menu">
+      <button id="header-mobile-menu-button" (click) = "mobileMenu()">
+        @if(showMobileMenu){
+          <app-mobile-menu [userNotLogged] = "(!(userLogged$|async))" ></app-mobile-menu>
+        }
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
   </div>
 </div>
 <app-sign-in *ngIf="showSignInModal" (signIn)="closeSignInModal()"></app-sign-in>
