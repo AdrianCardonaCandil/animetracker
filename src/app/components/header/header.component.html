@@ -23,8 +23,9 @@
     <button id="header-mobile-menu-button" (click) = "mobileMenu()" >
       <i class="fa-solid fa-bars"></i>
     </button>
+    <div class="mobile-menu-overlay" *ngIf="showMobileMenu" (click)="mobileMenu()"></div>
     @if(showMobileMenu){
-      <app-mobile-menu [userNotLogged] = "(!(userLogged$|async))" ></app-mobile-menu>
+      <app-mobile-menu [userNotLogged] = "(!(userLogged$|async))" [username] = "(userLogged$|async)?.username"></app-mobile-menu>
     }
   </div>
 </div>
