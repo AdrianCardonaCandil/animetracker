@@ -18,9 +18,10 @@ export interface Content {
     rating:string;
     genres:string[],
     studios:string[]
+    likes:number
 }
 
-export type contentProps = {id:number, mal_id:number, title:string, synopsis:string, score:number; status:string; episodes:number; rating:string, type:string; source:string; duration:string; coverimage:string; backgroundimage:string; images:{jpg:{large_image_url:string}}, trailer:{images:{maximum_image_url:string}}, year:number; season:string; genres:string[]|[{name:string}], studios:string[]|[{name:string}]};
+export type contentProps = {id:number, mal_id:number, title:string, synopsis:string, score:number; status:string; episodes:number; rating:string, type:string; source:string; duration:string; coverimage:string; backgroundimage:string; images:{jpg:{large_image_url:string}}, trailer:{images:{maximum_image_url:string}}, year:number; season:string; genres:string[]|[{name:string}], likes:number, studios:string[]|[{name:string}]};
 
 export function parseContent (props:contentProps):Content|null {
     try {
@@ -41,6 +42,7 @@ export function parseContent (props:contentProps):Content|null {
             season:props.season,
             genres:<string[]>(typeof props.genres[0] == 'string' ? props.genres : props.genres.map(elem => (<{name:string}>elem).name.toLowerCase())),
             studios:<string[]>(typeof props.studios[0] == 'string' ? props.studios : props.studios.map(elem => (<{name:string}>elem).name.toLowerCase())),
+            likes:props.likes | 0
         }
     } catch(error){
         console.log('Error parsing content', error);

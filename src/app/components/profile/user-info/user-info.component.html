@@ -1,0 +1,16 @@
+
+  <div class="user-profile-info">
+<img alt="User Image" class="user-profile-image" src= "../../../../assets/images/frieren.jpg">
+<div class="user-profile-details">
+  <div class="user-profile-name">{{ username }}</div>
+  <div class="user-profile-description">{{ description }}</div>
+</div>
+    @if(userId===accountId && accountId !==undefined){
+  <button class="user-profile-edit-btn" id="editProfileBtn" (click)="openEditWindow()">Edit Profile</button>
+
+      @if(openEdit){
+        <app-edit-profile [userId]="userId" [email]="email" [description]="description"  [username]="username" (editProfile)= "closeEditWindow()"></app-edit-profile>
+      }
+    }
+
+  </div>

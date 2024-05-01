@@ -1,9 +1,11 @@
-import {User} from "./user.model";
+import { Observable } from "rxjs";
+import User from "../schemas/User.scheme";
 
 export default interface Auth {
-  signup: ({ username, password, email }: { username: string, password: string, email: string }) => Promise<User | null>
-  login: ({ username, password }: { username: string, password: string }) => Promise<User | null>
-  logout: () => Promise<void>
-  isLoggedIn: () => Promise<User | null>
-
+  signIn: ({ username, password }: { username: string, password: string })  => Promise<User | null>;
+  signUp: ({ username, email,  password }: { username: string, email: string, password: string }) => Promise<User | null>;
+  logout: () => Promise<void>;
+  isLoggedIn: ()=> Observable<User | null>;
+  deleteAccount:(userId: string) => Promise<boolean>
+  get user(): Observable<User | null>;
 }

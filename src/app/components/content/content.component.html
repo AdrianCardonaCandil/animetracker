@@ -1,10 +1,14 @@
 <section id="ilustration">
     <img title="ilustration image of the page content" alt="ilustration image" [src]="content.backgroundimage">
 </section>
-<app-maininfo [contentdata]="{name:this.content.title || 'Not Defined', synopsis:this.content.synopsis || 'Not Defined', imageSource:this.content.coverimage || 'Not Defined', score:this.content.score || 0}"></app-maininfo>
+<app-maininfo [id]="id" [user]="userId"
+              [contentdata]="{name:this.content.title || 'Not Defined', synopsis:this.content.synopsis || 'Not Defined', imageSource:this.content.coverimage || 'Not Defined', score:this.content.score || 0}"
+              (likesChanged)="onLikesChanged($event)"
+></app-maininfo>
 <section id="side-and-main">
     <app-sideinfo [contentdata]="
         [
+            {id:'Likes', value:String(this.content.likes) || 'Not Defined'},
             {id:'Type', value:this.content.type || 'Not Defined'},
             {id:'Source', value:this.content.source || 'Not Defined'},
             {id:'Episodes', value: '' + this.content.episodes || 'Not Defined'},

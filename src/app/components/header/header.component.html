@@ -1,0 +1,25 @@
+<div class="top-header-content">
+  <img routerLink="/" class="clickable" title="web-logo" alt="logo of our website" Src="../../../favicon.ico">
+  <nav>
+    <a id="home-anchor" routerLink="">Home</a>
+    <a id="ranking-anchor" routerLink="">Ranking</a>
+    @if ((!(userLogged$|async))) {
+      <a class="clickable" id="profile-anchor" (click)="showSignIn()">Profile</a>
+    } @else{
+      <a class="clickable" id="profile-anchor2"
+         routerLink="/profile/{{(userLogged$|async)?.username}}/watching">Profile</a>
+    }
+  </nav>
+  <div class="top-header-content-buttons">
+    @if ((!(userLogged$|async))) {
+      <button id="signInButton" name="Sign In" (click)="showSignIn()">Sign In</button>
+      <button id="signUpButton" name="Sign Up" (click)="showSignUp()">Sign Up</button>
+    } @else{
+      <p>{{(userLogged$|async)?.username}}</p>
+      <button id="signOutButton" name="Sign Out" (click)="logout()">Sign Out</button>
+    }
+
+  </div>
+</div>
+<app-sign-in *ngIf="showSignInModal" (signIn)="closeSignInModal()"></app-sign-in>
+<app-sign-up *ngIf="showSignUpModal" (signUp)="closeSignUpModal()"></app-sign-up>
