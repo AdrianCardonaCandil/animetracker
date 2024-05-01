@@ -5,7 +5,7 @@
     <a class="clickable" id="profile-anchor" (click)="showSignIn()">Profile</a>
   } @else{
     <a class="clickable" id="profile-anchor2"
-       routerLink="/profile/{{username}}}/watching">Profile</a>
+       routerLink="/profile/{{username}}/watching">Profile</a>
   }
   @if (userNotLogged) {
     <a id="signin" (click) = "showSignIn()">Sign In</a>
