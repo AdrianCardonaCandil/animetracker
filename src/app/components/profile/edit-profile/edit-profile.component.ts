@@ -1,5 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ReactiveFormsModule,
+  ValidationErrors
+} from '@angular/forms';
 import { AuthService } from "../../../services/auth/auth.service";
 import { UsersService } from "../../../services/user/users.service";
 import {NgClass, NgIf} from "@angular/common";
@@ -29,7 +36,7 @@ export class EditProfileComponent {
   editPasswordForm: FormGroup;
   editPfpForm: FormGroup;
   profileImage: File | null = null;
-
+  imageUrl: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,11 +44,17 @@ export class EditProfileComponent {
     private usersService: UsersService
   ) {
     this.editDetailsForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', {
+        validators: [Validators.required, Validators.minLength(2), Validators.maxLength(10)],
+        asyncValidators: [this.checkUsernameExists.bind(this)],
+        updateOn: 'blur'
+      }],
+      email: ['', {
+        validators: [Validators.required, Validators.email],
+        asyncValidators: [this.checkEmailExists.bind(this)],
+        updateOn: 'blur'
+      }],
       description: ['', [Validators.minLength(10), Validators.maxLength(500)]]
-    }, {
-      validators: [this.checkEmailExists, this.checkUsernameExists ]
     });
 
     this.editPasswordForm = this.formBuilder.group({
@@ -63,24 +76,11 @@ export class EditProfileComponent {
   }
 
   async submitForm() {
-    console.log("submitting forms")
-    console.log(this.editDetailsForm.valid)
-    console.log(this.editDetailsForm.errors)
-    if (this.editDetailsForm.valid) {
-      console.log("details form is valid")
-      const { username, email, description } = this.editDetailsForm.value;
-      console.log(username)
-      const usernameExists = await this.checkUsernameExists(username);
-      if (usernameExists) {
-        this.editDetailsForm.get('username')?.setErrors({ 'usernameExists': true });
-        return;
-      }
 
-      const emailExists = await this.checkEmailExists(email);
-      if (emailExists) {
-        this.editDetailsForm.get('email')?.setErrors({ 'emailExists': true });
-        return;
-      }
+    if (this.editDetailsForm.valid) {
+
+      const { username, email, description } = this.editDetailsForm.value;
+
       if(this.userId) {
         this.usersService.modifyUserDetails(this.userId, username, email, description).then( r => {
           if (r) {
@@ -99,16 +99,6 @@ export class EditProfileComponent {
 
     }
   }
-
-  async updateProfilePicture() {
-    if (this.editPfpForm.valid) {
-      const formData = new FormData();
-      formData.append('profileImage', this.profileImage as Blob);
-
-
-    }
-  }
-
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
     const repeatPassword = control.get('repeat_password');
@@ -119,51 +109,61 @@ export class EditProfileComponent {
     return null;
   }
 
-  async checkUsernameExists(username: string): Promise<boolean> {
-    return  await this.usersService.checkUserExistence(username);
-  }
+  async checkUsernameExists(control: AbstractControl): Promise<ValidationErrors | null> {
+    const username = control.value;
 
-  async checkEmailExists(email: string): Promise<boolean> {
-    return await this.usersService.checkEmailExistence(email);
-  }
-
-  getUsernameErrorMessage() {
-    const usernameControl = this.editDetailsForm.get('username');
-
-    if (usernameControl?.hasError('required')) {
-      return 'Username is required.';
-    } else if (usernameControl?.hasError('minlength')) {
-      return 'Username must be at least 2 characters long.';
-    } else if (usernameControl?.hasError('maxlength')) {
-      return 'Username cannot be more than 10 characters long.';
-    } else if (usernameControl?.hasError('usernameExists')) {
-      return 'Username already exists.';
+    if (username === this.username) {
+      return null;
     }
 
-    return '';
+    const exists = await this.usersService.checkUserExistence(username);
+
+    if (exists) {
+      return { 'usernameExists': true };
+    } else {
+      return null;
+    }
   }
 
-  // Function to display email error message
-  getEmailErrorMessage() {
-    const emailControl = this.editDetailsForm.get('email');
+  async checkEmailExists(control: AbstractControl): Promise<ValidationErrors | null> {
+    const email = control.value;
 
-    if (emailControl?.hasError('required')) {
-      return 'Email is required.';
-    } else if (emailControl?.hasError('email')) {
-      return 'Invalid email format.';
-    } else if (emailControl?.hasError('emailExists')) {
-      return 'Email already exists.';
+
+    if (email === this.email) {
+      return null;
     }
 
-    return '';
+    const exists = await this.usersService.checkEmailExistence(email);
+
+    if (exists) {
+      return { 'emailExists': true };
+    } else {
+      return null;
+    }
   }
 
   onProfileImageChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files[0]) {
       this.profileImage = inputElement.files[0];
+      this.imageUrl = URL.createObjectURL(this.profileImage);
     }
   }
+  async updateProfilePicture() {
+    if (this.editPfpForm.valid) {
+      const formData = new FormData();
+      formData.append('profileImage', this.profileImage as Blob);
+
+      if(this.userId && this.profileImage) await this.usersService.updateProfilePicture(this.userId, this.profileImage).then( r => {
+        if (r) {
+          this.updatePfp.emit(r)
+          this.closeEdit()
+        }
+      })
+    }
+  }
+
+
 
   closeEdit() {
     this.editProfile.emit();

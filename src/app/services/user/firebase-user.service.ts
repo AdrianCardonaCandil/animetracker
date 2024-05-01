@@ -18,8 +18,7 @@ import {
 import {updateEmail} from 'firebase/auth'
 import { FirebaseService } from '../firebase.service';
 import { Auth } from "firebase/auth";
-import { BehaviorSubject } from "rxjs"; // Import BehaviorSubject from rxjs
-
+import {getStorage, ref, uploadBytes, getDownloadURL, FirebaseStorage} from 'firebase/storage';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,10 +27,12 @@ export class FirebaseUserService {
   private _coll = "Users";
   private _db: Firestore;
   private _auth: Auth;
+  private _storage: FirebaseStorage;
 
   constructor(private firebaseService: FirebaseService) {
     this._db = this.firebaseService.db;
     this._auth = this.firebaseService.auth;
+    this._storage = this.firebaseService.storage
   }
 
   get db(): Firestore {
@@ -318,6 +319,29 @@ export class FirebaseUserService {
       }
     }
     return true;
+  }
+
+  async updateProfilePicture(userId: string, profileImage: File | null) {
+    if (!profileImage) return Promise.reject(new Error('No image provided'));
+
+
+    try {
+
+
+      const storageRef = ref(this._storage, `profilePictures/${userId}`);
+
+      const snapshot = await uploadBytes(storageRef, profileImage);
+
+      const downloadURL = await getDownloadURL(snapshot.ref);
+
+      const userRef = doc(this._db, this._coll, userId);
+      await updateDoc(userRef, { profilePictureURL: downloadURL });
+
+      return downloadURL;
+    } catch (error) {
+      console.error('Error updating profile picture:', error);
+      throw error;
+    }
   }
 
 }
