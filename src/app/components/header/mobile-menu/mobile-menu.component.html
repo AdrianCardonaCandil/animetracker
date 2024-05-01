@@ -1,0 +1,11 @@
+<div id="mobile-menu-box">
+  <a id="home-anchor" routerLink="">Home</a>
+  <a id="ranking-anchor" routerLink="/ranking">Ranking</a>
+  <a id="profile"> Profile </a>
+  @if (userNotLogged) {
+    <a id="signin" (click) = "showSignIn()"> Sign In </a>
+    <a id="signup" (click) = "showSignUp()"> Sign up </a>
+  } @else {
+    <a id="logout"> Log Out </a>
+  }
+</div>
