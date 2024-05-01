@@ -14,5 +14,5 @@ export default interface Users {
   checkEmailExistance:(email:string) => Promise<boolean>
   modifyUserDetails: (uid: string, username: string, email: string, description: string ) => Promise<boolean>
   updateProfilePicture: (uid: string, profilePicture: File ) => Promise<string>
-
+  updatePassword: (userId: string, password:string) => Promise<boolean>
 }

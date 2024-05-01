@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import User, {parse} from "../../schemas/User.scheme"; // Adjust the import statement for User
 import {
-  getFirestore,
   collection,
   doc,
-  arrayUnion,
   getDoc,
-  addDoc,
   query,
   where,
   getDocs,
@@ -15,10 +12,10 @@ import {
   or,
   Firestore
 } from 'firebase/firestore/lite';
-import {updateEmail} from 'firebase/auth'
+import {updateEmail, updatePassword} from 'firebase/auth'
 import { FirebaseService } from '../firebase.service';
 import { Auth } from "firebase/auth";
-import {getStorage, ref, uploadBytes, getDownloadURL, FirebaseStorage} from 'firebase/storage';
+import {  ref, uploadBytes, getDownloadURL, FirebaseStorage} from 'firebase/storage';
 @Injectable({
   providedIn: 'root'
 })
@@ -340,6 +337,27 @@ export class FirebaseUserService {
       return downloadURL;
     } catch (error) {
       console.error('Error updating profile picture:', error);
+      throw error;
+    }
+  }
+
+  async updatePassword(userId: string, newPassword: string): Promise<boolean> {
+    try {
+      // Update password in authentication system
+      const user = this._auth.currentUser;
+      if (user) {
+        await updatePassword(user, newPassword);
+      } else {
+        throw new Error('User not found');
+      }
+
+      // Update password in Firestore
+      const userRef = doc(this._db, this._coll, userId);
+      await updateDoc(userRef, { password: newPassword });
+
+      return true;
+    } catch (error) {
+      console.error('Error updating password:', error);
       throw error;
     }
   }

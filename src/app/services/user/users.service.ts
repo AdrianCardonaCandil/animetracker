@@ -43,4 +43,6 @@ export class UsersService implements Users {
   updateProfilePicture = async ( userId:string, profileImage: File ): Promise<string> =>
     this.firebaseUserService.updateProfilePicture( userId, profileImage);
 
+  updatePassword = async ( userId:string, password:string): Promise<boolean> =>
+    this.firebaseUserService.updatePassword(userId, password);
 }

@@ -95,7 +95,7 @@ export class EditProfileComponent {
   async updatePassword() {
     if (this.editPasswordForm.valid) {
       const password = this.editPasswordForm.get('password')?.value;
-      //await this.usersService.updatePassword(this.userId, password)
+      if(this.userId) await this.usersService.updatePassword(this.userId, password). then( r => this.closeEdit() );
 
     }
   }
