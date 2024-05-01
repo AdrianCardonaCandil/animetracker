@@ -18,7 +18,7 @@
         </label>
         <div *ngIf="editDetailsForm.get('username')?.invalid && (editDetailsForm.get('username')?.dirty || editDetailsForm.get('username')?.touched)" class="alert">
           <div *ngIf="editDetailsForm.get('username')?.errors?.['minlength']" class="error-message">Username must be at least 2 characters long.</div>
-          <div *ngIf="editPasswordForm.get('username')?.errors?.['usernameExists']" class="alert">
+          <div *ngIf="editPasswordForm.get('username')?.errors?.['usernameExists']" class="alert"></div>
         </div>
         <label class="edit-details-form-label">
           <input class="container-form-input" id="email" formControlName="email"
@@ -28,7 +28,7 @@
         </label>
         <div *ngIf="editDetailsForm.get('email')?.invalid && (editDetailsForm.get('email')?.dirty || editDetailsForm.get('email')?.touched)" class="alert">
           <div *ngIf="editDetailsForm.get('email')?.errors?.['email']" class="error-message">Invalid email format.</div>
-          <div *ngIf="editPasswordForm.get('email')?.errors?.['emailExists']" class="alert">
+          <div *ngIf="editPasswordForm.get('email')?.errors?.['emailExists']" class="alert"></div>
         </div>
         <label class="container-form-label" for="description">
           <textarea class="container-form-input form-control" id="description" formControlName="description"
@@ -52,7 +52,7 @@
       <form [formGroup]="editPasswordForm" (ngSubmit)="updatePassword()" class="edit-password-form">
         <label class="container-form-label">
           <input class="container-form-input" formControlName="password" placeholder="New Password" type="password"
-                 [ngClass]="{'valid': editPasswordForm.get('password')?.valid, 'invalid': editPasswordForm.get('password')?.invalid && (editPasswordForm.get('password')?.dirty || editPasswordForm.get('password')?.touched)}">>
+                 [ngClass]="{'valid': editPasswordForm.get('password')?.valid, 'invalid': editPasswordForm.get('password')?.invalid && (editPasswordForm.get('password')?.dirty || editPasswordForm.get('password')?.touched)}">
         </label>
         <label class="container-form-label">
           <input class="container-form-input" formControlName="repeat_password" placeholder="Repeat Password" type="password"

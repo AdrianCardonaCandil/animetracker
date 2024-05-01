@@ -1,5 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, AbstractControl, ReactiveFormsModule} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ReactiveFormsModule,
+  ValidationErrors
+} from '@angular/forms';
 import { AuthService } from "../../../services/auth/auth.service";
 import { UsersService } from "../../../services/user/users.service";
 import {NgClass, NgIf} from "@angular/common";
@@ -37,11 +44,17 @@ export class EditProfileComponent {
     private usersService: UsersService
   ) {
     this.editDetailsForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', {
+        validators: [Validators.required, Validators.minLength(2), Validators.maxLength(10)],
+        asyncValidators: [this.checkUsernameExists.bind(this)],
+        updateOn: 'blur'
+      }],
+      email: ['', {
+        validators: [Validators.required, Validators.email],
+        asyncValidators: [this.checkEmailExists.bind(this)],
+        updateOn: 'blur'
+      }],
       description: ['', [Validators.minLength(10), Validators.maxLength(500)]]
-    }, {
-      validators: [this.checkEmailExists, this.checkUsernameExists ]
     });
 
     this.editPasswordForm = this.formBuilder.group({
@@ -64,23 +77,20 @@ export class EditProfileComponent {
 
   async submitForm() {
     console.log("submitting forms")
-    console.log(this.editDetailsForm.valid)
-    console.log(this.editDetailsForm.errors)
-    if (this.editDetailsForm.valid) {
-      console.log("details form is valid")
-      const { username, email, description } = this.editDetailsForm.value;
-      console.log(username)
-      const usernameExists = await this.checkUsernameExists(username);
-      if (usernameExists) {
-        this.editDetailsForm.get('username')?.setErrors({ 'usernameExists': true });
-        return;
-      }
+    console.log("Username control validity:", this.editDetailsForm.get('username')?.valid);
+    console.log("Email control validity:", this.editDetailsForm.get('email')?.valid);
+    console.log("Description control validity:", this.editDetailsForm.get('description')?.valid);
+    Object.keys(this.editDetailsForm.controls).forEach(key => {
+      const control = this.editDetailsForm.get(key);
+      console.log(`Control: ${key}`);
+      console.log(`Validity: ${control?.valid}`);
+      console.log(`Errors: ${JSON.stringify(control?.errors)}`);
+    });
 
-      const emailExists = await this.checkEmailExists(email);
-      if (emailExists) {
-        this.editDetailsForm.get('email')?.setErrors({ 'emailExists': true });
-        return;
-      }
+    if (this.editDetailsForm.valid) {
+
+      const { username, email, description } = this.editDetailsForm.value;
+
       if(this.userId) {
         this.usersService.modifyUserDetails(this.userId, username, email, description).then( r => {
           if (r) {
@@ -119,13 +129,32 @@ export class EditProfileComponent {
     return null;
   }
 
-  async checkUsernameExists(username: string): Promise<boolean> {
-    return  await this.usersService.checkUserExistence(username);
+  async checkUsernameExists(control: AbstractControl): Promise<ValidationErrors | null> {
+    const username = control.value;
+    const exists = await this.usersService.checkUserExistence(username);
+    if(username === this.username){
+      return null;
+    }
+    if (exists) {
+      this.editDetailsForm.get('username')?.setErrors({ 'usernameExists': true });
+      return { usernameExists: true } ;
+    }
+    return null
   }
 
-  async checkEmailExists(email: string): Promise<boolean> {
-    return await this.usersService.checkEmailExistence(email);
+  async checkEmailExists(control: AbstractControl): Promise<ValidationErrors | null> {
+    const email = control.value;
+    const exists = await this.usersService.checkEmailExistence(email);
+    if(email=== this.email){
+      return null;
+    }
+    if (exists) {
+      this.editDetailsForm.get('email')?.setErrors({ 'emailExists': true });
+      return { emailExists: true } ;
+    }
+    return null
   }
+
 
   getUsernameErrorMessage() {
     const usernameControl = this.editDetailsForm.get('username');
