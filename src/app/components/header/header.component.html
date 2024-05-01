@@ -25,7 +25,10 @@
     </button>
     <div class="mobile-menu-overlay" *ngIf="showMobileMenu" (click)="mobileMenu()"></div>
     @if(showMobileMenu){
-      <app-mobile-menu [userNotLogged] = "(!(userLogged$|async))" [username] = "(userLogged$|async)?.username"></app-mobile-menu>
+      <app-mobile-menu
+        [userNotLogged] = "(!(userLogged$|async))" [username] = "(userLogged$|async)?.username"
+        (mobileSignInClicked)="showSignIn()" (mobileSignOutClicked)="logout()" (mobileSignUpClicked)="showSignUp()"
+      ></app-mobile-menu>
     }
   </div>
 </div>

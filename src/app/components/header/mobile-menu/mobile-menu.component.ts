@@ -16,6 +16,7 @@ export class MobileMenuComponent {
   @Input() userNotLogged!: boolean;
   @Output() mobileSignUpClicked = new EventEmitter();
   @Output() mobileSignInClicked = new EventEmitter();
+  @Output() mobileSignOutClicked = new EventEmitter();
   @Input() username!: string | undefined;
   showSignIn() {
     this.mobileSignInClicked.emit()
@@ -23,5 +24,9 @@ export class MobileMenuComponent {
 
   showSignUp() {
     this.mobileSignUpClicked.emit()
+  }
+
+  logOut() {
+    this.mobileSignOutClicked.emit()
   }
 }
