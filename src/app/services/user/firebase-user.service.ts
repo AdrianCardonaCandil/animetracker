@@ -335,7 +335,7 @@ export class FirebaseUserService {
       const downloadURL = await getDownloadURL(snapshot.ref);
 
       const userRef = doc(this._db, this._coll, userId);
-      await updateDoc(userRef, { profilePictureURL: downloadURL });
+      await updateDoc(userRef, { profilePicture: downloadURL });
 
       return downloadURL;
     } catch (error) {
