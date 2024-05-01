@@ -58,7 +58,7 @@ export class EditProfileComponent {
     });
 
     this.editPasswordForm = this.formBuilder.group({
-      password: ['', [Validators.required,Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/)]],
+      password: ['', [Validators.required,Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/u)]],
       repeat_password: ['', Validators.required]
     }, {
       validator: this.passwordMatchValidator

@@ -26,7 +26,8 @@ export class SignUpComponent {
     this.form = this.formBuilder.group({
       username: [ '', [ Validators.required, Validators.minLength(2) ] ],
       email: [ '', [ Validators.required, Validators.email ] ],
-      password: [ '', [ Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9\s]{8,}$/) ] ],
+      password: [ '', [ Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/u
+      ) ] ],
       repeat_password: [ '', Validators.required ]
     }, {
       validator: this.passwordMatchValidator
