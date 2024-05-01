@@ -25,4 +25,15 @@ export class UserInfoComponent {
   closeEditWindow() {
     this.openEdit = false;
   }
+
+  updatePfp(updateProfilePicture: string ) {
+    this.profilePicture = updateProfilePicture;
+  }
+
+  updateDetails(data: { username: string, email: string, description: string }): void {
+
+    this.username = data.username;
+    this.email = data.email;
+    this.description = data.description;
+  }
 }
