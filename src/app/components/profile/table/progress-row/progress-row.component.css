@@ -65,9 +65,6 @@ p,
   width: 50%;
 }
 
-.position-score,
-.position-type {}
-
 .position-content img {
   position: absolute;
   width: 100%;
