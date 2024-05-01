@@ -19,7 +19,8 @@ export class SignInComponent {
   constructor(private formBuilder: FormBuilder, private Users: UsersService, private router: ActivatedRoute, private Auth: AuthService) {
     this.form = this.formBuilder.group({
       username: [ '', [ Validators.required, Validators.minLength(2) ] ],
-      password: [ '', [ Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9\s]{8,}$/) ] ]
+      password: [ '', [ Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/u
+      ) ] ]
     }, {
       validators: this.login
     });
