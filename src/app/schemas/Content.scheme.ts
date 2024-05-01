@@ -1,5 +1,5 @@
 export type contentAtributeNames = 'id'|'title'|'synopsis'|'score'|'status'|'episodesNumber'|'type'|'source'|
-'duration'|'cover'|'background'|'year'|'season'|'genres'|'studios';
+'duration'|'cover'|'background'|'year'|'season'|'genres'|'studios'|'likes';
 
 export interface Content {
     readonly id:number;
