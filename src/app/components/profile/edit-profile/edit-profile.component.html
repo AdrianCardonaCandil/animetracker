@@ -78,7 +78,7 @@
         <input accept="image/*" class="container-choose-image-button" (change)="onProfileImageChange($event)" formControlName="profileImage" type="file"
 
                [ngClass]="{'valid': editPfpForm.get('profileImage')?.valid, 'invalid': editPfpForm.get('profileImage')?.invalid && (editPfpForm.get('profileImage')?.dirty || editPfpForm.get('profileImage')?.touched)}">
-        <img *ngIf="profileImage" class="container-chosen-image" [src]="(profileImage)" alt="Selected Image">
+        <img *ngIf="imageUrl" class="container-chosen-image" [src]="imageUrl" alt="Selected Image">
         <div *ngIf="editDetailsForm.get('profileImage')?.invalid && (editDetailsForm.get('profileImage')?.dirty || editDetailsForm.get('profileImage')?.touched)"
              class="alert">
           <div *ngIf="editDetailsForm.get('profileImage')?.errors?.['required']" class="error-message">choose a valid pfp</div>

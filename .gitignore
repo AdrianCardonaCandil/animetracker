@@ -46,4 +46,4 @@ Thumbs.db
 src/app/components/header
 
 # Env variables
-src/app/environments
+src/environments

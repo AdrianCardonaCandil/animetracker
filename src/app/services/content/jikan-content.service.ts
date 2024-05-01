@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { __env } from '../../environments/env.dev';
+import { __env } from '../../../environments/env.dev';
 import { genres, genresNames } from './genres';
 
 @Injectable({

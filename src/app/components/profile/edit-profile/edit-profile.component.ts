@@ -36,7 +36,7 @@ export class EditProfileComponent {
   editPasswordForm: FormGroup;
   editPfpForm: FormGroup;
   profileImage: File | null = null;
-
+  imageUrl: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -76,16 +76,6 @@ export class EditProfileComponent {
   }
 
   async submitForm() {
-    console.log("submitting forms")
-    console.log("Username control validity:", this.editDetailsForm.get('username')?.valid);
-    console.log("Email control validity:", this.editDetailsForm.get('email')?.valid);
-    console.log("Description control validity:", this.editDetailsForm.get('description')?.valid);
-    Object.keys(this.editDetailsForm.controls).forEach(key => {
-      const control = this.editDetailsForm.get(key);
-      console.log(`Control: ${key}`);
-      console.log(`Validity: ${control?.valid}`);
-      console.log(`Errors: ${JSON.stringify(control?.errors)}`);
-    });
 
     if (this.editDetailsForm.valid) {
 
@@ -109,16 +99,6 @@ export class EditProfileComponent {
 
     }
   }
-
-  async updateProfilePicture() {
-    if (this.editPfpForm.valid) {
-      const formData = new FormData();
-      formData.append('profileImage', this.profileImage as Blob);
-
-
-    }
-  }
-
   passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password');
     const repeatPassword = control.get('repeat_password');
@@ -153,9 +133,8 @@ export class EditProfileComponent {
       return null;
     }
 
-
     const exists = await this.usersService.checkEmailExistence(email);
-    console.log("Email exists:", exists);
+
     if (exists) {
       return { 'emailExists': true };
     } else {
@@ -163,45 +142,28 @@ export class EditProfileComponent {
     }
   }
 
-
-
-  getUsernameErrorMessage() {
-    const usernameControl = this.editDetailsForm.get('username');
-
-    if (usernameControl?.hasError('required')) {
-      return 'Username is required.';
-    } else if (usernameControl?.hasError('minlength')) {
-      return 'Username must be at least 2 characters long.';
-    } else if (usernameControl?.hasError('maxlength')) {
-      return 'Username cannot be more than 10 characters long.';
-    } else if (usernameControl?.hasError('usernameExists')) {
-      return 'Username already exists.';
-    }
-
-    return '';
-  }
-
-  // Function to display email error message
-  getEmailErrorMessage() {
-    const emailControl = this.editDetailsForm.get('email');
-
-    if (emailControl?.hasError('required')) {
-      return 'Email is required.';
-    } else if (emailControl?.hasError('email')) {
-      return 'Invalid email format.';
-    } else if (emailControl?.hasError('emailExists')) {
-      return 'Email already exists.';
-    }
-
-    return '';
-  }
-
   onProfileImageChange(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files[0]) {
       this.profileImage = inputElement.files[0];
+      this.imageUrl = URL.createObjectURL(this.profileImage);
     }
   }
+  async updateProfilePicture() {
+    if (this.editPfpForm.valid) {
+      const formData = new FormData();
+      formData.append('profileImage', this.profileImage as Blob);
+
+      if(this.userId && this.profileImage) await this.usersService.updateProfilePicture(this.userId, this.profileImage).then( r => {
+        if (r) {
+          this.updatePfp.emit(r)
+          this.closeEdit()
+        }
+      })
+    }
+  }
+
+
 
   closeEdit() {
     this.editProfile.emit();
