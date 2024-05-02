@@ -2,7 +2,7 @@
     @for(item of contentdata(); track $index){
         <article class="side-keyvalue">
             <p class="keyvalue-id">{{ item.id }}</p>
-            @if(isArray(item.value)){
+            @if(isString(item.value)){
                 <p class="keyvalue-value"> {{ item.value }} </p>
             } @else {
                 @for(item of item.value; track $index){

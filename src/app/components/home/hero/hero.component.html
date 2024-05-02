@@ -1,7 +1,17 @@
 <section class="hero">
     <a title="content redirection" [routerLink]="['/content', this.contentID()]">
-    <p id="anime-name"> {{ title() }} </p>
-    <p id="anime-desc"> {{ description() }} </p>
-    <img alt="an-anime-image" id="anime-img" [src]="imageSource()">
+        <img alt="an-anime-image" id="anime-img" [src]="imageSource()">
+        <div id="hero-content-data">
+            <p id="anime-name"> {{ title() }} </p>
+            <p id="anime-desc"> {{ description() }} </p>
+            <div id="anime-info">
+                @for(data of this.info(); track $index){
+                    <div>
+                        <span class="data-id"> {{ data.id | titlecase }} </span>
+                        <span class="data-value"> {{ data.value }} </span>
+                    </div>
+                }
+            </div>
+        </div>
     </a>
 </section>

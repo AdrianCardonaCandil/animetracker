@@ -1,5 +1,5 @@
 <main>
-    <app-hero [title]="this.hero?.title" [description]="this.hero?.synopsis" [imageSource]="this.hero?.backgroundimage" [contentID]="this.hero?.id"></app-hero>
+    <app-hero [title]="this.hero?.title" [description]="this.hero?.synopsis" [imageSource]="this.hero?.coverimage" [contentID]="this.hero?.id" [info]="[{id:'score', value: '' + this.hero?.score}, {id:'likes', value: '' + this.hero?.likes}, {id:'year', value: '' + this.hero?.year}, {id:'season', value: '' + this.hero?.season}]"></app-hero>
     <app-searchbar page="index"></app-searchbar>
     @for(item of [this.ranked, this.seasonal, this.upcoming]; track $index){
         <app-animelist [descriptor]="this.rowNames[$index]" [contents]="item"></app-animelist>
