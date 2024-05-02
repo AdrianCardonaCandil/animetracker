@@ -101,3 +101,36 @@
     opacity: 0.75;
     cursor: pointer;
 }
+
+@media screen and (width >= 75rem) {
+    #show-filters {
+        display: none;
+    }
+}
+
+@media screen and (width < 75rem) {
+    #show-filters {
+        display: block;
+        width: 10%;
+        background-color: var(--snow-color);
+        height: 2.5rem;
+    }
+    #search-bar {
+        flex-flow: row wrap;
+        align-items: end;
+        gap: 5%;
+        row-gap: 1.5rem;
+    }
+    #search {
+        min-width: 80%;
+    }
+}
+
+@media screen and (width < 35rem) {
+    #search {
+        min-width: 100%;
+    }
+    #show-filters {
+        display: none;
+    }
+}

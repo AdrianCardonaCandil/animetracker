@@ -15,7 +15,7 @@
 #hero-content-data {
     display: flex;
     flex-flow: column nowrap;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 #anime-name,  #anime-desc {
@@ -27,7 +27,7 @@
     flex-flow: row nowrap;
     justify-content: space-around;
     text-align: center;
-    background-color: var(--dull-blue);
+    background-color: var(--dark-blue);
     box-shadow: var(--black-box-shadow);
     font-weight: bold;
     border-radius: 0.5rem;
@@ -58,6 +58,10 @@
     max-width: 100%;
 }
 
+.data-id {
+    color: var(--dull-blue);
+}
+
 @media screen and (width < 50rem) {
     .hero a {
         flex-flow: column nowrap;
@@ -74,6 +78,10 @@
     #anime-img {
         opacity: 0.9;
         filter: blur(0.05rem);
+    }
+
+    #anime-name {
+        font-size: large;
     }
 }
 

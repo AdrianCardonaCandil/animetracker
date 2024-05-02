@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewChild, WritableSignal, input, signal} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild, input} from '@angular/core';
 import { optionsBuilder } from "./optionsBuilder";
 import { CommonModule, NgStyle } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -88,6 +88,7 @@ export class SearchbarComponent implements AfterViewInit{
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(debounceTime(1000)).subscribe(()=>{
       this.emitOptions('Name', String(this.name.value));
     })
+    this.detectScreenSize();
   }
 
   // Variables to track the current search mode in wich we are in.
@@ -104,5 +105,26 @@ export class SearchbarComponent implements AfterViewInit{
   router: Router;
   constructor(router:Router){
     this.router = router;
+  }
+
+  @HostListener("window:resize", [])
+  public onResize() {
+    this.detectScreenSize();
+  }
+
+  width:number = 0;
+  detectScreenSize() {
+    this.width = window.innerWidth;
+  }
+
+  filterButton = false;
+  clickFilterButton() {
+    this.filterButton = !this.filterButton;
+  }
+
+  showFilters() {
+    if (this.width > 1200) return true;
+    if (this.width < 560) return false;
+    return this.filterButton;
   }
 }
