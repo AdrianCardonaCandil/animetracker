@@ -1,12 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Router} from "@angular/router"
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-normal-row',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    NgForOf
   ],
   templateUrl: './normal-row.component.html',
   styleUrl: './normal-row.component.css'

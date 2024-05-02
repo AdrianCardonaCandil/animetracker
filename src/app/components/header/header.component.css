@@ -119,6 +119,9 @@ Width and height defined in relation to the container.*/
   background: white;
   color: black;
 }
+a {
+  cursor: pointer;
+}
 /* ----------------------- Media Querys ------------------------*/
 
 @media screen and (width > 35rem) {
@@ -147,4 +150,6 @@ Width and height defined in relation to the container.*/
   .top-header-content nav {
     display: none;
   }
+
+
 }
