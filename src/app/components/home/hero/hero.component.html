@@ -4,7 +4,7 @@
         <div id="hero-content-data">
             <p id="anime-name"> {{ title() }} </p>
             <p id="anime-desc"> {{ description() }} </p>
-            <div id="anime-info">
+            <div class="anime-info">
                 @for(data of this.info(); track $index){
                     <div>
                         <span class="data-id"> {{ data.id | titlecase }} </span>

@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, InputSignal, input } from '@angular/core';
+import { Component, InputSignal, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })
+
 export class HeroComponent {
   title = input();
   description = input();
