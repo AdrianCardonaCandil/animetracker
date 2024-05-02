@@ -88,7 +88,6 @@ export class SearchbarComponent implements AfterViewInit{
     fromEvent(this.searchInput.nativeElement, 'keyup').pipe(debounceTime(1000)).subscribe(()=>{
       this.emitOptions('Name', String(this.name.value));
     })
-    this.detectScreenSize();
   }
 
   // Variables to track the current search mode in wich we are in.
@@ -105,6 +104,7 @@ export class SearchbarComponent implements AfterViewInit{
   router: Router;
   constructor(router:Router){
     this.router = router;
+    this.detectScreenSize();
   }
 
   @HostListener("window:resize", [])

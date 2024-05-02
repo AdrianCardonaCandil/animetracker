@@ -35,7 +35,4 @@ export class HomeComponent implements OnInit{
     this.contentService.search(this.seasonalQuery).then((contents:any) => contents ? this.seasonal = contents.data.slice(0, 5) : undefined);
     this.contentService.findUpcoming(5).then(contents => contents ? this.upcoming = contents.data : null);
   }
-
-  
-
 }
