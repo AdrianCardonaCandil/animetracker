@@ -12,17 +12,25 @@
   border-radius: 10px 10px 0 0;
 
 }
-.user-profile-nav a {
+
+.nav-item {
   text-decoration: none;
   color: white;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.selected_list  {
+  font-weight: bold;
+  color: #6d8299;
 }
 .user-profile-nav-item {
   cursor: pointer;
   font-size: var(--medium-font-size);
 }
-.nav-item:hover {
+.user-profile-nav a:hover {
   color: #646465;
 }
+
 @media screen and (width < 70rem){
   .user-profile-nav {
     gap:10%;

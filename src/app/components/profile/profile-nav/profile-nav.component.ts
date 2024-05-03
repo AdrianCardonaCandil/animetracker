@@ -1,14 +1,22 @@
 import {Component, Input} from '@angular/core';
-import {RouterLink} from "@angular/router";
+import {Router, ActivatedRoute, RouterLink} from '@angular/router';
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-profile-nav',
+  templateUrl: './profile-nav.component.html',
   standalone: true,
   imports: [
+    NgClass,
     RouterLink
   ],
-  templateUrl: './profile-nav.component.html',
-  styleUrl: './profile-nav.component.css'
+  styleUrls: ['./profile-nav.component.css']
 })
 export class ProfileNavComponent {
+  @Input() username!: string;
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  isRouteActive(route: string): boolean {
+    return this.router.url.endsWith(route);
+  }
 }

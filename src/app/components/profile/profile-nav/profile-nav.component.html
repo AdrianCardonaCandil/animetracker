@@ -1,7 +1,7 @@
 <div class="user-profile-nav">
-  <a class="nav-item" routerLink="./watching">Watching</a>
-  <a class="nav-item" routerLink="./completed">Completed</a>
-  <a class="nav-item" routerLink="./planToWatch">Plan to Watch</a>
-  <a class="nav-item" routerLink="./favorites">Favorites</a>
-  <a class="nav-item" routerLink="./dropped">Dropped</a>
+  <a class="nav-item" [ngClass]="{'selected_list': isRouteActive('/watching')}" routerLink="/profile/{{username}}/watching">Watching</a>
+  <a class="nav-item" [ngClass]="{'selected_list': isRouteActive('/completed')}" routerLink="/profile/{{username}}/completed">Completed</a>
+  <a class="nav-item" [ngClass]="{'selected_list': isRouteActive('/planToWatch')}" routerLink="/profile/{{username}}/planToWatch">Plan to Watch</a>
+  <a class="nav-item" [ngClass]="{'selected_list': isRouteActive('/favorites')}" routerLink="/profile/{{username}}/favorites">Favorites</a>
+  <a class="nav-item" [ngClass]="{'selected_list': isRouteActive('/dropped')}" routerLink="/profile/{{username}}/dropped">Dropped</a>
 </div>
