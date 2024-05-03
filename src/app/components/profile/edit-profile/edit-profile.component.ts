@@ -10,6 +10,7 @@ import {
 import { AuthService } from "../../../services/auth/auth.service";
 import { UsersService } from "../../../services/user/users.service";
 import {NgClass, NgIf} from "@angular/common";
+import {ActivatedRoute, Route, Router} from "@angular/router";
 
 
 @Component({
@@ -41,7 +42,8 @@ export class EditProfileComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router
   ) {
     this.editDetailsForm = this.formBuilder.group({
       username: ['', {
@@ -71,8 +73,12 @@ export class EditProfileComponent {
 
   deleteProfile() {
     if (confirm(`Do you want to delete your account?`)) {
-      this.authService.deleteAccount(<string>this.userId).then();
+      if(this.userId) {
+        console.log(this.userId)
+        this.authService.deleteAccount(this.userId).then(r => this.router.navigate(['']));
+      }
     }
+
   }
 
   async submitForm() {

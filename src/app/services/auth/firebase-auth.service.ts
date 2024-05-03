@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {doc, setDoc, Firestore, getDoc, updateDoc, getDocs, query, collection, where} from 'firebase/firestore/lite';
+import {doc, deleteDoc, setDoc, Firestore, getDoc, updateDoc, getDocs, query, collection, where} from 'firebase/firestore/lite';
 import { Auth, setPersistence,onAuthStateChanged, browserLocalPersistence,createUserWithEmailAndPassword, signInWithEmailAndPassword, UserCredential, signOut } from 'firebase/auth';
 import { FirebaseService } from '../firebase.service';
 import User from "../../schemas/User.scheme";
@@ -189,8 +189,39 @@ export class FirebaseAuthService {
     }
   }
 
-  deleteAccount = async (userId: string) => {
-    return false;
+  async deleteAccount(userId: string): Promise<boolean> {
+    try {
+
+      await this.deleteAuthAccount(userId);
+      await this.deleteUserDocument(userId);
+      return true;
+
+    } catch (error) {
+      console.error("Error deleting user profile:", error);
+      throw error;
+    }
+  }
+
+  private async deleteAuthAccount(userId: string): Promise<void> {
+    try {
+
+      if(this._auth.currentUser) await this._auth.currentUser.delete();
+      console.log("Authentication account deleted successfully");
+    } catch (error) {
+      console.error("Error deleting authentication account:", error);
+      throw error;
+    }
+  }
+
+  private async deleteUserDocument(userId: string): Promise<void> {
+    try {
+
+      await deleteDoc(doc(this._db, this._coll, userId));
+      console.log("User document deleted successfully");
+    } catch (error) {
+      console.error("Error deleting user document:", error);
+      throw error;
+    }
   }
 
 }
