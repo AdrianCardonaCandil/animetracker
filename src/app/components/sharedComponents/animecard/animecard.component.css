@@ -21,7 +21,7 @@
 .anime-cover {
     border-radius: 0.5rem;
     box-shadow: var(--black-box-shadow);
-    flex: 10;
+    flex: 9;
 }
 
 .anime-card a:hover {

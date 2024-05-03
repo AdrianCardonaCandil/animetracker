@@ -16,12 +16,26 @@ aside {
     justify-content: center;
     align-items: center;
     width: 100%;
+    white-space: nowrap;
 }
 
 .keyvalue-id{
     font-size: larger;
+    margin-bottom: 2rem;
+    font-weight: bold;
 }
 
-.keyvalue-value {
-    opacity: 0.75;
+@media screen and (width < 75rem) {
+    aside {
+        flex-direction: row;
+        gap: 15rem;
+        height: fit-content;
+        padding: 1rem 5rem 1rem 5rem;
+        overflow: auto;
+    }
+
+    .keyvalue-id{
+        font-size: medium;
+        margin-bottom: 1rem;
+    }
 }
