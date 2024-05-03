@@ -1,0 +1,28 @@
+#mobile-menu-box {
+  z-index: 9999;
+  position: fixed;
+  height: 100vh;
+  inset: 0 0 0 50vw;
+  background-color: #1d1d1f;
+  display: flex;
+  flex-flow: column nowrap;
+  color: var(--snow-color);
+}
+
+#mobile-menu-box a {
+  font-size: large;
+  margin-left: 5rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+  text-align: center;
+  align-content: center;
+  opacity: 0.75;
+}
+
+#mobile-menu-box a:hover,
+#mobile-menu-box a:focus {
+  opacity: 1;
+  font-weight: bolder;
+}
