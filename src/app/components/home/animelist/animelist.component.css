@@ -1,7 +1,7 @@
 .anime-row {
     width: 100%;
     color: var(--snow-color);
-    margin-bottom: 5%;
+    margin: 2.5rem 0;
 }
 
 .row-name {
@@ -13,6 +13,8 @@
 .row-animes {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
-    gap: 2.5rem;
+    justify-content: space-around;
+    gap: 1rem;
+    row-gap: 1rem;
+    padding: 1rem;
 }

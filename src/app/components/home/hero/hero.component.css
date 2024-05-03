@@ -3,12 +3,12 @@
     display: flex;
     flex-flow: row nowwrap;
     align-items: center;
-    color: var(--snow-color);
+    color: var(--black-mo);
     text-decoration: none;
     gap: 2.5rem;
-    margin: 1rem;
-    padding: 1rem;
-    background-color: var(--black-no);
+    margin: 2rem;
+    padding: 2rem;
+    background-color: var(--snow-color);
     border-radius: 0.5rem;
 }
 
@@ -18,7 +18,7 @@
     gap: 0.5rem;
 }
 
-#anime-name,  #anime-desc {
+#anime-name, #anime-desc {
     overflow: auto;
 }
 
@@ -32,6 +32,7 @@
     font-weight: bold;
     border-radius: 0.5rem;
     min-width: 12.5rem;
+    color: var(--snow-color);
 }
 
 .anime-info div {
@@ -74,11 +75,6 @@
 
     .anime-info {
         display: none;
-    }
-
-    #anime-img {
-        opacity: 0.9;
-        filter: blur(0.05rem);
     }
 
     #anime-name {
