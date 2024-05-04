@@ -7,7 +7,7 @@ Angular Application For Tracking Anime Content
 Para que este programa funcione se debe añadir a la capeta /src/environments el archivo env.dev.ts ya que ahí se encuentran las configuraciones para Jikan y Firebase
 
 ---
-# Organización del proyecto
+# Estructura del proyecto
 
 * carpeta src : aquí se encuentra el código del proyecto
   - **app**
@@ -42,15 +42,106 @@ Para que este programa funcione se debe añadir a la capeta /src/environments el
         -   **sharedComponents**: componentes que se reutilizan en otros componentes
             - **animecard**: componente que contiene la foto del anime y su nombre
             - **pagination**: componente que permite la paginación
-            - **searchbar**: barra de busqueda y filtros
+            - **searchbar**: barra de búsqueda y filtros
   
-      - models: carpeta de modelos
-      - schemas: carpeta de schemas
-      -  services: carpeta de servicios de auth, content y  user
+      - models: carpeta de modelos de auth, content y user. Estos modelos sirven como interfaz de los servicios.
+      - schemas: carpeta de schemas de character, characters, content, episodes y user. 
+      -  services: carpeta de servicios de auth, content y  user. Contiene servicios para Firebase y Jikan.
   - assets: contiene las imágenes e iconos 
   - environments: contiene el documento de variables de entorno
   - styles: contiene los estilos generales
   
+
+---
+# Estructura de datos en Firebase
+
+En Firebase se encuentran 5 colleciones en Cloud Firestore:
+- **Character**: representa a un personaje de un anime, sigue la siguiente estructura:
+ >   id:number
+
+    image:string
+    
+    name:string
+    
+    about:string
+
+  ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/8c9e449d-df5f-4c57-8e37-ea77a59d2219)
+
+- **Characters**
+
+  ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/cb173d3b-b7a3-4f4a-8a6b-5f16c6c441d0)
+
+- **Contents**: representa a cada anime, sigue la siguiente estructura:
+  
+      id:number
+
+       synopsis:string
+
+      score:number
+  
+      status:string
+  
+      episodes:number
+    
+      type:string
+    
+      source:string
+    
+      duration:string
+    
+      coverimage:string
+    
+      backgroundimage:string
+    
+      year:number
+    
+      season:string
+    
+      rating:string
+    
+      genres:string[]
+    
+      studios:string[]
+    
+      likes:number
+  
+  ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/4befadc7-ff5b-4755-93bb-e8021ec31ad0)
+
+- **Episodes**
+
+  ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/6cb0cdd4-8b07-465a-b87e-2f5cd0beb3ba)
+
+- **Users**: representa a cada usuario, sigue la siguiente estructura:
+
+      id: string
+  
+      username: string
+  
+      email: string
+  
+      password: string
+  
+      description: string
+  
+      country: string
+  
+      profilePicture: string
+  
+      watching: []
+  
+      dropped: []
+  
+      completed: []
+  
+      planToWatch: []
+  
+      favorites: []
+  
+      userScores: { [key: string]: number }
+  
+      contentProgress: { [key: string]: number }
+
+  ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/4e62fab7-3567-4f37-ae1f-a7cb131ae6b6)
 
 ---
 
