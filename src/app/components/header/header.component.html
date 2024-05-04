@@ -10,15 +10,16 @@
          routerLink="/profile/{{(userLogged$|async)?.username}}/watching">Profile</a>
     }
   </nav>
-  <div class="top-header-content-buttons">
+  <span class="top-header-content-buttons">
     @if ((!(userLogged$|async))) {
+
       <button id="signInButton" name="Sign In" (click)="showSignIn()">Sign In</button>
       <button id="signUpButton" name="Sign Up" (click)="showSignUp()">Sign Up</button>
     } @else{
       <p>{{(userLogged$|async)?.username}}</p>
       <button id="signOutButton" name="Sign Out" (click)="logout()">Sign Out</button>
     }
-  </div>
+  </span>
   <div class="top-header-mobile-menu">
     <button id="header-mobile-menu-button" (click) = "mobileMenu()" >
       <i class="fa-solid fa-bars"></i>

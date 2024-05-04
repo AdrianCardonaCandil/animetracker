@@ -33,15 +33,13 @@
 
 .top-header-content-buttons {
   width: 15%;
-  height: 50%;
   min-width: 3.5cm;
-
   display: flex;
   flex-flow: nowrap;
   gap: 5%;
   box-sizing: border-box;
-
-  align-items: baseline;
+  overflow-wrap: break-word;
+  align-items: center;
 }
 
 /* Styling the fist button on the container above.
@@ -73,7 +71,10 @@ Width and height defined in relation to the container.*/
   background: #4f4f4f;
   color: white;
 }
-
+.top-header-content-buttons button{
+  min-height:2.5em;
+  height: 2.5em;
+}
 /*---------------------- Responsive Menu --------------------*/
 
 .top-header-mobile-menu {
@@ -111,6 +112,8 @@ Width and height defined in relation to the container.*/
 a {
   cursor: pointer;
 }
+
+
 /* ----------------------- Media Querys ------------------------*/
 
 @media screen and (width > 35rem) {
@@ -119,6 +122,15 @@ a {
   }
 }
 
+@media screen and (min-width: 35em) and (max-width: 70em) {
+  .top-header-mobile-menu {
+    display: none;
+  }
+  .top-header-content-buttons button{
+    min-height:3em;
+    height: 3em;
+  }
+}
 @media screen and (width <=35rem) {
 
   .top-header-content-buttons {
