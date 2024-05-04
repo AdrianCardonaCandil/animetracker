@@ -70,7 +70,7 @@ Para borrar listas solo se debe deseleccionar la lista. Si se cambia de lista es
 
 Estas listas se podrán ver en el apartado de perfil del usuario.
 
-### dar like a un contenido
+### Dar like a un contenido
 
 Hay un botón con un corazón, al clicarlo añadirá el anime a la lista de favoritos del usuario. Además, incrementa el contador de likes del anime, este se encuentra en el aside.
 
@@ -81,13 +81,16 @@ Hay un botón con un corazón, al clicarlo añadirá el anime a la lista de favo
 
 En la página de Perfil se puede ver las listas de seguimiento además de ver datos del usuario (foto de perfil, nombre de usuario, descripción). Si el usuario se encuentra viendo su propio perfil, este podrá editar sus propios datos de perfil:
 
-### edición de perfil
+El navegador permite ir a una de las 5 listas, cada lista muestran los campos de cada anime como (titulo, año, género, etc). La lista que tiene más funcionalidad es la lista "watching" la cual tiene un contador de episodios vistos. Una vez que se llegue al total de episodios sale un mensaje preguntando si quiere pasar el anime a la lista de completados.
+
+### Edición de perfil
 
 Se encuentran 3 formularios con sus validaciones.
 
 El primer formulario permite modificar el username, email y descripción. El username y email siguen la misma validación que en inicio de sesión y registro. además, se asegura que no se modifiquen a un usuario o correo existente que no sean los del propio usuario. La descripción debe tener mínimo de 10 caracteres y un máximo de 500.
 
 El segundo permite modificar la contraseña sigue la mima vvalidación que el registro de usuario.
+
 El tercer formulario permite añadir una imagen como foto de perfil.
 
-El navegador permite ir a una de las 5 listas, cada lista muestran los campos de cada anime como (titulo, año, género, etc). La lista que tiene más funcionalidad es la lista "watching" la cual tiene un contador de episodios vistos. Una vez que se llegue al total de episodios sale un mensaje preguntando si quiere pasar el anime a la lista de completados.
+
