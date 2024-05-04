@@ -1,13 +1,15 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { UsersService } from "../../../../services/user/users.service";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-progress-row',
   standalone: true,
-  imports: [
-    RouterLink
-  ],
+    imports: [
+        RouterLink,
+        NgForOf
+    ],
   templateUrl: './progress-row.component.html',
   styleUrls: [ '../normal-row/normal-row.component.css', 'progress-row.component.css' ]
 })

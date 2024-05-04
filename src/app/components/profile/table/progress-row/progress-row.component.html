@@ -14,6 +14,8 @@
   </section>
   <p class="position position-score">{{rowContentScore}}</p>
   <p class="position position-type">{{rowType}}</p>
-  <p class="position position-status">{{rowGenres}}</p>
+  <span class="position position-genre">
+    <p *ngFor="let genre of rowGenres" class="genre">{{ genre }}</p>
+  </span>
   <img alt="" title="" src="{{rowContentCover}}">
 </div>
