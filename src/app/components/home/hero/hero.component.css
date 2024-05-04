@@ -1,42 +1,85 @@
 .hero a {
-    position: relative;
-    box-sizing: border-box;
-
+    height: fit-content;
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowwrap;
     align-items: center;
+    color: var(--black-mo);
+    text-decoration: none;
+    gap: 2.5rem;
+    margin: 2rem;
+    padding: 2rem;
+    background-color: var(--snow-color);
+    border-radius: 0.5rem;
 }
 
-.hero p {
-    position: absolute;
-    background: var(--black-mo);
-    padding: 0.75%;
+#hero-content-data {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5rem;
+}
+
+#anime-name, #anime-desc {
+    overflow: auto;
+}
+
+.anime-info {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    text-align: center;
+    background-color: var(--dark-blue);
+    box-shadow: var(--black-box-shadow);
+    font-weight: bold;
     border-radius: 0.5rem;
+    min-width: 12.5rem;
     color: var(--snow-color);
 }
 
+.anime-info div {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    height: 5rem;
+}
+
 #anime-name {
-    font-size:x-large;
-    width: fit-content;
-    top: 45%;
-    max-width: 75%;
-    max-height: 7.5%;
-    overflow: auto;
+    font-size: x-large;
     font-weight: bold;
+    width: fit-content;
+    max-height: 5rem;
 }
 
 #anime-desc {
-    position: absolute;
-    width: fit-content;
-    max-width: 55%;
-    max-height: 20%;
-    line-height: 1.25em;
-    top: 60%;
-    overflow: auto;
+    max-height: 15rem;
 }
 
 #anime-img {
-    height: 100vh;
-    min-height: 100%;
-    width: 100%;
+    box-shadow: var(--black-box-shadow);
+    border-radius: 0.5rem;
+    max-width: 100%;
 }
+
+.data-id {
+    color: var(--dull-blue);
+}
+
+@media screen and (width < 50rem) {
+    .hero a {
+        flex-flow: column nowrap;
+        gap: 1.5rem;
+    }
+
+    #anime-desc {
+        max-height: 10rem;
+    }
+
+    .anime-info {
+        display: none;
+    }
+
+    #anime-name {
+        font-size: large;
+    }
+}
+
+

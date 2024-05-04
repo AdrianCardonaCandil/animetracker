@@ -32,3 +32,18 @@ app-contentnav {
 router-outlet {
     height: fit-content;
 }
+
+@media screen and (width < 75rem) {
+    #side-and-main {
+        flex-flow: column nowrap;
+        gap: 1rem;
+    }
+
+    #side-and-main app-sideinfo {
+        width: 100%;
+    }
+
+    #side-and-main main {
+        width: 100%;
+    }
+}

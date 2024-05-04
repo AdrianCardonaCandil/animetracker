@@ -1,5 +1,9 @@
 <section id="pagination">
-@for(page of [].constructor(last_page()); track $index){
-    <a [id]="'page-anchor-' + [$index + 1]" [title]="'page-anchor-' + [$index + 1]" [routerLink]="['../', $index + 1]" [ngStyle]="{'background':$index+1==this.currentPage() ? 'var(--snow-color)' : 'transparent'}"></a>
-}
-</section>
+    @for(page of [].constructor(last_page()); track $index){
+        @if(($index + 1) - currentPage() < 3 && ($index + 1) - currentPage() > -3){
+            <a [id]="'page-anchor-' + [$index + 1]" [title]="'page-anchor-' + [$index + 1]" [routerLink]="['../', $index + 1]" [ngStyle]="{'background': $index + 1 == currentPage() ? 'var(--snow-color)' : 'transparent'}"> 
+                <span>{{ $index + 1 }}</span>
+            </a>
+        }
+    }
+    </section>

@@ -1,12 +1,12 @@
 <aside id="content-aside">
     @for(item of contentdata(); track $index){
         <article class="side-keyvalue">
-            <p class="keyvalue-id">{{ item.id }}</p>
-            @if(isArray(item.value)){
-                <p class="keyvalue-value"> {{ item.value }} </p>
+            <span class="keyvalue-id">{{ item.id }}</span>
+            @if(isString(item.value)){
+                <span class="keyvalue-value"> {{ item.value }} </span>
             } @else {
                 @for(item of item.value; track $index){
-                    <p class="keyvalue-value"> {{ item }} </p>
+                    <span class="keyvalue-value"> {{ item }} </span>
                 }
             }
         </article>

@@ -7,9 +7,12 @@
         </div>
     </div>
 
-    <!-- For each dropdown menu -->
-   @for(item of this.optionsBuilder.getKeys(); track $index){
-        <div [id]="item" class="filter">
+    <button id="show-filters" (click)="clickFilterButton()">
+        <i class="fa-solid fa-arrow-down-short-wide" aria-hidden="true"></i>
+    </button>
+    
+    @for(item of this.optionsBuilder.getKeys(); track $index){
+        <div [id]="item" class="filter" [ngStyle]="{'display': this.showFilters() ? 'block' : 'none'}">
             <label [for]="item + '-button'"> {{ item }} </label>
             <div [id]="item + '-box'" class="filter-button">
                 @if(item === 'Genres'){
@@ -40,5 +43,6 @@
                 }
             </div>
         </div>
-   }
+    }
+    
 </section>

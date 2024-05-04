@@ -50,7 +50,7 @@ export class HeaderComponent {
   }
 
   closeSignUpModal() {
-    this.showSignUpModal = false;
+    this.showSignUpModal = true;
   }
 
   logout() {

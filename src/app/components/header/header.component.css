@@ -76,21 +76,10 @@ Width and height defined in relation to the container.*/
 
 /*---------------------- Responsive Menu --------------------*/
 
-
-.top-header-mobile-menu button {
-  height: 7.8%;
-  width: 5em;
-  background: #1d1d1f;
-  color: white;
-  border: none;
-  border-radius: 0;
-}
-
 .top-header-mobile-menu {
-  position: fixed;
-  top: 0;
+  height: 100%;
+  position: absolute;
   right: 0;
-  height: 7.8%;
   z-index: 9999; /* Ensure menu is above other content */
   background: #1d1d1f;
 }

@@ -21,7 +21,7 @@ export class SideinfoComponent {
     {id:'Rating',value:'Not Defined'}
   ])
 
-  isArray(item: any){
+  isString(item: any){
     return typeof item === 'string';
   }
 }
