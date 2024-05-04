@@ -18,6 +18,7 @@ import { ActivatedRoute } from "@angular/router"; // Import Users as a named exp
 })
 export class SignUpComponent {
   @Output() signUp = new EventEmitter();
+  @Output() signIn = new EventEmitter();
   form: FormGroup;
   errorSignUp: boolean = false;
   description = "";
@@ -70,6 +71,10 @@ export class SignUpComponent {
     }
 
     return null;
+  }
+
+  redirectSignIn() {
+    this.signIn.emit()
   }
 }
 

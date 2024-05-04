@@ -31,5 +31,5 @@
     }
   </div>
 </div>
-<app-sign-in *ngIf="showSignInModal" (signIn)="closeSignInModal()"></app-sign-in>
-<app-sign-up *ngIf="showSignUpModal" (signUp)="closeSignUpModal()"></app-sign-up>
+<app-sign-in *ngIf="showSignInModal" (signIn)="closeSignInModal()" (signUp)="showSignUp()"> (></app-sign-in>
+<app-sign-up *ngIf="showSignUpModal" (signIn)="showSignIn()" (signUp)="closeSignUpModal()"></app-sign-up>
