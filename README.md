@@ -25,8 +25,69 @@ Para que este programa funcioene debe añadir a la capeta /src/environments el a
 # Funcionalidades
 
 ## Inicio de sesión
+
+EL inicio de sesión de debe hacer con un username y password que existan en la base de datos. 
+
+Si la contraseña o username no coincide con ningún usuario se recibe un error diciendo que no se ha encontrado un usuario con esas credenciales.
+
+Para pruebas se puede usar los siguientes usuarios:
+
+   > username: pepe
+  password: Pass12345
+
+  > username: pepe4
+  password: Pass1234
+
+
 ## Registro de usuario
+Se utiliza los servicios de Firebase para el registro de usuario por lo que hay que tener en consideración utilizar correos válidos.
+Además hay validación de formularos por lo que:
+- username debe ser único, en el caso de que no lo sea el usuario recibe un mensaje diciendo que ese username ya existe en la base de datos. Además debe tener mínimo 2 caracteres y máximo 10
+- email debe ser un correo válido sino sale un mensaje de error, ademñas debe tambien ser único, esto se debe a las propias reglas de firebase.
+- password debe tener mínimo una mayúscula, minuscula, número y 8 carácteres.
+- repeat password: para asegurar que el usuario ha metido la contraseña que quiere se debe repetir, si no coincide con el password entonces recibirá un error de que no coinciden.
+
+Una vez registrado recibe un mensaje de confirmación y se inicia sesión automáticamente.
+  
 ## Página de Contenido
+
+Se refiere a la página de contenido a la página de cada anime, donde se encuentra información del anime y funcionalidades.
+
+### Selección de listas
+
+Se encuentra la funcionalidad de añadir al anime a algunas de las listas de seguimiento. 
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/c0106847-7c9c-44bf-9b5c-24dfce8b0a6e)
+
+Si  ya se encuentra seleeccionada una lista aparecerá en color azul oscuro. Es importante recalcar que un anime no puede estar en mas de 1 lista salvo que esa lista sea la de favoritos (ver más adelante) ya que sino sería contradictorio. 
+Las listas para seleccionar  son:
+- Completed: animes completados
+- PlanToWatch: animes que se quieren ver
+- Watching: animes viendo
+- Dropped: animes abandonados
+
+Para borrar listas solo se debe deseleccionar la lista. Si se cambia de lista esta se borrará de la anterior y se añadirá a la nueva. 
+
+Estas listas se podran ver en el apartado de perfil del usuario.
+
+### dar like a un contenido
+
+Hay un botón con un corazón, al clicarlo añadirá el anime a la lista de favoritos del usuario. Además incrementa el contador de likes del anime, este se encuentra en el aside.
+
 ## Página busqueda
 ## Página de Ranking
+
 ## Página de Perfil
+
+En la página de Perfil se puede ver las listas de seguimiento además de ver datos del usuario (foto de perfil, nombre de usuario, descripción). Si el usuario se encuentra viendo su propio perfil, este podrá editar su propios datos de perfil:
+
+### edición de perfil
+
+Se encuentran 3 formularios con sus validaciones.
+
+El primer formulario permite modificar el username, email y descripción. El username y email siguen la misma validación que en inicio de sesión y registro. además se asegura que no se modifiquen a un usuario o correo existente que no sean los del propio usuario. La descripción debe tener mínimo de 10 carácteres y un máximo de 500.
+
+El segundo permite modificar la contraseña sigue la mims validacion que el registro de usuario.
+El tercer formulario permite añadir una imagen como foto de perfil.
+
+
