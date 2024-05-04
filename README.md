@@ -33,16 +33,16 @@ Para que este programa funcione se debe añadir a la capeta /src/environments el
               - **normal-row**: file de la tabla para todas las listas menos "watching"
               - **progress-row**: filas para la tabla de "watching" contiene el contador de progreso
             - **user-info**: sección donde se muestra el nombre del usuario,descripción, foto de perfil y el botón de editar perfil si es la página del usuario registrado.
-        -   **ranking**: componentes relacionados con la página de ranking, enseña una tabla ordenada por animes con más score
-            - **rankheader**: descriptor de cada columna de la tabla
+        -   **ranking**: componentes relacionados con la página de ranking, enseña una tabla ordenada por animes con más score.
+            - **rankheader**: descriptor de cada columna de la tabla.
             - **rankposition**:  fila de la tabla, contiene la posición, nombre,score y estado.
         -   **search**: componentes relacionados con la página search
-            - **results** : resultados de la busqueda
-            - **tags**: etiquetas de la busqueda
+            - **results** : resultados de la búsqueda.
+            - **tags**: etiquetas de la búsqueda.
         -   **sharedComponents**: componentes que se reutilizan en otros componentes
-            - **animecard**
-            - **pagination**
-            - **searchbar**
+            - **animecard**: componente que contiene la foto del anime y su nombre
+            - **pagination**: componente que permite la paginación
+            - **searchbar**: barra de busqueda y filtros
   
       - models: carpeta de modelos
       - schemas: carpeta de schemas
