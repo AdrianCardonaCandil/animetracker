@@ -1,4 +1,6 @@
 #episodes {
+    overflow: auto;
+    min-height: 100rem;
     max-height: 150rem;
     overflow: auto;
 }
