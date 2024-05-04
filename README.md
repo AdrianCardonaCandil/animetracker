@@ -13,19 +13,19 @@ Para que este programa funcione se debe añadir a la capeta /src/environments el
   - **app**
       - components: carpeta de componentes
         -   **content**: componentes relacionados con la página de contenido
-            - **characters**
-            - **contentnav**
-            - **episodes**
-            - **maininfo**
-            - **sideinfo**
+            - **characters**: componente que enseña los personajes de un anime con su descripción si tuvieran.
+            - **contentnav**: navegador de la página de contenido redirige a personajes o episodios
+            - **episodes**: componente que enseña los episodios de un anime
+            - **maininfo**: componente que enseña la información del anime( nombre, sinopsis, score), también contiene el botón de like y los selectores de lista y score.
+            - **sideinfo**: contiene información del anme (número de likes, tipo, fuente, número de episodios, duración, estado, temporada, año, estudios, géneros, rating).
         -   **footer**: footer del sitio
         -   **header**: header del sitio que contiene los componentes signIn, signUp y la version mobile del header
-            - **mobile-menu**
-            - **sign-in**
-            - **sign-up**   
+            - **mobile-menu**: menu para la version mobile que sustituye el navegador del header normal.
+            - **sign-in**: ventana modal para el inicio de sesión.
+            - **sign-up**: ventana modal para el registro de usuario.
         -   **home**: componentes relacionados con la página home
-            - **animelist**
-            - **hero** 
+            - **animelist**: componente que representa a cada fila de contenidos en la página principal
+            - **hero** :  sección principal de la página principal donde se muestra el anime con más likes
         -   **profile**: componentes relacionado con el perfil del usuario
             - **edit-profile**
             - **profile-nav**
