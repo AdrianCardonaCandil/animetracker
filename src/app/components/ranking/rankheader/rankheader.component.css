@@ -15,3 +15,9 @@
     font-size: large;
     text-align: center;
 }
+
+@media screen and (width < 35rem) {
+    p:nth-child(4){
+        display: none;
+    }
+}

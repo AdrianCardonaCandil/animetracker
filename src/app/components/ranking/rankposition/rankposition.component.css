@@ -26,8 +26,15 @@ img {
     font-size: large;
     text-align: center;
     font-weight: bolder;
+    padding: 1rem;
 }
 
 #rank-position a p:nth-child(2) {
     border-left: 0.1mm solid var(--snow-color);
+}
+
+@media screen and (width < 35rem) {
+    #rank-position a p:nth-child(4){
+        display: none;
+    }
 }
