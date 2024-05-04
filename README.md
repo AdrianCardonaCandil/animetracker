@@ -90,4 +90,4 @@ El primer formulario permite modificar el username, email y descripción. El use
 El segundo permite modificar la contraseña sigue la mims validacion que el registro de usuario.
 El tercer formulario permite añadir una imagen como foto de perfil.
 
-
+El navegdor permite ir a una de las 5 listas, cada lista muestran los campos de cada anime como (titulo, año, genero,etc). La lista que tiene más funcionalidad es la lista "watching" la cual tiene un contador de episodios vistos. Una vez que se llegue al total de episodios sale un mensaje preguntando si quiere pasar el anime a la lista de completados.
