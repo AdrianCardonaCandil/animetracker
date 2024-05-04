@@ -27,10 +27,12 @@ Para que este programa funcione se debe añadir a la capeta /src/environments el
             - **animelist**: componente que representa a cada fila de contenidos en la página principal
             - **hero** :  sección principal de la página principal donde se muestra el anime con más likes
         -   **profile**: componentes relacionado con el perfil del usuario
-            - **edit-profile**
-            - **profile-nav**
-            - **table**
-            - **user-info**
+            - **edit-profile**: ventana modal para editar el perfil
+            - **profile-nav**: navegador que redirige a cada lista de seguimiento
+            - **table**: tabla donde se encuentran los animes de cada lista
+              - **normal-row**: file de la tabla para todas las listas menos "watching"
+              - **progress-row**: filas para la tabla de "watching" contiene el contador de progreso
+            - **user-info**: sección donde se muestra el nombre del usuario,descripción, foto de perfil y el botón de editar perfil si es la página del usuario registrado.
         -   **ranking**: componentes relacionados con la página de ranking
             - **rankheader**
             - **rankposition**   
