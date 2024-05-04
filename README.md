@@ -10,8 +10,38 @@ Para que este programa funcione se debe añadir a la capeta /src/environments el
 # Organización del proyecto
 
 * carpeta src : aquí se encuentra el código del proyecto
-  - app
+  - **app**
       - components: carpeta de componentes
+        -   **content**: componentes relacionados con la página de contenido
+            - **characters**
+            - **contentnav**
+            - **episodes**
+            - **maininfo**
+            - **sideinfo**
+        -   **footer**: footer del sitio
+        -   **header**: header del sitio que contiene los componentes signIn, signUp y la version mobile del header
+            - **mobile-menu**
+            - **sign-in**
+            - **sign-up**   
+        -   **home**: componentes relacionados con la página home
+            - **animelist**
+            - **hero** 
+        -   **profile**: componentes relacionado con el perfil del usuario
+            - **edit-profile**
+            - **profile-nav**
+            - **table**
+            - **user-info**
+        -   **ranking**: componentes relacionados con la página de ranking
+            - **rankheader**
+            - **rankposition**   
+        -   **search**: componentes relacionados con la página search
+            - **results**
+            - **tags**
+        -   **sharedComponents**: componentes que se reutilizan en otros componentes
+            - **animecard**
+            - **pagination**
+            - **searchbar**
+  
       - models: carpeta de modelos
       - schemas: carpeta de schemas
       -  services: carpeta de servicios de auth, content y  user
