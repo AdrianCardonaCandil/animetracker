@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import {Component, Output, EventEmitter, output} from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../services/user/users.service'
@@ -13,6 +13,7 @@ import {NgClass, NgIf} from "@angular/common";
 })
 export class SignInComponent {
   @Output() signIn = new EventEmitter();
+  @Output() signUp = new EventEmitter();
   errorLogin: boolean = false;
   form: FormGroup;
 
@@ -45,5 +46,9 @@ export class SignInComponent {
       console.error('Error during login:', error);
       this.errorLogin = true;
     }
+  }
+
+  redirectSignUp() {
+    this.signUp.emit()
   }
 }

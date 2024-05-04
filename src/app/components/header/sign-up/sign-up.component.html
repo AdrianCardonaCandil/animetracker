@@ -48,7 +48,7 @@
     <div *ngIf=errorSignUp class="error-message">
       Error trying to SignUp, user or email already exists in data base
     </div>
-    <p class="container-form-message">Already signed up? <a class="container-form-link" href="#" id="loginLink">Sign
+    <p class="container-form-message">Already signed up? <a class="container-form-link" (click)="redirectSignIn()" id="loginLink">Sign
       in</a></p>
     <button class="container-form-button" type="submit" form="form" (click)="submitForm()">Sign In</button>
   </form>
