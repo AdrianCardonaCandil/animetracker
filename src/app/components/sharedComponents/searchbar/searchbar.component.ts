@@ -115,7 +115,6 @@ export class SearchbarComponent implements AfterViewInit{
   width:number = 0;
   detectScreenSize() {
     this.width = window.innerWidth;
-    console.log(this.width);
   }
 
   filterButton = false;
