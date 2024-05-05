@@ -257,3 +257,7 @@ El tercer formulario permite añadir una imagen como foto de perfil.
 
 ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/0c158f59-5c70-4dce-9e19-840336e794d0)
 ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/7b430f31-6541-440d-9f9e-7b95c69ae42e)
+
+También hay un botón para eliminar la cuenta, si se preciona saldrá un mensaje preguntando si esta seguro. Si se acepta se borrará la cuenta
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/1a512210-d62f-46ae-bf31-4bf814ae1a74)
