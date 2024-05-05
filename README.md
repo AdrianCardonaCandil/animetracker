@@ -261,3 +261,11 @@ El tercer formulario permite añadir una imagen como foto de perfil.
 También hay un botón para eliminar la cuenta, si se preciona saldrá un mensaje preguntando si esta seguro. Si se acepta se borrará la cuenta
 
 ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/1a512210-d62f-46ae-bf31-4bf814ae1a74)
+
+
+---
+
+# TRELLO
+https://trello.com/b/Q4pjshn9/pwm
+
+
