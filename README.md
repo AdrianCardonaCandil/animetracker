@@ -213,6 +213,11 @@ Estas listas se podrán ver en el apartado de perfil del usuario.
 
 Hay un botón con un corazón, al clicarlo añadirá el anime a la lista de favoritos del usuario. Además, incrementa el contador de likes del anime, este se encuentra en el aside.
 
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/61f2aaa4-e821-43e0-9840-0abb820ad6e0)
+
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/9e09348c-5f78-4f95-88e4-93146035b42e)
+
 ## Página búsqueda
 ## Página de Ranking
 
@@ -220,7 +225,11 @@ Hay un botón con un corazón, al clicarlo añadirá el anime a la lista de favo
 
 En la página de Perfil se puede ver las listas de seguimiento además de ver datos del usuario (foto de perfil, nombre de usuario, descripción). Si el usuario se encuentra viendo su propio perfil, este podrá editar sus propios datos de perfil:
 
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/d37ad5cd-27e4-41be-820d-a79d0bd89f20)
+
 El navegador permite ir a una de las 5 listas, cada lista muestran los campos de cada anime como (titulo, año, género, etc). La lista que tiene más funcionalidad es la lista "watching" la cual tiene un contador de episodios vistos. Una vez que se llegue al total de episodios sale un mensaje preguntando si quiere pasar el anime a la lista de completados.
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/4d6facec-50ea-4f76-a4e8-9a7e4ef6898e)
 
 Si un usuario entra a la página de perfil que no es suya el botón de editar perfil y el contador de progreso desaparecen.
 
@@ -233,8 +242,18 @@ Se encuentran 3 formularios con sus validaciones.
 
 El primer formulario permite modificar el username, email y descripción. El username y email siguen la misma validación que en inicio de sesión y registro. además, se asegura que no se modifiquen a un usuario o correo existente que no sean los del propio usuario. La descripción debe tener mínimo de 10 caracteres y un máximo de 500.
 
-El segundo permite modificar la contraseña sigue la mima vvalidación que el registro de usuario.
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/872da2fd-d41d-4241-9f60-e82b20b2c839)
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/637f83c0-e5f5-43ca-beaa-754d7e8dd467)
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/14ad1782-517b-475a-9f67-fb2dee3ae4f9)
+
+El segundo permite modificar la contraseña sigue la mima validación que el registro de usuario.
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/81ba5aed-78fa-4f21-a28e-322177f2bb35)
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/00be5da9-7156-48ff-b7aa-86d823fe2d07)
 
 El tercer formulario permite añadir una imagen como foto de perfil.
 
-
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/0c158f59-5c70-4dce-9e19-840336e794d0)
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/7b430f31-6541-440d-9f9e-7b95c69ae42e)
