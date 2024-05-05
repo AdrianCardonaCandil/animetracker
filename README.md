@@ -59,11 +59,11 @@ En Firebase se encuentran 5 colleciones en Cloud Firestore:
 - **Character**: representa a un personaje de un anime, sigue la siguiente estructura:
  >   id:number
 
-    image:string
+    image:string --> imagen del personaje
     
-    name:string
+    name:string --> nombre del personaje
     
-    about:string
+    about:string  --> descripción del personaje
 
   ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/8c9e449d-df5f-4c57-8e37-ea77a59d2219)
 
@@ -73,37 +73,37 @@ En Firebase se encuentran 5 colleciones en Cloud Firestore:
 
 - **Contents**: representa a cada anime, sigue la siguiente estructura:
   
-      id:number
+      id:number --> identificador del anime
 
-       synopsis:string
+       synopsis:string --> sinopsis del anime
 
-      score:number
+      score:number --> nota del anime
   
-      status:string
+      status:string --> estado del anime (completed, ongoing ,etc)
   
-      episodes:number
+      episodes:number --> número de episodios del anime
     
-      type:string
+      type:string --> tipo de anime ( series,TV, Movie, Oneshot, etc)
     
-      source:string
+      source:string --> fuente (Original, Manga, Novel,etc)
     
-      duration:string
+      duration:string --> duración del anime
     
-      coverimage:string
+      coverimage:string --> foto de portada
     
-      backgroundimage:string
+      backgroundimage:string --> foto de fondo
     
-      year:number
+      year:number --> año de publicación
     
-      season:string
+      season:string --> temporada (spring, fall, winter, etc)
     
-      rating:string
+      rating:string --> edad recomendada para ver el anime
     
-      genres:string[]
+      genres:string[] --> géneros
     
-      studios:string[]
+      studios:string[] --> estudio que creó el anime
     
-      likes:number
+      likes:number --> número de likes que ha recibido el anime en el sitio web.
   
   ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/4befadc7-ff5b-4755-93bb-e8021ec31ad0)
 
@@ -113,33 +113,33 @@ En Firebase se encuentran 5 colleciones en Cloud Firestore:
 
 - **Users**: representa a cada usuario, sigue la siguiente estructura:
 
-      id: string
+      id: string --> identificador del usuario
   
-      username: string
+      username: string --> nombre de usuario
   
-      email: string
+      email: string --> correo del usuario
   
-      password: string
+      password: string --> contraseña del usuario
   
-      description: string
+      description: string --> descripción del usuario
   
-      country: string
+      country: string --> país del usuario
   
-      profilePicture: string
+      profilePicture: string --> foto de perfil del usuario
   
-      watching: []
+      watching: [] --> lista de seguimiento de animes que se está viendo
   
-      dropped: []
+      dropped: [] --> lista de seguimiento de animes que se han abandonado
   
-      completed: []
+      completed: [] --> lista de seguimiento de animes que se han completado
   
-      planToWatch: []
+      planToWatch: [] --> lista de seguimiento de animes que se planean ver
   
-      favorites: []
+      favorites: [] --> lista de seguimiento de animes que se han dado like
   
-      userScores: { [key: string]: number }
+      userScores: { [key: string]: number } --> conjunto de clave-valor donde la clave es el id del anime y el valor el score que le ha dado el usuario.
   
-      contentProgress: { [key: string]: number }
+      contentProgress: { [key: string]: number } --> progreso de capítulos que se ha visto en animes.
 
   ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/4e62fab7-3567-4f37-ae1f-a7cb131ae6b6)
 
