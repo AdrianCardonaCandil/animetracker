@@ -35,7 +35,7 @@ Para que este programa funcione se debe añadir a la capeta /src/environments el
             - **user-info**: sección donde se muestra el nombre del usuario,descripción, foto de perfil y el botón de editar perfil si es la página del usuario registrado.
         -   **ranking**: componentes relacionados con la página de ranking, enseña una tabla ordenada por animes con más score.
             - **rankheader**: descriptor de cada columna de la tabla.
-            - **rankposition**:  fila de la tabla, contiene la posición, nombre,score y estado.
+            - **rankposition**:  fila de la tabla, contiene la posición, nombre, score y estado.
         -   **search**: componentes relacionados con la página search
             - **results** : resultados de la búsqueda.
             - **tags**: etiquetas de la búsqueda.
@@ -157,7 +157,7 @@ Si la contraseña o username no coincide con ningún usuario se recibe un error 
 
 ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/d51e4e5d-ed13-4557-b743-72fb4ae58f78)
 
-Tambien comprueba que el password siga el formato adecuado:
+también comprueba que el password siga el formato adecuado:
 
 ![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/2e901716-51d2-4baf-80a7-3f5c9e42f1e8)
 
@@ -177,7 +177,7 @@ Para pruebas se puede usar los siguientes usuarios:
 Se utiliza los servicios de Firebase para el registro de usuario por lo que hay que tener en consideración utilizar correos válidos.
 Además, hay validación de formularos por lo que:
 - username debe ser único, en el caso de que no lo sea el usuario recibe un mensaje diciendo que ese username ya existe en la base de datos. Además, debe tener mínimo 2 caracteres y máximo 10
-- email debe ser un correo válido sino sale un mensaje de error, además debe tambien ser único, esto se debe a las propias reglas de Firebase.
+- email debe ser un correo válido sino sale un mensaje de error, además debe también ser único, esto se debe a las propias reglas de Firebase.
 - password debe tener mínimo una mayúscula, minúscula, número y 8 caracteres.
 - repeat password: para asegurar que el usuario ha metido la contraseña que quiere se debe repetir, si no coincide con el password entonces recibirá un error de que no coinciden.
 
