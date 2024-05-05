@@ -149,14 +149,25 @@ En Firebase se encuentran 5 colleciones en Cloud Firestore:
 
 ## Inicio de sesión
 
+El inicio de sesión se puede acceder mediante el botón de Sign IN o apretando el botón de perfil.
+
 EL inicio de sesión de debe hacer con un username y password que existan en la base de datos. 
 
-Si la contraseña o username no coincide con ningún usuario se recibe un error diciendo que no se ha encontrado un usuario con esas credenciales.
+Si la contraseña o username no coincide con ningún usuario se recibe un error diciendo que no se ha encontrado un usuario con esas credenciales:
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/d51e4e5d-ed13-4557-b743-72fb4ae58f78)
+
+Tambien comprueba que el password siga el formato adecuado:
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/2e901716-51d2-4baf-80a7-3f5c9e42f1e8)
 
 Para pruebas se puede usar los siguientes usuarios:
 
    > username: pepe
   password: Pass12345
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/ccf55255-3906-4662-8862-b5ead058968f)
+
 
   > username: pepe4
   password: Pass1234
@@ -170,8 +181,13 @@ Además, hay validación de formularos por lo que:
 - password debe tener mínimo una mayúscula, minúscula, número y 8 caracteres.
 - repeat password: para asegurar que el usuario ha metido la contraseña que quiere se debe repetir, si no coincide con el password entonces recibirá un error de que no coinciden.
 
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/d1c032c2-70ec-42d3-a833-d6210aecb50f)
+
+
 Una vez registrado recibe un mensaje de confirmación y se inicia sesión automáticamente.
-  
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/19747a58-3611-474e-9123-4fc58fefb997)
+
 ## Página de Contenido
 
 Se refiere a la página de contenido a la página de cada anime, donde se encuentra información del anime y funcionalidades.
@@ -205,6 +221,11 @@ Hay un botón con un corazón, al clicarlo añadirá el anime a la lista de favo
 En la página de Perfil se puede ver las listas de seguimiento además de ver datos del usuario (foto de perfil, nombre de usuario, descripción). Si el usuario se encuentra viendo su propio perfil, este podrá editar sus propios datos de perfil:
 
 El navegador permite ir a una de las 5 listas, cada lista muestran los campos de cada anime como (titulo, año, género, etc). La lista que tiene más funcionalidad es la lista "watching" la cual tiene un contador de episodios vistos. Una vez que se llegue al total de episodios sale un mensaje preguntando si quiere pasar el anime a la lista de completados.
+
+Si un usuario entra a la página de perfil que no es suya el botón de editar perfil y el contador de progreso desaparecen.
+
+![image](https://github.com/AdrianCardonaCandil/animetracker/assets/96847234/fffba804-92bb-44d4-830b-1677c396b26a)
+
 
 ### Edición de perfil
 
